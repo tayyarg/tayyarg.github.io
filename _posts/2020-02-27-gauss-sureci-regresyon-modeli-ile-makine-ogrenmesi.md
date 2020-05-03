@@ -20,21 +20,27 @@ Tam olarak olmasa da olasılıksal bir süreç olarak tanımlayıp bazı makul �
 
 Hatırlarsan bağımsız bir $x$ değişkeninin bir fonksiyonu olan $y$ değişkenimiz vardı ve şöyle tanımlamıştık:  
 
+<div>
 $$
 y = f(x) + \epsilon
 $$
+</div>
 
 öyle ki burada $\epsilon$ sıfıra indiremediğimiz hatayı (gözlemlerimizdeki belirsizliği) temsil ediyordu ve varsaymıştık ki bir önceki problemde $f$ fonksiyonu doğrusal bir ilişkiyi tanımlıyordu (ki olmayabilirdi de! örneğin tercihlerimizin modeli doğrusal olmayan bir fonksiyon olacaktır).
 
+<div>
 $$
 f : X \rightarrow Y
 $$
+</div>
 
 ve $f$ fonksiyonu reel değerler alıp reel değerler geri döndürüyordu:
 
+<div>
 $$
 f : \mathbb{R} \rightarrow \mathbb{R}
 $$
+</div>
 
 Bu modelden gelen gözlemleri kullanarak $f$ fonksiyonunun kesişim noktası ve eğimini tanımlayan $\theta_0$ ve $\theta_1$ parametrelerini kestirmeye çalışıyorduk. 
 
@@ -80,6 +86,7 @@ Bunun daha matematiksel tanımına bakalım.
 
 Gauss Süreci Regresyonu'nda öncül olarak $x$ noktalarına eşleşen $f$ fonksiyon değerlerine ait ortak olasılık dağılımın Gauss Süreci olduğunu varsayarız. Dikkat et "eşleşen" dedim çünkü gerçekte fonksiyonun ne olduğunu (doğrusal ya da değil) bilmiyorum ve ne olduğu umrumda da değil. Ama bir şekilde $x$ değerlerinin bilemediğimiz bir ilişki ile $f$  değerlerine dönüştüğünü biliyoruz. Matematiksel dille; 
 
+<div>
 $$
 \begin{bmatrix}
 x_1 \\
@@ -94,9 +101,11 @@ f(x_1) \\
 f(x_N)
 \end{bmatrix}
 $$
+</div>
 
 olarak görmek bize yeterlidir. Burası çok önemli, o yüzden tekrar edeyim. $x_1$'i alıp $f$ fonksiyonuna sokup, çıktı olarak $f(x_1)$'i hesaplayamıyoruz. Çünkü fonksiyonun ne olduğunu bilmiyoruz. Madem fonksiyonun ne olduğunu bilmiyoruz o zaman fonksiyonun alabileceği değerlerin her birini bir rassal değişken olarak modelleyip bu değişkenlerin olasılık dağılımlarını bulabiliriz. Yinede ifade ederken $f(x)$ şeklinde ifade ediyoruz ki fonksiyon değerinin hangi $x$'le eşleştiğini bilelim. Fonksiyonun her bir değerini bir rassal değişken olarak görmeye başladığımıza göre Gauss Sürecinde öncül dağılımın aşağıdaki rassal değişken vektörü 
 
+<div>
 $$
 \begin{bmatrix}
 f(x_1) \\
@@ -105,6 +114,7 @@ f(x_1) \\
 f(x_N)
 \end{bmatrix}
 $$
+</div>
 
 üzerinde çok-değişkenli Gauss dağılımı olduğunu söyleyebiliriz:
 
@@ -112,16 +122,20 @@ Formal olarak tanımlamak gerekirse;
 
 $x_1, x_2,...,x_N$ setindeki herbir $x_i$ reel değerin ($\mathbf{x} \in \mathbb{R}^d$) rassal değişkeni olan bir $f(x_i)$ fonksiyonu olduğunu varsayalım. Bu durumda, $f_i = f(x_i)$ ve $f = [f_1,...,f_N]^T$ olmak kaydıyla, sınırlı sayıdaki $f_i$ rassal değişkenlerin herhangi bir kombinasyonunun ortak dağılımı olan $p(f_1,...,f_N)$ Gauss dağılımını şöyle ifade edebiliriz:  
 
+<div>
 $$
 p(f_1,...,f_N|X) \sim \mathcal{N}{(f\|\mu, K)}
 $$
+</div>
 
 öyle ki bu denklemde 
 
+<div>
 $$
 \mu = [\mu(x_1),...,\mu(x_N)]^T \\
 K = \sum_{ij}=k(x_i, x_j)
 $$
+</div>
 
 diyebiliriz. Burada $p(f\|X)$ artık bizim öncül dağılımımız. 
 
@@ -129,17 +143,21 @@ Gördüğün üzere Gauss Sürecini aslında rassal değişkenlere ait ortalama 
 
 * $\mu(x)$ burada $f(x_i)$ rassal değişkenlerinin $x_i$ lokasyonundaki ortalama hesaplayan fonksiyonlarını ifade eder. Yani $\mu(x)$ bir rassal değişken değil aslında bir fonksiyondur. 
 
+<div>
 $$
 \mu : \mathbb{R} \rightarrow \mathbb{R} 
 $$
+</div>
 
 Gauss sürecini tanımlamada aslında $\mu$ 'yü seçmek kolaydır. Genellikle $0$ seçilir ve bu bir çok gerçek hayat problemine uyacaktır.
 
 * Diğer taraftan $K$ kovaryans matrisini temsil eder. Örneğin, $x_1$ ve $x_2$ ile eşleşen $f_1$ ve $f_2$ rassal değişkenleri arasındaki kovaryansı tanımlar. $K$'nın önemli bazı özellikleri vardır. Örneğin, $K$ aslında $k$ pozitif tanımlı çekirdek fonksiyonlardan (<a href="https://en.wikipedia.org/wiki/Positive-definite_kernel">positive definite kernel function</a>) oluşur. Bu pozitif tanımlılık meselesine birazdan daha detaylı geleceğim. Aynı şekilde $k$'da rassal değişken değil reel değer alıp döndüren bir fonksiyondur:
 
+<div>
 $$
 k : \mathbb{R} \rightarrow \mathbb{R}
 $$
+</div>
 
 Gauss sürecinde asıl anahtar mesele bu $K$ kovaryansını tanımlamaktan geçer. Bu konu önemli çünkü yukarıda tanımladığımız $f$ değerlerinin birbirine istatistiksel olarak bağımlı olduğunu varsayıyoruz. Öyle değilse zaten gözlemlediğimiz veriye bakarak gözlem yapmadığımız $x$ noktaları ile eşleşen $f$ değerleri için bir şey söylememiz mümkün değil. Bu bağımlılık meselesi çok-değişkenli dağılımlarda kovaryansın içinde ele alınır.
 
@@ -159,6 +177,7 @@ Burada tanımını yaptığımız Gauss Sürecinin matematiksel temeli aslında 
 
 Biraz daha formal olmak gerekirse, eğer $x_1$ ve $x_2$ değişkenlerinin ortak olasılık dağılımı şöyleyse;
 
+<div>
 $$
 \begin{bmatrix}
 x_1 \\
@@ -172,6 +191,7 @@ x_2
 \end{bmatrix}
 \right)}
 $$
+</div>
 
 Değişkenlerin birinin verilmesi durumunda buradan ikinciye ait koşullu olasılığı bulabiliriz. 
 
@@ -189,9 +209,11 @@ Bu arada ortak dağılıma ait bağıntıyı $N$ değişkenli olarak kolayca gen
 
 Emre: Evet, tek değişkenli dağılımın genişletilmiş formu. Tek değişkenli dağılım şöyleydi:
 
+<div>
 $$
 x \sim \mathcal{N}(\mu, \sigma^2)
 $$
+</div>
 
 Yani $x$ rassal değişkeninin aldığı değerler ortalaması $\mu$ ve varyansı $\sigma^2$ olan bir *normal* dağılımdan simüle edilerek ya da örneklerek üretiliyordu.
 
@@ -203,12 +225,14 @@ Kaan: Aynen. Çok-değişkenli durumda vektörler ve matrisler oluşmaya başlı
 
 Yukarıdaki iki değişkenli dağılımda her iki değişkenin varyansının $1$ olduğunu varsayarsak (ki figüre bakarsan öyle olmadığı aşikardır- bunu dağılımların genişliğine bakarak söyleyebiliriz- dağılımların biri diğerinden daha geniş), şöyle bir kovaryans matrisimiz olur; 
 
+<div>
 $$
 \sum_{ij}=\begin{bmatrix}
  1& 0\\ 
  0& 1 
 \end{bmatrix}
 $$
+</div>
 
 Hatırlarsan diyagonel değerler her bir değişkenin varyansını ve diyagonel olmayan değerlerse değişkenler arasındaki *korelasyonu* gösteriyordu. Yani bir değişken hakkında bilgi sahibi olduğumuzda diğer değişken hakkındaki *beklenti*yi veriyordu. İki değişken birbirinden bağımsız olduğunda *beklenti* sıfır olacaktır. Yani o durumda bir rassal değişken hakkında bilgi sahibi olmak bize diğer rassal değişken hakkında hiç bilgi vermiyor demektir. Sonuçta "kovaryans" kelimesi İngilizce'de "co-vary" yani "birlikte değişim"den gelmektedir. Bu durumda yukarıdaki kovaryans matrisinin diyagonel olmayan elemanları sıfır olduğuna göre değişkenlerin bağımsız olduğunu söyleyebiliriz.  
 
@@ -216,10 +240,11 @@ Diğer bir konu da kovaryans matrisinin "simetrik ve pozitif yarı-tanımlı" ol
 
 Kovaryans matrisinin diyagonal olmayan elemanları iki değişkenin arasındaki korelasyonu gösterdiğinden zaten simetriktir. Bunu şöyle düşünebiliriz. Diyagonel olmayan elemanlar aslında 
 
+<div>
 $$
 \sigma(x,x_{\ast}) = E [(x-E(x))(x_{\ast}-E(x_{\ast}))]
 $$
-
+</div>
  olarak hesaplanır. Beklenti fonksiyonu $E$'nin içindeki $x$'li ve $x_{\ast}$'li parantezlerin yerini değiştirmek sonucu değiştirmez. Bu yüzden simetriktir. Burası anlaşılır. Peki neden pozitif tanımlı?
 
 Çünkü rassal değişkenlerin birbirinden bağımsız olduğu durumda dahi bir diyagonel matris (diyagonelinde sıfırdan farklı, diyagonel olmayan elemenalarında sıfır olan) elde edilir. Bu diyagonel değerler de değişkenlerin varyansını gösterdiğine göre ya sıfırdır ya da pozitif bir değere sahiptir. Çünkü bu değerler dağılımların genişliğini gösterir. Böylece kovaryans matrisinin pozitif yarı-tanımlı olduğunu söyleyebiliriz. <a href="https://www.visiondummy.com/2014/04/geometric-interpretation-covariance-matrix/">Geometrik</a> olarak bunun ne anlama geldiğini gösterebiliriz.
@@ -234,9 +259,11 @@ Figürde örnek bir $K$ matrisinin öz-vektörleri görülüyor. Yani matrisin �
 
 Burada bir karışıklığı engellemek için şunu da ekleyeyim, sürekli Gauss dağılımından bahsederken beklenen değer yerine "ortalama" diyeceğim. Bunu şöyle açıklayabilirim; $\mathcal{N}{(\mu, \sigma^2)}$ dağılımından gelen $x_1, x_2,...,x_N$ gözlemlerinden bu dağılımın *beklenen değer* $\overline{X}$ ve varyans $\sigma^2$ parametrelerini, $\hat{\theta} = (\overline{X}, \hat{\sigma^2})$, <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation">Maksimum Olabilirlik Kestirimi</a> ile elde ederiz ve bu da aslında beklenen değer $\overline{X}$ için gözlemlerin aritmetik ortalamasına denk gelir. Yani
 
+<div>
 $$
  \overline{X} = \hat{\mu} \equiv \frac{1}{N} \sum_{i=1}^{N} x_i
 $$
+</div>
 
 diyebiliriz. Bunu burada bir hatırlatma olarak geçmiş olayım ancak bu da kendi içinde derin bir mevzudur. Şöyle bir üzerinden geçmeni tavsiye ederim.
 
@@ -248,6 +275,7 @@ Asıl konumuza geri dönelim. Sonsal dağılım elimizde bazı gözlemler varken
 
 Daha formal olmak gerekirse, elimizde bir kısmını gözlemlediğimiz $y$, bir kısmını henüz gözlemlemediğimiz $f_{\ast}=f(x_{\ast})$ rassal değişkenlerin ortak olasılık dağılımı var:
 
+<div>
 $$
 \begin{bmatrix}
 y \\
@@ -261,6 +289,7 @@ K_*^T & K_{\ast \ast}\\
 \end{bmatrix}
 \right)}
 $$
+</div>
 
 öyle ki $\mu = \mu(x)$, $\mu_{\ast} = \mu(x_{\ast})$ ve  $K_y=k(x,x)+\sigma_y^2I$ yani çekirdek fonksiyonu gözlemlediğimiz $x$ değerlerinin çarpımından elde ettiğimiz matristir. Yani $K_y$ matrisi bize gözlemlenen değerlerin birbirine benzerliği hakkında bilgi verir. Diğer yandan $K_{\ast}=k(x,x_{\ast})$ bize gözlemler ile fonksiyonunu tahmin etmeye çalıştığımız test noktaların ($x$ ekseninde) aralarındaki benzerliği verir. Son olarak $K_{\ast \ast}=k(x_{\ast}, x_{\ast})$ bize tahmin etmeye çalıştığımız test noktalarının ($x$ ekseninde yine) arasındaki benzerliği verir. Dikkat et kovaryans hesabında henüz $x$'in fonksiyonu olan rassal değişkenden bahsetmiyoruz. Kovaryans hesabında öncül dağılımla ilgili bilgileri oluşturuyoruz. 
 
@@ -268,9 +297,11 @@ Yukarıdaki $K_y$'ın nereden geldiğini anlamak için '$y$ rassal değişkenind
 
 Yani $y$ rassal değişkenini şöyle ifade edebiliriz:
 
+<div>
 $$
 y: y(x) = I_n f(x) + \epsilon 
 $$
+</div>
 
 ki $\epsilon \sim \mathcal{N}(0, \sigma_y^2)$ olduğunu varsayabiliriz. Burada yaptığımız şey aslında $f(x)$ rassal değişkeninin doğrusal tranformasyonu ve üzerine $\epsilon$ olarak tanımlanan Gauss gürültüsünün eklenmesi. Dikkat bu $\epsilon$ gürültüsü her bir $f$ fonksiyon çıktısına bir diğerinden bağımsız olarak ekleniyor. Yani $\epsilon$ değerlerinin birbiriyle korelasyonunun olmadığını varsayıyoruz.Bu biraz kafa karıştıcı olabilir. $f$ rassal değişkeninin bir varyansı vardı zaten bir de üzerine biz gürültü varyansını ekledik. Eklemesek olur muydu? Evet, ama bu model kurma meselesi. Gözlem hatalarını hesaba katmak istiyorsak eklememiz şart. Eklemezsek $f$ rassal değişkeninin modellemeye çalıştığı sistemin kendi içindeki istatistiksel dinamik ve belirsizlikle başbaşa kalırız. Ki bu çoğu zaman mümkün değildir.
 
@@ -278,9 +309,11 @@ Burada ince bir noktaya daha değineceğim. Bizim $y$ gözlemlerimiz $y(x)$ rass
  
 Sonuçta $X$ değerlerinin fonksiyon çıktısı olarak gözlemleyebildiğimiz $y$ gözlemlerini kullanarak bazı $X_{\ast}$ değerleri için $f_{\ast}$ çıktılarını tahmin etmek istiyoruz. Bu yüzden 
 
+<div>
 $$
 p(f_{\ast}|X_{\ast},X,y)
 $$ 
+</div>
 
 sonsal olasılık dağılımını bulmaya çalışıyoruz. 
 
@@ -288,9 +321,11 @@ Diğer yandan burada baştan beri söylediğimiz gibi $y$ ve $f_{\ast}$ rassal d
 
 Burada basit görünen ama karmaşık bir geçiş yapmamız gerekiyor! Buraya dikkat! Çıkarımı sayfalarca süren cebirsel matris işlemleri sonucunda  
 
+<div>
 $$
 p(y, f_{*}) \approx p(f_{*}|X_{\ast}, X, y)
 $$
+</div>
 
 olduğunu söyleyebiliriz. 
  
@@ -304,16 +339,20 @@ Marjinal sonsal dağılım gördüğün üzere aslında *saklı rassal değişke
 
 Sonsal dağılımdan basit bir doğrusal transformasyonla $p(y_{\ast}\|X_{\ast},X,y)$ tahminsel sonsal dağılımı elde etmek mümkündür. Öyleyse nihayetinde ulaşmak istediğimiz tahminsel sonsal dağılım şöyledir:
 
+<div>
 $$
 \color{blue}{p(y_{\ast}|X_{\ast},X,y) \sim \mathcal{N}{\left(\mu_{\ast}, \Sigma_{\ast}\right)}}
 $$ 
+</div>
 
 Bu durumda tahminlerde kullanacağımız ortalama vektörü ve kovaryan matrisi şu şekilde olacaktır:
 
+<div>
 $$
 \color{blue}{\mu_{\ast} = K_{\ast}^T K_y^{-1} y} \\
 \color{blue}{\Sigma_{\ast} = K_{\ast \ast} - K_{\ast}^T K_y^{-1} K_{\ast}}
 $$
+</div>
 
 Matris boyutlarını yerine koyarsan göreceksin ki sonsal $\mu_{\ast}$ aslında $N_{\ast}$ uzunluğunda bir vektör ve sonsal kovaryans da aslında $N_{\ast}$x$N_{\ast}$ boyutunda bir matris.
 
@@ -323,10 +362,12 @@ Peki sonsal dağılımın gerçekten de ulaşmaya çalıştığımız fonksiyona
 
 Emre: Evet, $X_*$ gördüğümüz her yere $X$ koyabiliriz. O zaman yukarıdaki iki ifade
 
+<div>
 $$
 \mu_{\ast} = y \\
 \Sigma_{\ast} = 0
 $$
+</div>
 
 olacaktır. Sonsal dağılım bir marjinal normal dağılımdı. Öyleyse en yüksek değerini ortalama değerde alacağına göre ve bizim gözlemlerimiz de ortalamaya denk geldiğine göre o zaman gözlemlerimiz bu dağılımdan en yüksek olasılıkla gelen örnekler olacaktır. Kaldı ki artık burada bir dağılımdan da bahsedemeyiz çünkü kovaryans sıfıra eşit! Yani bu fonksiyondan gelecek değerler sadece bizim gözlemlerimiz olacaktır. Bu durumda tahmin etmeye çalıştığımız fonksiyon değerleri gerçeğe en yakın olduğu yerde bu dağılımdan en yüksek olasılık değerleriyle dönecektir.
 
@@ -340,23 +381,29 @@ Kaan: Güzel bir noktaya değindin. Bir dağılımdan nasıl örnek çekebiliyor
 
 Hatırlarsan tek değişkenli durumda elimizde $x \sim \mathcal{N}{\left(\mu, \sigma^2\right)}$ varken, bunu "standart normaller" formunda 
 
+<div>
 $$
 x \sim \mu + \sigma\mathcal{N}{\left(0, 1\right)}
 $$
+</div>
 
 şeklinde yazabiliyorduk. Standart normalleri herhangi bir matematik simülasyon programı ile üretebilirsin. Ancak tabi yine hatırlaman gereken bir nokta var. Standart normalden bir örnek çekmenin yolu tekdüze (uniform) dağılımlı rassal değişkenlerin normal dağılımın kümülatif yoğunluk fonksiyonu (cumulative distribution funtion) üzerine izdüşümlerinin bulunmasından geçiyor. Biz şimdi o konuya da girmeyelim! Ama yine de en az bir kez kendi elinle bunu yapan bir kod yazmanı tavsiye ederim.
 
 Günün sonunda bizim de sonsal dağılımdan örnekler çekebilmek için çok değişkenli normal dağılımı benzer bir şekilde ifade etmemiz gerekiyor. Yani şu formda: 
 
+<div>
 $$
 f_{*} \sim \mu_{*} + L\mathcal{N}{(0, I)}
 $$
- 
+</div>
+
 öyle ki L kovaryans matrisimizin karekökünü temsil ediyor olsun; yani, 
 
+<div>
 $$
 \Sigma_{*}=LL^T 
 $$
+</div>
 
 Emre: Peki bir matrisin karekökünü yani $L$'yi nasıl hesaplayabiliriz?
 
@@ -372,9 +419,11 @@ Kaan: $x_1$ ve $x_2$ arasındaki mesafe sonsuza gidince bu fonksiyonun değeri s
 
 $x_1$ ve $x_2$ rassal değişkenleri arasındaki kovaryansı _karesel eksponansiyel_ fonksiyonla şöyle tanımlayabiliriz:
 
+<div>
 $$
 \sum_{1,2}= k(x_1, x_2) = \sigma_f^2 exp(-\frac{1}{2\lambda^2}|x_1 - x_2|^2)
 $$
+</div>
 
 Bu ifadede $\lambda$'ya dikkat. $\lambda$'yı değiştirerek uzunluk ölçeğini kontrol edebiliriz. Denklemden de görüldüğü üzere, uzunluk ölçeğinin tersi iki rassal değişkenin birbiriyle olan korelasyonuyla doğru orantılı. Yani uzaklık arttıkça iki değişken arasında bir korelasyon kalıp kalmayacağını belirleyen parametre. Örneğin aşağıdaki şekle bakalım.
 
@@ -384,9 +433,11 @@ Bu ifadede $\lambda$'ya dikkat. $\lambda$'yı değiştirerek uzunluk ölçeğini
 
 Bu figürde x ekseni bize $x_1$ ve $x_2$ rassal değişkeninin arasındaki mesafeyi gösterirken, Y ekseni bize bu iki rassal değişken arasındaki korelasyonu gösteriyor. Mavi eğri uzunluk ölçeğinin $0.5\pi$ ve kırmızı eğri de uzunluk ölçeğinin $0.01\pi$ olduğu durumda korelasyonun nasıl değiştiğini gösteriyor. Mesafenin tam olarak 
 
+<div>
 $$
 |x_1-x_2|^2=0.5\pi \approx 1.57
 $$ 
+</div>
 
 olduğu noktada her iki eğrinin aldığı değerlere bakalım. Mavi eğrinin bu noktada $0.6$ korelasyon değerini gösterirken, kırmızı eğrinin 0 korelasyon gösterdiğini görüyoruz.
 
