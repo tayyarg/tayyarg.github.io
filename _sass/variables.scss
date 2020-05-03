@@ -19,6 +19,11 @@ $color_alabaster     : #fcfcfc;
 $color_celeste       : #ccc;
 $color_pink_swan     : #bbb;
 $comp-color 	     : complement(#222); 
+$lightGray           : #eee;
+$darkerGray          : #222;
+$darkGray            : #333;
+$gray                : #666;
+$blue                : #4183C4;
 
 //button colors
 $success			 : #5cb85c;
@@ -38,3 +43,15 @@ $small               : "only screen and (max-width: 30em)";
 $medium              : "only screen and (min-width: 30.1em) and (max-width: 48em)";
 $large               : "only screen and (min-width: 48.1em) and (max-width: 62.5em)";
 $notsmall            : "only screen and (min-width: 48em)";
+
+// Font stacks
+$helvetica: Helvetica, Arial, sans-serif;
+$helveticaNeue: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$georgia: Georgia, serif;
+
+// Mobile breakpoints
+@mixin mobile {
+    @media screen and (max-width: 640px) {
+      @content;
+    }
+  }

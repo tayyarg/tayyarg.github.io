@@ -34,12 +34,14 @@ Haydi matematiksel modelimizi kurarak başlayalım.
 
 Otopilotumuzun konum ($p$) ve hızı ($v$) temsil eden $\vec{x}$ *durum* vektörüne sahip olduğunu varsayalım:
 
+<div>
 $$
 \vec{x} = \begin{bmatrix} 
 p\\ 
 v 
 \end{bmatrix}
 $$
+</div>
 
 Burada *durum* vektörünün yalnızca sisteminizin temel yapılandırmasıyla ilgili bir sayı listesi olduğunu unutmayalım; bu liste herhangi bir veri kombinasyonu olabilir. Örneğimizde konumu ve hızı aldık ama tankındaki yakıt miktarı, araba motorunun sıcaklığı, bir kullanıcının parmağının dokunmatik bir yüzeydeki konumu veya izlememiz gereken herhangi başka bir sensör hakkındaki veriler de olabilirdi.
 
@@ -61,6 +63,7 @@ Dikkat et burada "gerçek" konumun ve hızın ne olduğunu bilmiyoruz. Bu nedenl
 
 Şimdi işin matematiğine biraz daha girelim. *Durum* vektörü tahmin denklemini şöyle kurabiliriz:
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -68,6 +71,7 @@ $$
 \end{split}  
 \end{equation}
 $$
+</div>
 
 $\varepsilon_{x}$'in *durum* vektörü üzerinde bulunduğumuz tahmine ait belirsizliği modelleyen bir hata dağılımı olduğunu söyleyebiliriz ve Kalman filtresinde bu dağılım her zaman Gaussian varsayılır. Dikkat edersen tahminimiz aslında bir doğrusal denklem olarak kuruldu. $A$ ve $B$'de bu doğrusal dinamik denklemde *durum* vektörü $\hat{x}_{t-1}$ ve *kontrol* (dış etken) vektörü $\vec{u_t}$ ile çarpılan doğrusal sistem matrislerini temsil ediyor. 
 
@@ -88,6 +92,7 @@ Tahmini *durum* kestirimi aynı zamanda *öncül kestirim* diye de isimlendirili
 
 Aynı şekilde ölçüm tahmin denklemini de yazabiliriz.
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -95,6 +100,7 @@ $$
 \end{split}  
 \end{equation}
 $$
+</div>
 
 Burada $C$ yine doğrusal tahmin denkleminin katsayısı. Dikkat edersen ölçüm tahmininde girdi olarak *durum* vektör tahmini kullanılıyor ve denkleme ölçüm hatası olasılık dağılımı $\varepsilon_{z}$ 'yi ekliyoruz. Birazdan neden böyle yaptığımız netleşecek. Şimdilik bu hata dağılımının da Gaussian dağılım olduğunu söylemek yeterlidir.
 
@@ -102,6 +108,7 @@ Peki Kalman filtresi bu iki tahmini kullanarak güvenilir $x_{est}$ durum vektö
 
 Bunu şöyle gösterebiliriz:
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -109,6 +116,7 @@ $$
 \end{split}  
 \end{equation}
 $$
+</div>
 
 Evet, işin sırrı bu ifadede. Bu ifadeye *sonsal kestirim* denilir ve $K$ literatürde Kalman kazancı olarak geçen terimdir. Parantez içinde kalan $z_t - \hat{z}_t$ ise düzeltme terimi diye geçer. Peki tüm bunlar bu ne demek?
 
@@ -123,24 +131,29 @@ Bu noktada yukarıda ortaya attığımız tahmin denklemlerindeki doğrusal dina
 
 Hatırlarsan *durum* vektörümüzü şöyle tanımlamıştık:
 
+<div>
 $$
 \vec{x} = \begin{bmatrix} 
 p\\ 
 v 
 \end{bmatrix}
 $$
+</div>
 
 Bu modeli kullanarak ve GPS'in sadece konum bilgisi $p$'yi raporladığını varsayarak $A,B$ ve $C$'yi hesaplayabiliriz ve bunun için de fiziğin konum ve hız için geçerli genel haraket denklemlerinden yararlanabiliriz. Neydi bizim meşhur sabit ivmeli haraketin hareket denklemleri: 
 
+<div>
 $$
 \begin{split} 
 \color{deeppink}{p_t} &= \color{royalblue}{p_{t-1}} + {t} &\color{royalblue}{v_{t-1}} + &\frac{1}{2} \color{darkorange}{a}_t {t}^2 \\ 
 \color{deeppink}{v_t} &= &\color{royalblue}{v_{t-1}} + & \color{darkorange}{a}_t {t} 
 \end{split}
 $$
+</div>
 
 Bunu matris formunda şöyle yazabiliriz:
 
+<div>
 $$
 \begin{align} 
 \color{deeppink}{\mathbf{\hat{x}}_t} &= \begin{bmatrix} 
@@ -155,9 +168,11 @@ t
 \end{bmatrix} a_t + \color{darkorange}{\varepsilon_{t}} 
 \end{align}
 $$
+</div>
 
 Ölçüm tahminimizi de şöyle modellemiştik:
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -165,9 +180,11 @@ $$
 \end{split}  
 \end{equation}
 $$
+</div>
 
 GPS sensörünün bize sadece konum bilgisi $p$'yi verdiğini varsaydığımıza göre; 
 
+<div>
 $$
 \begin{align} 
 \color{royalblue}{\mathbf{\hat{z}}_t} &= \begin{bmatrix} 
@@ -178,9 +195,11 @@ v_{t}
 \end{bmatrix} + \color{darkorange}{\varepsilon_{z}} 
 \end{align}
 $$
+</div>
 
 O zaman $A$, $B$ ve $C$'yi biliyoruz artık:
 
+<div>
 $$
 \begin{align} 
 A &= \begin{bmatrix} 
@@ -196,6 +215,7 @@ C &= \begin{bmatrix}
 
 \end{align}
 $$
+</div>
 
 ## Kalman Filtre Algoritması
 
@@ -209,6 +229,7 @@ Buraya Bayesçi felsefeyle ilgili küçük bir not düşeyim; demek ki ön yarg�
 
 Öncelikle *durum* vektörü ve ölçüm tahminlerimizde kullandığımız dağılımların varyanslarını yazalım:
 
+<div>
 $$
 \begin{equation}  
 \begin{aligned}  
@@ -221,11 +242,13 @@ $$
 \end{aligned} 
 \end{equation}
 $$
+</div>
 
 *Durum* vektöründe birden fazla rassal değişken olduğu için $E_x$ aslında kovaryans ve ölçüm vektöründe bir rassal değişken olduğu için $E_z$'de gerçekten varyans olacaktır.
 
 Bu bilgiyi kullanarak *durum* vektörü tahmini için elde edeceğimiz kovaryansı şöyle ifade edebiliriz:
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -233,16 +256,20 @@ $$
 \end{split} 
 \end{equation} 
 $$
+</div>
 
 ### Çıkarım
 Bu ifadenin çıkarımı o kadar da zor değil. $x$'in kovaryansını şöyle ifade edersek:
 
+<div>
 $$
 Cov(x) = \Sigma
 $$
+</div>
 
 ve tahmin denkleminde $A\hat{x}_{t-1}$ olduğunu bildiğimize göre, kovaryansın rassal değişkenin bir sabitle çarpımdan sonraki halini şöyle ifade edebiliriz:
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -250,6 +277,7 @@ Cov(\color{firebrick}{\mathbf{A}}x) &= \color{firebrick}{\mathbf{A}} \Sigma \col
 \end{split}  
 \end{equation}
 $$
+</div>
 
 Emre: Peki $B$ ve $u$'ya ne oldu?
 
@@ -261,6 +289,7 @@ Herneyse, özetle bu ifadede yaptığımız şudur; öncül kovaryansı, $\mathb
 
 Şu noktada artık elimizde <span style="color:red">*tahmin denklemleri*</span> var ve bu denklemlerin $A$ ve $B$ katsayılarını varsaydığımız doğrusal dinamik sistemden hesaplayabiliyoruz.
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -268,7 +297,9 @@ $$
 \end{split}  
 \end{equation}
 $$
+</div>
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -276,6 +307,7 @@ $$
 \end{split} 
 \end{equation} 
 $$
+</div>
 
 ## Ölçümün ardından düzeltme (güncelleme)
 
@@ -289,16 +321,19 @@ Peki Kalman kazancı nasıl hesaplanır?
 
 Bu durumda ispatına girmeden Kalman kazancını şöyle ifade edebiliriz:
 
+<div>
 $$
 \begin{equation} 
 \color{red}{\mathbf{K}_t} = \color{red}{\mathbf{\hat{\Sigma}_t} \color{black}{\mathbf{C}^T} (\color{black}{\mathbf{C}} \color{red}{\mathbf{\hat{\Sigma}_t}} \color{black}{\mathbf{C}^T}} + \color{darkorange}{\mathbf{E}_z})^{-1} 
 \end{equation}
 $$
+</div>
 
 Bu ifade gözünü korkutmasın. Bir takım matrisleri çarpıyoruz ama aslında olan şey şudur; ölçüm hatası varyansıda içinde bulunan matris çarpımlarının tersini kovaryans tahminiyle çarpıyoruz. Tersini aldığımız için, ölçümdeki varyans büyüdükçe bu çarpımın değeri küçülecektir. Sonuç olarak ölçümdeki varyans ne kadar büyükse ölçümümüz o kadar az bilgi taşır. Kalman kazancı bu bilginin son kestirim denklemine aktarılmasını sağlar. Bu ifadenin elle çıkarımını kendi kendine yapmanı tavsiye ederim. 
 
 Öyleyse Kalman filtresinin bir sonraki adımı olan güncelleme basamağında <span style="color:red">*güncelleme denklemlerini*</span> kullanarak elde edeceğimiz son *durum* kestirimi $x_{est}$ ve bu kestirimin kovaryansı da şöyle olacaktır;
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -306,7 +341,9 @@ $$
 \end{split} 
 \end{equation}
 $$
+</div>
 
+<div>
 $$
 \begin{equation} 
 \begin{split} 
@@ -314,6 +351,7 @@ $$
 \end{split} 
 \end{equation} 
 $$
+</div>
 
 Unutma aslında $\color{black}{\mathbf{C} \mathbf{\hat{x}}_t} = \hat{z}_t$'dir. Dikkat et Kalman kazancının büyüklüğü burada devreye giriyor. $K$ burada ölçümden gelen bilginin ağırlıklandırılarak hesaba katılmasını sağlıyor. 
 
@@ -325,9 +363,11 @@ Bir kez daha hatırlatayım. Elde ettiğimiz *durum* vektörü tahmini ve kovary
 
 Diğer yandan şunu da söylemeden geçmeyeyim ki Kalman filtresi en basit dinamik Bayes ağlarından biridir. Durumların gerçek değerlerini gelen ölçümler ve matematik modelimizi kullanarak özyinelemeli olarak hesaplayıp durur. Böylece özyinelemeli Bayesçi kestirimimiz de sonsal dağılımı aynı şekilde tahmin edip durur. Özyinelemeli Bayesçi kestirimde gerçek durum gözlemlenemeyen bir Markov süreci olarak kabul edilir. Yani ölçümler saklı Markov modelimizin gözlemlenebilen durumları gibi düşünülür ancak bu kez Saklı Markov Model'inin aksine ayrık zaman değil sürekli zaman denklemleri ile çalışılır. Daha öncede söylediğim gibi gerçek durum $t$ anında olasılıksal olarak sadece kendinden bir önceki ($t-1$ anındaki) duruma koşulludur ve daha önceki durumlardan bağımsızdır. Bunu matematiksel olarak şöyle ifade ederiz:
 
+<div>
 $$
 p(x_t|x_{0},...,x_{N-1} ) = p(x_t|x_{t-1})
 $$
+</div>
 
 ve Markov zincirini de şöyle görselleştiririz:
 
@@ -538,19 +578,22 @@ Bu figür <a href="https://www.mathworks.com/help/fusion/ug/extended-kalman-filt
 
 Doğrusal olmanan dinamik sistem artık aşağıdaki şekilde modellenir:
 
+<div>
 $$
 \hat{x}_{t} = f(\hat{x}_{t-1}, u_t) + \varepsilon_{x} \\
 z_t = g(\hat{x}_{t}) + \varepsilon_{z}
 $$
+</div>
 
 Bu sistemin doğrusallaştırılabilmesi için aşağıdaki Jakobyan matrislerinin hesaplanması gerekir.
 
+<div>
 $$
 F = \left[ \frac{\partial f}{\partial x} \right ] _{\hat{x}_{t-1}, u_t}, G = \left[ \frac{\partial f}{\partial x} \right ] _{\hat{x}_{t-1}}
 $$
+</div>
 
 Burada artık şunu söylemem lazım ki, gerçek hayatta bu Jakobyenlerdeki kısmi türevleri analitik olarak bulup hesaplamak zordur ve her zaman mümkün olmayabilir. Numerik olarak hesaplamak da yine işlemsel olarak karmaşıktır. Bir diğer yandan genişletilmiş Kalman filtresi sadece türevi alınabilen modellerde çalışır ve sistem yüksek derecede doğrusal olmayan bir modele sahipse artık optimal olmaktan da çıkar.
-
 
 Kalman filtresiyle çözmenin artık makul ya da mümkün olmadığı durumlarda yardımımıza 1940'lı yılların nükleer fizik çalışmalarından mühendislik dünyasına yavaşça sızıp gelen yeni ve meşhur başka bir algoritma koşar; <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo yakınsaması</a>. 90'lı yıllardan günümüze kadar doğrusal-, parametrik- ve Gaussian- olmayan dinamik sistemlerin modellenmesinde başarıyla kullanılmaktadır. Monte Carlo filtreleme de yine bu yüzyıl içinde bulunmuş en önemli algoritmalardan biridir! İlerleyen yazılarda ona da geleceğim.
 
