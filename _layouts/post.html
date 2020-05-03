@@ -39,13 +39,14 @@ comments: true
                 </div>
             </div>
         </div>
-        {% if page.comments and site.disqus_shortname %}<section id="disqus_thread" class="animated fadeInUp"></section><!-- /#disqus_thread -->{% endif %}
+        {% if site.disqus%}<section id="disqus_thread" class="animated fadeInUp"></section><!-- /#disqus_thread -->{% endif %}
     </header>
     {% include scripts.html %}
     {% if site.mathjax == true %}
     <!-- MathJax -->
         {% include mathjax_support %}
     {% endif %}
+    {% include disqus.html %}
     {% include analytics.html %}
 </body>
 </html>
