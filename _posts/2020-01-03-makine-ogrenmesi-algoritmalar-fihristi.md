@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Makine Öğrenmesi 1 - Makine Öğrenmesi Uzmanının Bilmesi Gerekenler
+tags: [machine learning, algorithms]
+comments: true
+feature: https://i.imgur.com/Ds6S7lJ.png
 ---
 
 Emre: Makine öğrenmesinin kısa bir özeti ve hangi algoritmaların hangi problemlerde kullanıldığına değinebilir misin?

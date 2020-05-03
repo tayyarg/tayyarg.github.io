@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Makine Öğrenmesi 4 - Gauss Süreç Regresyonu 
+tags: [gaussian, regression, machine learning, bayesian]
+comments: true
+feature: https://i.imgur.com/Ds6S7lJ.png
 ---
 
 Emre: Gauss süreçlerinin sonsuz sayıda fonksiyon üzerinde bir dağılıma nasıl sahip olabildiğini ve bunun ne işe yaradığını açıklayabilir misin?! 

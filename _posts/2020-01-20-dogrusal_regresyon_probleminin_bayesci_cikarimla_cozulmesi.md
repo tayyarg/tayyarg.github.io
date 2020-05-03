@@ -1,6 +1,9 @@
 ---
 layout: post
-title: Makine Öğrenmesi  3 - Bayesçi Çıkarım ve Doğrusal Regresyon  
+title: Makine Öğrenmesi  3 - Bayesçi Çıkarım ve Doğrusal Regresyon
+tags: [regression, machine learning, bayesian]
+comments: true
+feature: https://i.imgur.com/Ds6S7lJ.png
 ---
 
 Emre: Nedir abi bu Bayesçi çıkarım?
