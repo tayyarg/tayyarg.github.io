@@ -44,7 +44,7 @@ comments: true
     {% include scripts.html %}
     {% if site.mathjax == true %}
     <!-- MathJax -->
-    <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        {% include mathjax_support %}
     {% endif %}
     {% include analytics.html %}
 </body>
