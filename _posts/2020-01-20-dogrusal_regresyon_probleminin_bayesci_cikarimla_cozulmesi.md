@@ -16,9 +16,11 @@ Bayesçi çıkarım bir olasılıksal yaklaşımdır. Ne olduğuna dair biraz bi
 
 Örneğin, evden havaalanına gitmek için taksiye binmemiz gerektiğini düşünelim. Diyelim ki taksinin açılış ücreti olarak $7$ TL alacağını ve seyahat boyunca kilometre (Km) başına $0,8$ TL alacağınızı biliyoruz. Seyahatimizin toplam maliyetini bulmak için doğrusal bir denklem kurabiliriz. Eğer X kilometre biriminde kat edilen mesafeyi ve Y sürüşün toplam maliyetini temsil ederse, doğrusal denklem şöyle olur:
 
+<div>
 $$
 Y=7+0.8  \ast X
 $$
+</div>
 
 Denklemi deterministik olarak bildiğimiz zaman, aynı taksi hizmeti ile yaptığımız tüm seyahatlerin maliyetini tam olarak hesaplayabiliriz. Denklemi biliyorsak, veriler görselleştirildiğinde şöyle görünür:
 
