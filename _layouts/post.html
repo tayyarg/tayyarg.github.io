@@ -14,7 +14,6 @@ comments: true
     <link rel="stylesheet" href="../public/katex/katex.min.css">
     <link rel="stylesheet" href="../public/pseudocode.js-1.1/pseudocode.css" type="text/css">
     
-    {% include meta.html %}
     {% include mathjax_support %}
 </head>
 <body>
@@ -49,7 +48,7 @@ comments: true
         {% if site.disqus%}<section id="disqus_thread" class="animated fadeInUp"></section><!-- /#disqus_thread -->{% endif %}
     </header>
     {% include scripts.html %}
-    
+    {% include meta.html %}
     {% include disqus.html %}
     {% include analytics.html %}
 </body>
