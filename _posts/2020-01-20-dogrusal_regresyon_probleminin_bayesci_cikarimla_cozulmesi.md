@@ -68,7 +68,7 @@ $$
 \epsilon_i= y_i - \hat{y_i}=y_i - \theta^Tx_i
 $$
 
-Hata terimini, bulmaya çalıştığımız doğrusal ilişki hakkında modelimizin açıklayamadığı kısmın bir ölçüsüdür. Doğrusal regresyonda amacımız, bu hatalarla ilişkili maliyet işlevlerini (Ortalama Mutlak Hata, Ortalama Kareler Hatası, Kök Ortalama Kareler Hatası, vs.) en aza indiren en uygun denklemi bulmaktır. Bu bağlamda, Artık Kareler Toplamı'nı (AKT) şu şekilde tanımlarsak:
+Hata terimi, bulmaya çalıştığımız doğrusal ilişki hakkında modelimizin açıklayamadığı kısmın bir ölçüsüdür. Doğrusal regresyonda amacımız, bu hatalarla ilişkili maliyet işlevlerini (Ortalama Mutlak Hata, Ortalama Kareler Hatası, Kök Ortalama Kareler Hatası, vs.) en aza indiren en uygun denklemi bulmaktır. Bu bağlamda, Artık Kareler Toplamı'nı (AKT) şu şekilde tanımlarsak:
 
 $$
 g(\theta)= \sum_{i=1}^n(\epsilon_i)^2=\sum_{i=1}^n(y_i-\hat{y_i})^2=\sum_{i=1}^n(y_i-\theta^Tx_i)^2
