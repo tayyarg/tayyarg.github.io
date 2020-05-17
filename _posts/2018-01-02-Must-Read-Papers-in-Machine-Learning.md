@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Top five "must-read" papers in the ML domain for newcomers
+title: Makine Öğrenmesi 1 - Top five "must-read" papers in the ML domain for newcomers
+tags: [machine learning]
 ---
 
 On Arxiv, about 100 Machine Learning (ML) papers are published every day. That is equivalent to ~30K papers per year. Hence it becomes a daunting task to even follow what the major innovations or breakthroughs are. 

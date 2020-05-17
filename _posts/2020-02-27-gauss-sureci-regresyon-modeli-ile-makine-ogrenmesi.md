@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Makine Öğrenmesi 4 - Gauss Süreç Regresyonu 
-tags: [gaussian, regression, machine learning, bayesian]
+tags: [gaussian, regresyon, makine öğrenmesi, bayesçi çıkarım]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 ---

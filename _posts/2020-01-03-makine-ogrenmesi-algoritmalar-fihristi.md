@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Makine Öğrenmesi 1 - Makine Öğrenmesi Uzmanının Bilmesi Gerekenler
-tags: [machine learning, algorithms]
+title: Makine Öğrenmesi 2 - Makine Öğrenmesi Uzmanının Bilmesi Gerekenler
+tags: [makine öğrenmesi, algoritma]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 ---
