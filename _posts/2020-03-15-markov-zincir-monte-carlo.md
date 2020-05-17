@@ -231,17 +231,17 @@ Bizi Markov Zinciri Monte Carlo yöntemine getiren fikir silsilesine bir daha ba
 
 MZMC üç ana bileşenden oluşur. 
 
-- Monte Carlo (MC) yaklaşık çözümü
+- **Monte Carlo (MC) yaklaşık çözümü**
 
-MC bileşeni öneri dağılımından, $\theta_t \sim \mathcal{N}(0.5, \sigma^2)$, örnekler çekmemizi sağlar.
+MC bileşeni öneri dağılımından (ör; $\theta_t \sim \mathcal{N}(0.5, \sigma^2)$) örnekler çekmemizi sağlar.
 
-- Markov Zinciri (MZ)
+- **Markov Zinciri (MZ)**
 
-Markov zinciri $\theta$ tahmininin yalnızca $\theta_{t-1}$'e koşullu olmasını sağlar. Yani eğer stokastik bir durum-uzay modelini Markov süreci olarak modellersen bir sistemin bir sonraki durumu kendisinden önceki tüm $\theta_{t-1, t-2, ..., t-N}$ durumlarına değil yalnızca bir önceki $\theta_{t-1}$ durumuna koşulludur.  
+Markov zinciri $\theta$ durumunun yalnızca $\theta_{t-1}$'e koşullu olmasını sağlar. Yani eğer stokastik bir durum-uzay modelini Markov süreci olarak modellersen bir sistemin bir sonraki durumu kendisinden önceki tüm $\theta_{t-1, t-2, ..., t-N}$ durumlarına değil yalnızca bir önceki $\theta_{t-1}$ durumuna koşulludur.  
 
 Yeni durumu şöyle ifade edebiliriz: $\theta_{t} \sim \mathcal{N}(\theta_{t-1}, \sigma^2)$. 
 
-Bir önceki $\theta$ değerini beklenen değer olarak kullanan dağılımı da şu şekilde görselleştirebiliriz:
+Yani bir önceki rassal örneği dağılımın ortalama değeri olarak kullanarak yeni bir rassal örnek üretiriz. Bunu şu şekilde görselleştirebiliriz:
 
 <p align="center">
 <img src="/images/mcmc_1.png" width="65%" height="65%">
@@ -249,11 +249,16 @@ Bir önceki $\theta$ değerini beklenen değer olarak kullanan dağılımı da �
 
 (Not: bu figür <a href="https://www.youtube.com/watch?v=OTO1DygELpY">Stata Corp LLC'nin "Introduction to Bayesian statistics, part 2: MCMC and the Metropolis Hastings algorithm" sunumundan alınmıştır.</a>)
 
+Bu figür bize ne anlatıyor?
+
+Sağ tarafta üretilen her bir yeni örneğin kendisinden önceki örneği ortalama parametresi olarak alan bir Normal dağılımdan geldiğini görüyoruz. Soldaki histogram da üretilen rassal örneklerin histogramı. Bu doğal çünkü zaten örnekleri Normal dağılımdan seçiyoruz. Böylece Markov sürecine uygun rassal örnekler üretmeyi başarmış oluyoruz.
+
+
 Burada Markov Zinciri'nin durağan bir dağılıma sahip olduğunu ve *ergodik* bir süreç olduğunu varsayıyoruz. Bu nokta MZMC'nin can alıcı noktasıdır ve üzerine sayfalarca tartışılacak bir bahistir, o yüzden burada bana güvenip bu varsayımın işe yaradığını bilmeni istiyorum. 
 
-- Metropolis-Hastings (MH) algoritması
+- **Metropolis-Hastings (MH) algoritması**
 
-Bu basamak öneri dağılımından gelen örneklerin hangilerini kabul edip hangilerini reddedeceğimizi belirler. 
+Bu basamak öneri dağılımından Markov zincirine uyarak üretilen örneklerin hangilerini kabul edip hangilerini reddedeceğimizi belirler. 
 
 $$
 r=\frac{mevcut \space durumun \space sonsal \space dağılımdan \space gelen \space olasılığı}{önceki \space durumun \space sonsal \space dağılımdan \space gelen \space olasılığı} 
