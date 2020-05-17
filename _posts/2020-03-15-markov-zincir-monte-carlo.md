@@ -6,7 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 ---
 
-Emre: Markov Chain Monte Carlo yöntemi genetikten GPS konumlamaya; nükleer silah araştırmaları, RADAR ve robotik çalışmalarından finansal tahminleme işlerine kadar makine öğrenmesine ihtiyaç duyulan her alanda kullanılıyor. 
+Emre: Markov Zinciri Monte Carlo yöntemi genetikten GPS konumlamaya; nükleer silah araştırmaları, RADAR ve robotik çalışmalarından finansal tahminleme işlerine kadar makine öğrenmesine ihtiyaç duyulan her alanda kullanılıyor. 
 
 Matematiksel ispatlara girmeden Markov Zinciri Monte Carlo (MZMC)'nun mantığını anlatabilir misin? MZMC neden bu kadar önemli.
 
