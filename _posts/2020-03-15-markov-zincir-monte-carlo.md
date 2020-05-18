@@ -56,7 +56,7 @@ Genel olarak Monte Carlo yönteminin kullanım alanı, hesaplanması zor olasıl
 
 Monte Carlo yaklaşımının erken varyantı 18. yüzyılda <a href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem">Buffon iğnesi</a> probleminin ortaya atılması ile ortaya çıkmıştı. Buffon basit bir soru soruyordu "birbirine paralel çizgilerin arasına rasgele şekilde bir iğne atarsam, bu iğnenin çizgilerden en az birini kesme olasılığı nedir?" Lazzarini bu problemin çözümünü $\pi$ sayısını hesaplamak için olasılıksal bir metod olarak kullandı. Böylece çözüm yöntemi meşhur oldu. 
 
-Gerçi Lazzarini konusu biraz karışık. Lazzarini yakşalık olarak bulduğu denklemle $\pi$ sayısını çok büyük hassasiyetle hesaplayabiliyor. Deneyde biraz değişiklik olduğundaysa çok büyük sapma olduğundan Lazzarini deneyi sonucu en iyi şekilde verecek sayılarla mı tasarladı diye olay tartışmaya açılıyor. Herneyse bu konumuzun dışında. 
+Gerçi Lazzarini konusu biraz karışık. Lazzarini yaklaşık olarak bulduğu denklemle $\pi$ sayısını çok büyük hassasiyetle hesaplayabiliyor. Deneyde biraz değişiklik olduğundaysa çok büyük sapma olduğundan Lazzarini deneyi sonucu en iyi şekilde verecek sayılarla mı tasarladı diye olay tartışmaya açılıyor. Herneyse bu konumuzun dışında. 
 
 Sonraları Monte Carlo yönteminin ileri varyantları 1940 yılında Los Alamos Ulusal Laboratuarında nükleer silah araştırmalarında yeniden gündeme geldi. Algoritma popülerlik kazandıkça günümüzde genetikten GPS konumlamaya; RADAR, robotik çalışmalarından finansal tahminlere kadar her alanda kullanılmaya başladı.
 
@@ -64,7 +64,7 @@ Peki Monte Carlo yöntemini bu kadar özel ya da başarılı yapan şey neydi?
 
 Monte Carlo yönteminin başarılı olmasının altında yatan sır aslında olasılık kuramından bildiğimiz Büyük Sayılar Yasası (BSY)'dır. Olasılık kuramında, BSY aynı deneyin büyük bir sayıda yinelenmesi sonucunu betimleyen bir teoremdir.  BSY'na göre, büyük bir sayıdaki denemelerden elde edilen sonuç beklenen değere yakın olmalı, ve daha fazla deneme yapıldıkça daha da fazla yakın olma eğiliminde olmalıdır. Örneğin, rassal çıktıları olan bir süreci düşünelim. Rassal bir değişken defalarca gözlensin. O zaman gözlenen değerlerin ortalaması uzun dönemde kararlı olur. Dolayısı ile söz konusu bir rassal değişkenin beklenen değerini tahmin etmede en iyi yöntem, sayıca yeterince büyük bir örnek ortalamasını ilişkin olduğu beklenen değerin sapmasız tahmin edicisi olarak kullanmaktır. Temel fikir budur. 
 
-Monte Carlo simülasyonuna bir örnek olarak $\pi$ sayısının nasıl hesaplanabildiğine bakabiliriz. Çok ilgili çekmiyorsa direk MZMC'yi anlattığım kısma geçebilirsin.
+Monte Carlo simülasyonuna bir örnek olarak $\pi$ sayısının nasıl hesaplanabildiğine bakabiliriz. Çok ilgini çekmiyorsa direk MZMC'yi anlattığım kısma geçebilirsin.
 
 ### $\pi$'nin Monte Carlo Simülasyonuyla Tahmini
 
@@ -145,7 +145,7 @@ Bu simülasyon 100 bin iterasyon için $pi$ sayısını $3.1450714507145143$ gib
 
 Bütün bunları Monte Carlo yaklaştırmasının (simülasyonunun) sana biraz fikir vermesi için anlattım. 
 
-Unutma MC adımının bize sağladığı kazan basit görünen ama ileride çok işlevsel olacak bu BSY varsayımı. Neden işe yaradığına geleceğim.
+Unutma MC adımının bize sağladığı kazanç basit görünen ama ileride çok işlevsel olacak bu BSY varsayımı. Neden işe yaradığına geleceğim.
 
 ## Önem Örneklemesi 
 
@@ -185,11 +185,11 @@ Kaan: Evet. Malesef sorun şu ki, bu $Z$ hesabıyla sonsal dağılıma ait histo
 
 Emre: Buradan da bir çıkış var değil mi?
 
-Kaan: Elbette. Önerilen bir dağılımdan örnekler çekme bize yeni bir bakış açısı kazandırdı. Artık önerdiğimiz bir dağılımdan örnekler çekerek ve BSY'ını kullanarak kestirim yapmayı öğrendik. Ancak çok boyutlu ya da diğer bir deyişle çok parametreli tahmin problemlerini çözebilmek için histogramlar hesaplamak yerine olaya bambaşka bir açıdan bakmamız gerekiyor. 
+Kaan: Elbette. Önerilen bir dağılımdan örnekler çekme bize yeni bir bakış açısı kazandırdı. Artık önerdiğimiz bir dağılımdan örnekler çekerek ve BSY'ını kullanarak kestirim yapmayı öğrendik. Ancak çok boyutlu tahmin problemlerini çözebilmek için histogramlar hesaplamak yerine olaya bambaşka bir açıdan bakmamız gerekiyor. 
 
-İstersen tahmin dağılımını birlikte hesaplamaya çalışalım!
+Histogramlar yerine tahmin dağılımları üzerinde çalışabiliriz. 
 
-Elimizde $Y_{1:t}$ geçmiş verisi varken, $X_{t+1}$ zamanına ait gelecek tahminimize ait $Y_{t+1}$ olasılık dağılımını şöyle yazabiliriz:
+Elimizde $Y_{1:t}$ geçmiş verisi varken, $X_{t+1}$ zamanına ait gelecek tahminimize ($Y_{t+1}$) ait olasılık dağılımını şöyle yazabiliriz:
  
 $$
 P(Y_{t+1}|X_{t+1},Y_{1:t}) = \frac{1}{Z} \int_{}^{} P(Y_{t+1}|X_{t+1}, \theta) P(Y_{t+1}|\theta)P(\theta)d\theta
@@ -299,17 +299,17 @@ Algoritmanın akışını şu şekilde görselleştirebiliriz:
 <img src="/images/mcmc_2.png" width="65%" height="65%">
 </p>
 
-Soldaki şekil bize <a href="https://tr.wikipedia.org/wiki/Markov_zinciri">Markov Zinciri</a>'mizi gösteriyor. Bu zincirin sahip olması gereken bir sürü özellik var (indirgenebilirlik, dönemsellik ve tekrarlama) aslında. Ama detaylara burada girmeyeceğim. Bilmemiz gereken en önemli özellik bu zincirin olasılık dağılımının ergodik özellik gösteriyor olması. 
+Soldaki şekil bize <a href="https://tr.wikipedia.org/wiki/Markov_zinciri">Markov Zinciri</a>'mizi gösteriyor. Bu zincirin sahip olması gereken bir sürü özellik var (indirgenebilirlik, dönemsellik ve tekrarlama ile ilgili)aslında. Ama detaylara burada girmeyeceğim. Bilmemiz gereken en önemli özellik bu zincirin olasılık dağılımının ergodik özellik gösteriyor olması. 
 
 Emre: Ergodik ne demek?
 
 Kaan: Markov Zinciri'ndeki durumların arasındaki geçişleri tanımlayan olasılık matrisine $T$ diyelim. $T$ geçiş matrisinde tüm durumlar birbirleri arasında geçiş sağlayabiliyorsa ve ortalama aldığımız süre (örnek sayısı yeterince çoksa) yeterince uzunsa bu zincire ergodik markov zinciri denir. Eğer ortalama aldığımız süre yeterince uzunsa, teorik olarak örnek ortalaması sinyalin gerçek ortalamasına yakınlaşır.
 
-MZMC'de ergodik olduğunu düşündüğümüz Markov Zinciri'inden gelen ve kriterimize uyan bazı örnekleri kabul ediyoruz. MZMC'nin bu seçilleri yaparak hedef dağılıma nasıl ulaştığını interaktif olarak görmek için <a href="https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=standard">The Markov-chain Monte Carlo Interactive Gallery<a>'ye bakabilirsin.
+MZMC'de ergodik olduğunu düşündüğümüz Markov Zinciri'inden gelen ve kriterimize uyan bazı örnekleri kabul ediyoruz. MZMC'nin bu seçimleri yaparak hedef dağılıma nasıl ulaştığını interaktif olarak görmek için <a href="https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=standard">The Markov-chain Monte Carlo Interactive Gallery<a>'ye bakabilirsin.
 
 ## Algoritma Kodlama
 
-Hedefimiz elimizdeki gözlemleri kullanarak $\mu$ ortalamasının sonsal dağılımını bulmak olsun. Bunu yaparken varsayalım ki standart sapmanın $1$ olduğunu zaten biliyoruz.
+Hedefimiz elimizdeki gözlemleri kullanarak $\mu$ ortalamasına ait sonsal dağılımını bulmak olsun. Bunu yaparken varsayalım ki hedef dağılımımız Normal dağılım ve standart sapması da $1$, bunları önceden biliyoruz bir şekilde.
 
 Önce modüllerimizi yükleyelim
 
@@ -333,7 +333,7 @@ plt.ylabel('gözlem sıklığı')
 plt.show()
 ```
 
-Ürettiğimiz rasgele sayıların histogramı aşağıdaki gibi olacaktır. 
+Ürettiğimiz rassal sayıların histogramı aşağıdaki gibi olacaktır. 
 
 <p align="center">
 <img src="/images/mcmc_3.png" width="65%" height="65%">
@@ -487,7 +487,7 @@ Birinci problemden kurtulmak için Zincir stabil hale gelene kadar ilk başta ç
 
 2. Markov Zinciri'nin oto-korelasyonu
 
-Markoc sürecinin beklenen şekilde çalışması için bir durumun sadece kendinden önceki duruma bağımlı olması gerekiyor. Bir önceki durumdan öncekilere bağımlılık arttıkça MZMC'nin performansı azalacaktır. 
+Markov sürecinin beklenen şekilde çalışması için bir durumun sadece kendinden önceki duruma bağımlı olması gerekiyor. Bir önceki durumdan öncekilere bağımlılık arttıkça MZMC'nin performansı azalacaktır. 
 
 Örneğin elde ettiğimiz sonsal dağılımın oto-korelasyonuna bakalım.
 
