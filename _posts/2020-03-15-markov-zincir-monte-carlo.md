@@ -408,7 +408,7 @@ Kabul ettiğimiz $\mu$ değerlerinin histogramını hesapladık. Burada bir şey
 
 ## Gerçek Hayat
 
-MZMC'nin bililen iki problemi vardır. 
+MZMC'nin bilinen iki problemi vardır. 
 
 1. Başlangıç değerlerine bağımlılık
 
