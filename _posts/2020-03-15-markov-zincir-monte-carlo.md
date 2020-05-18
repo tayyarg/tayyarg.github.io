@@ -360,7 +360,7 @@ for i in range(N):
     sonsal.append(mu_guncel)
 
     # sonsal dağılımı ve önerileri çizdir
-    if i==0 or (i+1)%25000==0:
+    if i==0 or (i+1)%(N/4)==0:
       fig, (ax1) = plt.subplots(ncols=1, figsize=(4, 4))
       x = np.linspace(-3, 3, 5000)
       color = 'g' if kabul else 'r'
