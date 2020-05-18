@@ -166,10 +166,12 @@ Yani bir önceki rassal örneği dağılımın ortalama değeri olarak kullanara
 
 Bu figür bize ne anlatıyor?
 
-Sağ tarafta üretilen her bir yeni örneğin kendisinden önceki örneği ortalama parametresi olarak alan bir Normal dağılımdan geldiğini görüyoruz. Soldaki histogram da üretilen rassal örneklerin histogramı. Bu doğal çünkü zaten örnekleri Normal dağılımdan seçiyoruz. Böylece Markov sürecine uygun rassal örnekler üretmeyi başarmış oluyoruz.
+Sağ tarafta üretilen her bir yeni örneğin kendisinden önceki örneği ortalama parametresi olarak alan bir Normal dağılımdan geldiğini görüyoruz. Soldaki histogram da üretilen rassal örneklerin histogramı. Dikkat edersen histogram sağdaki öneri dağılımına pek benzemiyor. Çünkü bu örnekler rasgele adımlarla (random-walk) üretildi. 
 
+Sonuç olarak yine de Markov zincirini kullanarak durağan (hatta ergodik) bir dağılımdan örnekler çekmeyi başarmış oluyoruz. 
+Yine de çektiğimiz örneklerin dağılımı sonsal dağılıma (ya da öneri dağılımına) benzemiyor. Bu sorunu da Metropolis-Hastings algoritması çözecek.
 
-Burada Markov Zinciri'nin durağan bir dağılıma sahip olduğunu ve *ergodik* bir süreç olduğunu varsayıyoruz. Bu nokta MZMC'nin can alıcı noktasıdır ve üzerine sayfalarca tartışılacak bir bahistir, o yüzden burada bana güvenip bu varsayımın işe yaradığını bilmeni istiyorum. 
+Şunu söylemeden geçmeyeyim, burada Markov Zinciri'nin durağan bir dağılıma sahip olduğunu ve *ergodik* bir süreç olduğunu varsaydık. Bu nokta MZMC'nin can alıcı noktasıdır ve üzerine sayfalarca tartışılacak bir bahistir, o yüzden burada bana güvenip bu varsayımın işe yaradığını bilmeni istiyorum. 
 
 ### Metropolis-Hastings (MH) algoritması
 
