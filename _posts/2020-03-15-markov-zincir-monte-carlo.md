@@ -171,7 +171,11 @@ Sağ tarafta üretilen her bir yeni örneğin kendisinden önceki örneği ortal
 Sonuç olarak yine de Markov zincirini kullanarak durağan (hatta ergodik) bir dağılımdan örnekler çekmeyi başarmış oluyoruz. 
 Yine de çektiğimiz örneklerin dağılımı sonsal dağılıma (ya da öneri dağılımına) benzemiyor. Bu sorunu da Metropolis-Hastings algoritması çözecek.
 
-Şunu söylemeden geçmeyeyim, burada Markov Zinciri'nin durağan bir dağılıma sahip olduğunu ve *ergodik* bir süreç olduğunu varsaydık. Bu nokta MZMC'nin can alıcı noktasıdır ve üzerine sayfalarca tartışılacak bir bahistir, o yüzden burada bana güvenip bu varsayımın işe yaradığını bilmeni istiyorum. 
+Şunu söylemeden geçmeyeyim, burada Markov Zinciri'nin durağan bir dağılıma sahip olduğunu ve *ergodik* bir süreç olduğunu varsaydık. Bu zincirin sahip olması gereken bir sürü özellik var (indirgenebilirlik, dönemsellik ve tekrarlama ile ilgili)aslında. Bu nokta MZMC'nin can alıcı noktasıdır ve üzerine sayfalarca tartışılacak bir bahistir, o yüzden burada bana güvenip bu varsayımın işe yaradığını bilmeni istiyorum. 
+
+Emre: En azından "ergodik" ne demek?
+
+Kaan: Markov Zinciri'ndeki durumların arasındaki geçişleri tanımlayan olasılık matrisine $T$ diyelim. $T$ geçiş matrisinde tüm durumlar birbirleri arasında geçiş sağlayabiliyorsa ve ortalama aldığımız süre (örnek sayısı yeterince çoksa) yeterince uzunsa bu zincire ergodik markov zinciri denir. Eğer ortalama aldığımız süre yeterince uzunsa, teorik olarak örnek ortalaması sinyalin gerçek ortalamasına yakınlaşır.
 
 ### Metropolis-Hastings (MH) algoritması
 
@@ -181,13 +185,19 @@ $$
 r=\frac{mevcut \space durumun \space sonsal \space dağılımdan \space gelen \space olasılığı}{önceki \space durumun \space sonsal \space dağılımdan \space gelen \space olasılığı} 
 $$
 
-Bu oranı düzgün dağılımdan rasgele seçtiğimiz bir sayıyla karşılaştırarak yeni örneği kabul edip etmeyeceğimize karar veririz. Bu seçimin mantığına geleceğim. Biraz daha sabret. 
+Bu oranı düzgün dağılımdan ($U[0,1]$) rasgele seçtiğimiz bir sayıyla karşılaştırarak Markov zincirinden gelen yeni örneği kabul edip etmeyeceğimize karar veririz.
+
+Eğer örnek kabul etme olasılığımızdan küçükse örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. 
+
+Bunu şöyle bir analojiyle açıklamaya çalışabilirim. Ortaya bir problem atıyorum ve aslında bu problemin elimde bir çözümü var. Ortaya sorduğum soruya bir yerden bir cevap geliyor. Eğer bu cevaptaki çözüm elimdekinden daha iyiyse yeni cevabı halihazırda çözüm olarak kabul ediyorum, değilse reddediyorum ve eski çözümü tutuyorum; emin değilsem de kabul edip etmemek konusunda zar atıyorum! 
 
 ### MZMC Algoritması
 
-Bizi Markov Zinciri Monte Carlo yöntemine getiren fikir silsilesine bir daha bakalım. Önce Monte Carlo yaklaşık çözümüne baktık. İntegralleri alamadığımız durumlar için büyük sayılar kuralından yararlanıp Önem Örneklemesi yöntemini geliştirdik. Ancak histogram hesabının pahalı bir işlem olduğunu (yapay sinir ağlarında binlerce boyutlu değişkenler hesaplanıyor; boyut sayısı artınca bu yöntemde işlem yükü açısından makul olmaktan çıkıyor) gördük. Oradan tahmin denklemleri üzerinden gitmeye karar verdik. $Z$'yi yaklaşık olarak bulmak yerine denklemin hem payı hem de paydasını aynı anda yaklaşık olarak hesaplayan ve $Z$'yi hesaplamaktan kurtulan Normalize edilmiş Önem Örneklemesi yöntemine geçtik. Yine gördük ki bu yöntem de az sayıda parametreli problemler için işe yarıyor. Parametre sayısı arttıkça önerdiğimiz dağılımla ilgili varsayımlarımızın gerçekle olan bağlantısı azalıyor, gerçekçi olmaktan uzaklaşıyor. Bu nedenle çok parametre sayısında da işe yarayacak yeni bir yönteme ihtiyaç duyduk. 
+Bizi MZMC yöntemine getiren fikir silsilesine bir daha bakalım. Önce Monte Carlo yaklaşık çözümüne baktık. İntegralleri alamadığımız durumlar için büyük sayılar kuralından yararlanıp Önem örneklemesi yöntemini geliştirdik. Ancak histogram hesabının pahalı bir işlem olduğunu (yapay sinir ağlarında binlerce boyutlu değişkenler hesaplanıyor; boyut sayısı artınca bu yöntemde işlem yükü açısından makul olmaktan çıkıyor) gördük. Tahmin denklemleri üzerinden gitmeye karar verdik. $Z$'yi yaklaşık olarak bulmak yerine denklemin hem payı hem de paydasını aynı anda yaklaşık olarak hesaplayan ve $Z$'yi hesaplamaktan kurtulan Normalize edilmiş Önem örneklemesi yöntemine geçtik. Yine gördük ki bu yöntem de az sayıda parametreli problemler için işe yarıyor. Parametre sayısı arttıkça önerdiğimiz dağılımla ilgili varsayımlarımızın gerçekle olan bağlantısı azalıyor, gerçekçi olmaktan uzaklaşıyor. Bu nedenle çok parametre sayısında da işe yarayacak yeni bir yönteme ihtiyaç duyduk. 
 
-Şimdi $X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri dağılımı olduğunu varsayarak MZMC'nin algoritmasını şu şekilde yazabiliriz:
+Şimdi MZMC'nin Metropolis-hastings algoritmasına ve ne kadar başarılı çalıştığına bakabiliriz.
+
+$X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri dağılımı olduğunu varsayarak MZMC'nin algoritmasını şu şekilde yazabiliriz:
 
 {% include pseudocode.html id="1" code="
 \begin{algorithm}
@@ -210,7 +220,7 @@ Bizi Markov Zinciri Monte Carlo yöntemine getiren fikir silsilesine bir daha ba
 3. adımda $[0,1]$ aralığında düzgün $U$ dağılımından rasgele bir sayı çekiyoruz.
 4. adımda elimizdeki $x^{i}$ örneğini $q$ öneri dağılımından geçiriyoruz. Yani ortalaması $x^{i}$ olacak şekilde $q$'dan bir örnek çekiyoruz. Bunu şöyle de ifade edebiliriz; $x^{\star} = X^{(i)} + \mathcal{N}(0, \sigma^2)$. (Yeni örneğimiz bir öncekinin yakınında bir yerde çıkacak.)
 5. adımda yeni parametrenin sonsal dağılımı ile bir önceki parametrenin sonsal dağılımlarının oranını hesaplıyoruz. Bu oran bizim "kabul etme olasılığımızı" belirliyor. Ancak  dikkat edersen $Z$'leri bilerek sadeleştirmeden yazdım. Aslında bu basamakta $Z$'ler sadeleşiyor, bu nedenle artık o malum integrali hesaplamamıza gerek kalmıyor! 
-6. adımda düzgün dağılımdan çektiğimiz örnekle bu oranı karşılaştırıyoruz. Eğer örnek kabul etme olasılığımızdan küçükse örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. Bunu şöyle bir analojiyle açıklamaya çalışabilirim. Ortaya bir problem atıyorum ve aslında bu problemin elimde bir çözümü var. Ortaya sorduğum soruya bir yerden bir cevap geliyor. Eğer bu cevaptaki çözüm elimdekinden daha iyiyse yeni cevabı halihazırda çözüm olarak kabul ediyorum, değilse reddediyorum ve eski çözümü tutuyorum; emin değilsem de kabul edip etmemek konusunda zar atıyorum!
+6. adımda düzgün dağılımdan çektiğimiz örnekle bu oranı karşılaştırıyoruz.
 
 Algoritmanın akışını şu şekilde görselleştirebiliriz:
 
@@ -218,11 +228,7 @@ Algoritmanın akışını şu şekilde görselleştirebiliriz:
 <img src="/images/mcmc_2.png" width="65%" height="65%">
 </p>
 
-Soldaki şekil bize <a href="https://tr.wikipedia.org/wiki/Markov_zinciri">Markov Zinciri</a>'mizi gösteriyor. Bu zincirin sahip olması gereken bir sürü özellik var (indirgenebilirlik, dönemsellik ve tekrarlama ile ilgili)aslında. Ama detaylara burada girmeyeceğim. Bilmemiz gereken en önemli özellik bu zincirin olasılık dağılımının ergodik özellik gösteriyor olması. 
-
-Emre: Ergodik ne demek?
-
-Kaan: Markov Zinciri'ndeki durumların arasındaki geçişleri tanımlayan olasılık matrisine $T$ diyelim. $T$ geçiş matrisinde tüm durumlar birbirleri arasında geçiş sağlayabiliyorsa ve ortalama aldığımız süre (örnek sayısı yeterince çoksa) yeterince uzunsa bu zincire ergodik markov zinciri denir. Eğer ortalama aldığımız süre yeterince uzunsa, teorik olarak örnek ortalaması sinyalin gerçek ortalamasına yakınlaşır.
+Soldaki şekil bize <a href="https://tr.wikipedia.org/wiki/Markov_zinciri">Markov Zinciri</a>'mizi gösteriyor.
 
 MZMC'de ergodik olduğunu düşündüğümüz Markov Zinciri'inden gelen ve kriterimize uyan bazı örnekleri kabul ediyoruz. MZMC'nin bu seçimleri yaparak hedef dağılıma nasıl ulaştığını interaktif olarak görmek için <a href="https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=standard">The Markov-chain Monte Carlo Interactive Gallery<a>'ye bakabilirsin.
 
