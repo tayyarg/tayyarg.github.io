@@ -446,7 +446,7 @@ Sonuç olarak MZMC'yi kullanarak;
 
 elde edebiliriz. 
 
-Bu iki problem dışında Metropolis-Hastings'in de kendi içinde problemleri var. Örneğin MH'in seçtiği öneri dağılımı simetriktir. Gibbs Örnekleyici bu seçini otomatikleştirmek için ortaya atılmış başka bir MZMC varyantıdır. 
+Bu iki problem dışında Metropolis-Hastings'in de kendi içinde problemleri var. Örneğin MH'in seçtiği öneri dağılımı simetriktir. Gibbs Örnekleyici bu seçimi otomatikleştirmek için ortaya atılmış başka bir MZMC varyantıdır. 
 
 Diğer yandan MZMC'nin işlemsel yükü oldukça yüksektir. Bu nedenle literatürde algoritmayı paralelleştiren çalışmalara rastlayabilirsin.
 
