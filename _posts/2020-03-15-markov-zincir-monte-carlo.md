@@ -162,8 +162,6 @@ Yani bir önceki rassal örneği dağılımın ortalama değeri olarak kullanara
 <img src="/images/mcmc_1.png" width="65%" height="65%">
 </p>
 
-(Not: bu figür <a href="https://www.youtube.com/watch?v=OTO1DygELpY">Stata Corp LLC'nin "Introduction to Bayesian statistics, part 2: MCMC and the Metropolis Hastings algorithm" sunumundan alınmıştır.</a>)
-
 Bu figür bize ne anlatıyor?
 
 Sağ tarafta üretilen her bir yeni örneğin kendisinden önceki örneği ortalama parametresi olarak alan bir Normal dağılımdan geldiğini görüyoruz. Soldaki histogram da üretilen rassal örneklerin histogramı. Dikkat edersen histogram sağdaki öneri dağılımına pek benzemiyor. Çünkü bu örnekler rasgele adımlarla (random-walk) üretildi. 
