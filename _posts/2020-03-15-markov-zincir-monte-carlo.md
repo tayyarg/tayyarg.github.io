@@ -187,9 +187,9 @@ $$
 r=min\{1,\frac{önerilen \space örneğin \space olabilirliği \times önerilen \space örneğin \space öncül \space olasılığı}{ önceki \space örneğin \space olabilirliği \times önceki \space örneğin \space öncül \space olasılığı}\}
 $$
 
-Bu oranı düzgün dağılımdan ($U[0,1]$) rasgele seçtiğimiz bir sayıyla karşılaştırarak Markov zincirinden gelen yeni örneği kabul edip etmeyeceğimize karar veririz.
+Sonuçta bu oran $1$ ya da $1$'den büyükse önerilen örneği hemen kabul ediyoruz. Önerilen yeni örneğin sonsal dağılıma ait olma olasılığı bariz yüksek demektir. Ancak bu oran $1$'den küçükse burada bir seçim şansımız var. 
 
-Sonuçta bu oran $1$ ya da $1$'den büyükse yeni gelen örneği hemen kabul ediyoruz. Önerilen yeni örneğin sonsal dağılıma ait olma olasılığı bariz yüksek demektir. Ancak bu oran $1$'den küçükse burada bir seçim şansımız var. 
+Bu oranı düzgün dağılımdan ($U[0,1]$) rasgele seçtiğimiz bir sayıyla karşılaştırarak Markov zincirinden gelen yeni örneği kabul edip etmeyeceğimize karar veririz.
 
 Eğer düzgün dağılımdan gelen sayı kabul etme olasılığımızdan ($r$ oranından) küçükse Markov zincirinden gelen örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. 
 
