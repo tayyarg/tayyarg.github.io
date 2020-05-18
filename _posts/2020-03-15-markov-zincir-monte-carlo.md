@@ -345,10 +345,10 @@ for i in range(N):
     
     u = np.random.uniform()
 
-    # öneriyi kabul et?
+    # öneriyi kabul olasılığını hesapla
     r = p_oneri / p_guncel
     
-    # kabul edip etmeyeceğimize bakalım
+    # kabul?
     if u<r:
         # pozisyonu güncelle
         mu_guncel = mu_oneri
