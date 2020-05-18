@@ -400,11 +400,11 @@ Yani rasgele yönlere atlamayı öneriyoruz, önerilerden hangisinin olasılığ
 Şimdi MZMC'nin koduna ve nasıl sonuçlar ürettiğine bakalım. 
 
 ```python
-N = 1000
+N = 100000
 mu_guncel = 1.0
-mu_oncul_mu=1.0
-mu_oncul_ss=1.0
-oneri_genislik=.5
+mu_oncul_mu= 1.0
+mu_oncul_ss= 1.0
+oneri_genislik= 0.5
 sonsal = [mu_guncel]
 for i in range(N):
     # yeni konum öner
@@ -434,7 +434,7 @@ for i in range(N):
     sonsal.append(mu_guncel)
 
     # sonsal dağılımı ve önerileri çizdir
-    if i==0 or (i+1)%250==0:
+    if i==0 or (i+1)%25000==0:
       fig, (ax1) = plt.subplots(ncols=1, figsize=(4, 4))
       x = np.linspace(-3, 3, 5000)
       color = 'g' if kabul else 'r'
@@ -455,7 +455,7 @@ Bu algoritmayı çalıştırınca şöyle sonuçlar görmeye başlarsın.
 <img src="/images/mcmc_5.png" width="65%" height="65%">
 </p>
 
-$1.$, $750$. ve $1000.$ iterasyonda önerilen yerlerin nasıl reddedildiğine dikkat et. Gösterimsel olarak kalabalık olmasın diye her $250$ adımda bir çizdiriyoruz ancak sen istersen her bir adımda kabul/reddin nasıl olduğunu incele. Sonuç olarak MZMC sonsal dağılımı buluyor ve en yüksek olasılığın $\mu = 0$ civarında olduğunu gösteriyor. 
+$75,000$. ve $100,000.$ iterasyonda önerilen yerlerin nasıl reddedildiğine dikkat et. Gösterimsel olarak kalabalık olmasın diye her $25000$ adımda bir çizdiriyoruz ancak sen istersen her bir adımda kabul/reddin nasıl olduğunu incele. Sonuç olarak MZMC sonsal dağılımı buluyor ve en yüksek olasılığın $\mu = 0$ civarında olduğunu gösteriyor. 
 
 MZMC ile elde ettiğimiz sonsal dağılımı analitik dağılımla karşılaştıralım.
 
@@ -464,7 +464,7 @@ import seaborn as sns
 
 ax = plt.subplot()
 sns.distplot(np.array(sonsal[500:]), ax=ax, label='sonsal kestirim')
-x = np.linspace(-.5, .5, 500)
+x = np.linspace(-1.0, 1.0, 500)
 sons = sonsal_analitik_hesapla(gozlem, x, 0, 1)
 ax.plot(x, sons, 'g', label='analitik sonsal')
 _ = ax.set(xlabel='mu', ylabel='güvenilirlik (inanç)');
