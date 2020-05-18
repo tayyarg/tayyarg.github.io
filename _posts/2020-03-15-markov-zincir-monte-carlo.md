@@ -205,7 +205,7 @@ $X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri
 
 {% include pseudocode.html id="1" code="
 \begin{algorithm}
-\caption{MZMC Algoritma}
+\caption{MZMC Algoritması}
 \begin{algorithmic}
     \STATE $x_{}^{0}$'ı ilklendir ve öneri dağılımı $q$'yu seç
     \STATE $i=0$'dan $N-1$'e döngü başlat 
@@ -224,7 +224,9 @@ $X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri
 3. adımda $[0,1]$ aralığında düzgün $U$ dağılımından rasgele bir sayı çekiyoruz.
 4. adımda elimizdeki $x^{i}$ örneğini $q$ öneri dağılımından geçiriyoruz. Yani ortalaması $x^{i}$ olacak şekilde $q$'dan bir örnek çekiyoruz. Bunu şöyle de ifade edebiliriz; $x^{\star} = X^{(i)} + \mathcal{N}(0, \sigma^2)$. (Yeni örneğimiz bir öncekinin yakınında bir yerde çıkacak.)
 5. adımda yeni parametrenin sonsal dağılımı ile bir önceki parametrenin sonsal dağılımlarının oranını hesaplıyoruz. Bu oran bizim "kabul etme olasılığımızı" belirliyor. Ancak  dikkat edersen $Z$'leri bilerek sadeleştirmeden yazdım. Aslında bu basamakta $Z$'ler sadeleşiyor, bu nedenle artık o malum integrali hesaplamamıza gerek kalmıyor! 
-6. adımda düzgün dağılımdan çektiğimiz örnekle bu oranı karşılaştırıyoruz.
+6. adımda düzgün dağılımdan çektiğimiz örnekle bu oranı karşılaştırıyoruz. Eğer düzgün dağılımdan gelen sayı kabul etme olasılığımızdan ($r$ oranından) küçükse Markov zincirinden gelen örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. 
+7. ve 8. adımda döngünün sonuna gelip gelmediğimize bakıyoruz, gelmediysek 3. adıma geri dönüyoruz
+
 
 Algoritmanın akışını şu şekilde görselleştirebiliriz:
 
@@ -326,8 +328,9 @@ N = 100000
 mu_guncel = 1.0
 mu_oncul_mu= 1.0
 mu_oncul_ss= 1.0
-oneri_genislik= 0.5
+oneri_genislik= 0.2
 sonsal = [mu_guncel]
+nkabul = 0
 for i in range(N):
     # yeni konum öner
     mu_oneri = norm(mu_guncel, oneri_genislik).rvs()
@@ -348,10 +351,11 @@ for i in range(N):
     # öneriyi kabul olasılığını hesapla
     r = p_oneri / p_guncel
     
-    # kabul?
+    #kabul?
     if u<r:
         # pozisyonu güncelle
         mu_guncel = mu_oneri
+        nkabul += 1
     
     sonsal.append(mu_guncel)
 
@@ -369,6 +373,8 @@ for i in range(N):
       ax1.plot([mu_guncel] * 2, [0, sonsal_guncel], marker='o', color='b')
       ax1.plot([mu_oneri] * 2, [0, sonsal_oneri], marker='o', color=color)
       ax1.set(title='iterasyon %i\nsonsal(mu=%.2f) = %.5f\nsonsal(mu=%.2f) = %.5f' % (i+1, mu_guncel, sonsal_guncel, mu_oneri, sonsal_oneri))
+  
+print ("Verimlilik = ", nkabul/N)
 ```
 
 Bu algoritmayı çalıştırınca şöyle sonuçlar görmeye başlarsın.
@@ -378,6 +384,9 @@ Bu algoritmayı çalıştırınca şöyle sonuçlar görmeye başlarsın.
 </p>
 
 $75000$. ve $100000$. iterasyonda önerilen yerlerin nasıl reddedildiğine dikkat et. Gösterimsel olarak kalabalık olmasın diye her $25000$ adımda bir çizdiriyoruz ancak sen istersen her bir adımda kabul/reddin nasıl olduğunu incele. Sonuç olarak MZMC sonsal dağılımı buluyor ve en yüksek olasılığın $\mu = 0$ civarında olduğunu gösteriyor. 
+
+Simülasyonun sonunda hesapladığımız verimlilik önerilen örneklerin ne kadarının kabul edildiğini gösteriyor. Genelde %70'in üzerinde kabul edilmişse modelimiz doğru kurulmuş demektir. 
+
 
 MZMC ile elde ettiğimiz sonsal dağılımı analitik dağılımla karşılaştıralım.
 
