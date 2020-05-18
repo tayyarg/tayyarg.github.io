@@ -455,7 +455,7 @@ Bu algoritmayı çalıştırınca şöyle sonuçlar görmeye başlarsın.
 <img src="/images/mcmc_5.png" width="65%" height="65%">
 </p>
 
-$75,000$. ve $100,000.$ iterasyonda önerilen yerlerin nasıl reddedildiğine dikkat et. Gösterimsel olarak kalabalık olmasın diye her $25000$ adımda bir çizdiriyoruz ancak sen istersen her bir adımda kabul/reddin nasıl olduğunu incele. Sonuç olarak MZMC sonsal dağılımı buluyor ve en yüksek olasılığın $\mu = 0$ civarında olduğunu gösteriyor. 
+$75000$. ve $100000$. iterasyonda önerilen yerlerin nasıl reddedildiğine dikkat et. Gösterimsel olarak kalabalık olmasın diye her $25000$ adımda bir çizdiriyoruz ancak sen istersen her bir adımda kabul/reddin nasıl olduğunu incele. Sonuç olarak MZMC sonsal dağılımı buluyor ve en yüksek olasılığın $\mu = 0$ civarında olduğunu gösteriyor. 
 
 MZMC ile elde ettiğimiz sonsal dağılımı analitik dağılımla karşılaştıralım.
 
