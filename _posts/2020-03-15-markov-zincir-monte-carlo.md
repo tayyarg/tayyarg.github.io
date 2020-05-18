@@ -44,11 +44,17 @@ Emre: Yaklaşık olarak bulmaya çalışabiliriz.
 
 Kaan: Makul. Bulmaya çalıştığımız sonsal dağılımdan örnekler çekebilseydik belki Monte Carlo simülasyonu ile yaklaşık bir sonuç bulabilirdik ama bu da bize yetmezdi çünkü bunu yapmak için bile Bayes formülünü çözmemiz bir de örnek çekebilmek için dağılımın tersini hesaplamamız gerekirdi ki bu daha da zor olacaktır. 
 
-İşte burada sahneye Markov Zinciri Monte Carlo algoritması çıkıyor ki, basitçe söylemek gerekirse MZMC yukarıda sözü geçen integrali hesaplamaya gerek kalmadan ve analitik olarak çözmeden sonsal dağılımdan örnekler çekmemizi sağlıyor. Böylece bu örnekler üzerinden sonsal dağılımın beklenen değerini hesaplayabiliriz!
+İşte burada sahneye Markov Zinciri Monte Carlo algoritması çıkıyor ki, basitçe söylemek gerekirse MZMC yukarıda sözü geçen integrali hesaplamaya gerek kalmadan ve sonsal dağılımı analitik olarak çözmeden sonsal dağılımdan örnekler çekmemizi sağlıyor. Böylece bu örnekler üzerinden sonsal dağılımın beklenen değerini hesaplayabiliriz!
 
-Elbette Markov Zinciri Monte Carlo fikrine Monte Carlo (MC) yaklaşımının en basit varyantından başlayıp bir dizi fikirler silsilesi ile varılabiliyor. Önce en altta yatan MC yaklaşımından bahsedeyim. MC yaklaşımının en basit halini bilmek bizi sezgisel olarak MZMC'yi anlamaya biraz hazırlayabilir. 
+## Markov Zinciri Monte Carlo
 
-## Monte Carlo Yaklaşımı 
+MZMC üç ana bileşenden oluşur. 
+
+- **Monte Carlo (MC) yaklaşık çözümü**
+- **Markov Zinciri (MZ)**
+- **Metropolis-Hastings (MH) algoritması**
+
+### Monte Carlo Yaklaşık Çözümü
 
 Genel olarak Monte Carlo yönteminin kullanım alanı, hesaplanması zor olasılıkların tahmini; karmaşık sistemlerin sonucunda oluşan parametrelerin tahmini; test istatistikleri için kritik degerlerin elde edilmesi; hesaplanması zor olan integrallerin tahmini vb. diyebiliriz. Örnegin; dagılımını ifade edemediğimiz bir istatistiğin beklenen değerini Monte Carlo yöntemi ile tahmin edebiliriz. Bilinen bir dagılıma sahip olmayan ya da dağılımı bilinmeyen bir istatistiğe ait kritik değerleri elde etmekte Monte Carlo yöntemini kullanabiliriz. Bazı varsayımlardan sapmalar olduğunda istatistiklerin davranışlarını yine Monte Carlo yöntemi ile inceleyebiliriz. Daha net bir ifadeyle; analitik olarak çözümleyemedigimiz olayları incelemek için Monte Carlo yönteminin kullanılabileceğini söyleyebiliriz. 
 
@@ -62,101 +68,23 @@ Peki Monte Carlo yöntemini bu kadar özel ya da başarılı yapan şey neydi?
 
 Monte Carlo yönteminin başarılı olmasının altında yatan sır aslında olasılık kuramından bildiğimiz Büyük Sayılar Yasası (BSY)'dır. Olasılık kuramında, BSY aynı deneyin büyük bir sayıda yinelenmesi sonucunu betimleyen bir teoremdir.  BSY'na göre, büyük bir sayıdaki denemelerden elde edilen sonuç beklenen değere yakın olmalı, ve daha fazla deneme yapıldıkça daha da fazla yakın olma eğiliminde olmalıdır. Örneğin, rassal çıktıları olan bir süreci düşünelim. Rassal bir değişken defalarca gözlensin. O zaman gözlenen değerlerin ortalaması uzun dönemde kararlı olur. Dolayısı ile söz konusu bir rassal değişkenin beklenen değerini tahmin etmede en iyi yöntem, sayıca yeterince büyük bir örnek ortalamasını ilişkin olduğu beklenen değerin sapmasız tahmin edicisi olarak kullanmaktır. Temel fikir budur. 
 
-Monte Carlo simülasyonuna bir örnek olarak $\pi$ sayısının nasıl hesaplanabildiğine bakabiliriz. Çok ilgini çekmiyorsa direk MZMC'yi anlattığım kısma geçebilirsin.
-
-### $\pi$'nin Monte Carlo Simülasyonuyla Tahmini
-
-Merkezi bir karenin merkezinde yer alan birim çemberi düşünelim. Karenin içine uzaktan rasgele atışlar yapıldığını varsayalım ve atışların birim çemberin içine düşmesi olasılığını hesaplayalım. Analitik olarak, kare içine atışlar yapıldığında, atışın çemberin içine düşme olasılığı, çemberin alanının karenin alanına oranıdır.
-
-Peki biz bu oranı olasılıksal olarak hesaplayabilir miyiz? 
-
-Elbette cevabın evet olduğunu tahmin etmişsindir.
-
-O halde $A$ olayı; karenin içine atış yapıldığında, atışın çemberin içine düşmesi olarak tanımlandığında $P(A)$ olasılığını şöyle tanımlayabiliriz.
-
-<div>
-$$
-P(A) = \hat{\theta} = \frac{birim \space çemberin \space alanı}{karenin \space alanı}  =\frac{\pi \times 1^2}{2 \times 2} = \frac{\pi}{4} 
-$$
-</div>
-
-olur. Öyleyse $\hat{\theta}$'yı hesaplayabilirsek $\pi$'yi de hesaplayabiliriz.
-
-Matematiksel olarak kare ve birim çemberi $x$ ve $y$ eksenine oturtalım. Kare içine atış yapmak için $(-1, 1)$ aralığında düzgün dağılan $X$ ve $Y$ rassal değişkenlerine ihtiyaç vardır. $X$ ve $Y$'nin degerleri elimizdeyken, $(x_i, y_i)$
-noktasının orijine olan uzaklığı $1$'e eşit ya da daha küçükse nokta çemberin içindedir. Öyleyse $X$ ve $Y$ değişkeninin $U(-1,1)$ dağılımından çekilen rasgele değerler olduğunu varsayarak $K$'yi tanımlayabiliriz:
-
-<div>
-$$
-K = \left\{ \begin{array}{ll}
-         1, & \mbox{if $\sqrt{x^2+y^2} \leq 0$}\\
-        0, & \mbox{if $\sqrt{x^2+y^2} > 0$}\end{array} \right.
-$$
-</div>
-
-Bu durumda $\hat{\theta}$ parametre kestirimimizi  
-
-$$
-\hat{\theta} = \frac{1}{N}{} \sum_{i=1}^N(K_i)
-$$
-
-buradan da $\pi$ kestirimini hesaplarız:
-
-$$
-\hat{\pi} = \hat{\theta} * 4
-$$
-
-Yapılan atışları ve nereye düştüklerini aşağıdaki resimde şöyle canlandırabiliriz:
-
-<p align="center">
-<img src="/images/pi_sayisi.png" width="65%" height="65%">
-</p>
-
-Pi sayısını tahmin eden simülasyonu da şu şekilde yazabiliriz:
-```python
-import random
-from math import pow, sqrt
-
-# 100 bin iterasyonlu bir Monte Carlo simulasyonu kosalim
-N=100000
-teta=0.0 
-# Monte Carlo dongusu
-for i in range(1,N):
-  # (-1,1) araliginda rasgele X ve Y degerleri uretelim
-  x = random.uniform(-1,1)
-  y = random.uniform(-1,1)
-  # mesafeyi hesaplayalim
-  d = sqrt(pow(x,2)+pow(y,2))
-  # birim cemberin icinde mi?
-  if d <= 1.0:
-    k = 1.0
-  else:
-    k = 0.0
-  # pi tahmin parametresini hesaplayalim
-  teta = (teta*(i-1)+k)/i
-#pi yi hesaplayalim
-pi = teta*4.0
-
-# sonucu yazdiralim
-print ("pi = %s" %(pi))
-```
-Bu simülasyon 100 bin iterasyon için $pi$ sayısını $3.1450714507145143$ gibi gerçek değerine yakın bir şekilde kestirecektir. 
-
-Bütün bunları Monte Carlo yaklaştırmasının (simülasyonunun) sana biraz fikir vermesi için anlattım. 
+Sonuç olarak, MC bileşeni bir dağılımdan (ör; $\theta_t \sim \mathcal{N}(0.5, \sigma^2)$) örnekler çekmemizi ve bu örnekler üzerinden dağılımın beklenen değerini hesaplamamızı sağlar.
 
 Unutma MC adımının bize sağladığı kazanç basit görünen ama ileride çok işlevsel olacak bu BSY varsayımı. Neden işe yaradığına geleceğim.
 
-## Önem Örneklemesi 
+#### Önem Örneklemesi 
 
+Bir sonraki basamakta, Markov Zinciri Monte Carlo yoluna giden fikirler silsilesinde ortaya çıkan ilk fikirlerden biri "önem örneklemesi" fikridir(öncesi de var ama o kadar detaya girmeyeceğim). 
 
-Bir sonraki basamakta, Markov Zinciri Monte Carlo yoluna giden fikirler silsilesinde ortaya çıkan ilk fikirlerden biri "önem örneklemesi" fikridir. Öncesi de var ama o kadar detaya girmeyeceğim. 
+Amacımız yukarıda sözü geçen integralini alamadığımız $P(x)$'i ya da diğer adıyla $Z$'yi yaklaşıkta olsa kestirebilmenin bir yolunu bulmak. Artık elimizde MC yaklaşımından gelen BSY fikri var. Bakalım üzerine daha ne koyabiliriz. 
 
-Amacımız yukarıda sözü geçen integralini alamadığımız $P(x)$'i ya da diğer adıyla $Z$'yi yaklaşıkta olsa kestirebilmenin bir yolunu bulmak. Artık elimizde BSY fikri var. Bakalım üzerine daha ne koyabiliriz. 
-
-Bu fikrin özü şudur; ne olduğunu bildiğimiz ve gerçekte üzerinde çalıştığımız sistemin sonsal dağılımına yakın olduğunu düşündüğümüz bir $q(\theta)$ dağılımı önerelim ve bu dağılımı şu şekilde kullanalım:
+Bu fikrin özü de şudur; ne olduğunu bildiğimiz ve gerçekte üzerinde çalıştığımız sistemin sonsal dağılımına yakın olduğunu düşündüğümüz bir $q(\theta)$ dağılımı öneririz ve bu dağılımı şu şekilde kullanabiliriz:
 
 $$
 Z = \int_{}^{} \dfrac{p(Y|\theta)p(\theta)\color{red}{q(\theta)}d\theta}{\color{red}{q(\theta)}}
 $$
+
+Sonuçta pay ve paydayı aynı şeye bölmek sonucu değiştirmez değil mi?
 
 Bu durumda $Z$'yi şöyle yazabiliriz;
 
@@ -172,14 +100,13 @@ $$
 Z \approx \frac{1}{N} \sum_{i=1}^{N} W(\theta^{(i)})
 $$
 
-olduğunu söyler. Bu şu demektir; eğer $W$, $\theta$'nın bir fonksiyonuysa, bu integral örneklerin ortalamasına denktir.
-Yani elimizdeki $q(\theta)$'dan gelen örnekleri kullanarak $Z$'i artık yaklaşık olarak hesaplayabiliriz.
+olduğunu söyler. Bu şu demektir; eğer $W$ burada $\theta$'nın bir fonksiyonuysa, bu integral örneklerin ortalamasına denktir (bunun da ispatına girmeyeceğim).
 
-Burada bitti mi her şey?
+Yani elimizdeki $q(\theta)$'dan gelen örnekleri kullanarak $Z$'i artık yaklaşık olarak hesaplayabiliriz. Güzel $Z$ yi yaklaşık olarak hesaplayabildiğimize göre sorun burada çözülmüş olmalı, değil mi?
 
-Emre: Bitmediği sorudan belli.
+Emre: Öyle olmadığı sorudan belli.
 
-Kaan: Evet. Malesef sorun şu ki, bu $Z$ hesabıyla sonsal dağılıma ait histogramlar çizdirebilmek için $K$ boyutlu ($K$ rassal değişkenkli) durumda tüm dağılımı hesaplayabilmek için $N^K$ noktaya ihtiyaç duyarız. Ki, $N$'nin bir milyon ve $K$'nin $25$ olduğu bir gerçek dünya probleminde ($10^{150}$ örnek gerekli) artık histogramlar ihtiyaç duyulan kısa sürelerde hesaplamayacak kadar ağır işlem yükü gerektirir. Buna boyutların laneti (curse of dimensionality) denilir.
+Kaan: Evet. Malesef sorun şu ki, bu $Z$ hesabıyla sonsal dağılıma ait histogramlar çizdirebilmek için $K$ boyutlu ($K$ rassal çok-değişkenkli) problemlerde tüm dağılımı hesaplayabilmek için $N^K$ örneğe ihtiyaç duyarız. Ki, $N$'nin bir milyon ve $K$'nin $25$ olduğu bir gerçek dünya probleminde ($10^{150}$ örnek gerekli) artık histogramlar ihtiyaç duyulan kısa sürelerde hesaplamayacak kadar ağır işlem yükü gerektirir. Buna boyutların laneti (curse of dimensionality) denilir.
 
 Emre: Buradan da bir çıkış var değil mi?
 
@@ -223,17 +150,7 @@ Artık devasa boyutlu verilerle histogram hesaplamaya gerek kalmadan tahmini son
 
 Ancak tahmin edilecek parametre sayısı arttıkça önerdiğimiz $q(\theta)$ dağılımları artık gerçekçi olmaktan kaçınılmaz olarak çıkacaktır. Bu nedenle yüksek sayıda parametre olan durumlar için (ör; finansal tahminleme) başka bir çözüm bulunması gerekiyordu. Böylece Markov Zinciri Monte Carlo algoritması ortaya çıktı. 
 
-## Markov Zinciri Monte Carlo
-
-Bizi Markov Zinciri Monte Carlo yöntemine getiren fikir silsilesine bir daha bakalım. Önce Monte Carlo yaklaşık çözümüne baktık. İntegralleri alamadığımız durumlar için büyük sayılar kuralından yararlanıp Önem Örneklemesi yöntemini geliştirdik. Ancak histogram hesabının pahalı bir işlem olduğunu (yapay sinir ağlarında binlerce boyutlu değişkenler hesaplanıyor; boyut sayısı artınca bu yöntemde işlem yükü açısından makul olmaktan çıkıyor) gördük. Oradan tahmin denklemleri üzerinden gitmeye karar verdik. $Z$'yi yaklaşık olarak bulmak yerine denklemin hem payı hem de paydasını aynı anda yaklaşık olarak hesaplayan ve $Z$'yi hesaplamaktan kurtulan Normalize edilmiş Önem Örneklemesi yöntemine geçtik. Yine gördük ki bu yöntem de az sayıda parametreli problemler için işe yarıyor. Parametre sayısı arttıkça önerdiğimiz dağılımla ilgili varsayımlarımızın gerçekle olan bağlantısı azalıyor, gerçekçi olmaktan uzaklaşıyor. Bu nedenle çok parametre sayısında da işe yarayacak yeni bir yönteme ihtiyaç duyduk. 
-
-MZMC üç ana bileşenden oluşur. 
-
-- **Monte Carlo (MC) yaklaşık çözümü**
-
-MC bileşeni öneri dağılımından (ör; $\theta_t \sim \mathcal{N}(0.5, \sigma^2)$) örnekler çekmemizi sağlar.
-
-- **Markov Zinciri (MZ)**
+### Markov Zinciri (MZ)
 
 Markov zinciri $\theta$ durumunun yalnızca $\theta_{t-1}$'e koşullu olmasını sağlar. Yani eğer stokastik bir durum-uzay modelini Markov süreci olarak modellersen bir sistemin bir sonraki durumu kendisinden önceki tüm $\theta_{t-1, t-2, ..., t-N}$ durumlarına değil yalnızca bir önceki $\theta_{t-1}$ durumuna koşulludur.  
 
@@ -254,7 +171,7 @@ Sağ tarafta üretilen her bir yeni örneğin kendisinden önceki örneği ortal
 
 Burada Markov Zinciri'nin durağan bir dağılıma sahip olduğunu ve *ergodik* bir süreç olduğunu varsayıyoruz. Bu nokta MZMC'nin can alıcı noktasıdır ve üzerine sayfalarca tartışılacak bir bahistir, o yüzden burada bana güvenip bu varsayımın işe yaradığını bilmeni istiyorum. 
 
-- **Metropolis-Hastings (MH) algoritması**
+### Metropolis-Hastings (MH) algoritması
 
 Bu basamak öneri dağılımından Markov zincirine uyarak üretilen örneklerin hangilerini kabul edip hangilerini reddedeceğimizi belirler. 
 
@@ -266,7 +183,9 @@ Bu oranı düzgün dağılımdan rasgele seçtiğimiz bir sayıyla karşılaşt�
 
 ### MZMC Algoritması
 
-$X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri dağılımı olduğunu varsayarak MZMC'nin algoritmasını şu şekilde yazabiliriz:
+Bizi Markov Zinciri Monte Carlo yöntemine getiren fikir silsilesine bir daha bakalım. Önce Monte Carlo yaklaşık çözümüne baktık. İntegralleri alamadığımız durumlar için büyük sayılar kuralından yararlanıp Önem Örneklemesi yöntemini geliştirdik. Ancak histogram hesabının pahalı bir işlem olduğunu (yapay sinir ağlarında binlerce boyutlu değişkenler hesaplanıyor; boyut sayısı artınca bu yöntemde işlem yükü açısından makul olmaktan çıkıyor) gördük. Oradan tahmin denklemleri üzerinden gitmeye karar verdik. $Z$'yi yaklaşık olarak bulmak yerine denklemin hem payı hem de paydasını aynı anda yaklaşık olarak hesaplayan ve $Z$'yi hesaplamaktan kurtulan Normalize edilmiş Önem Örneklemesi yöntemine geçtik. Yine gördük ki bu yöntem de az sayıda parametreli problemler için işe yarıyor. Parametre sayısı arttıkça önerdiğimiz dağılımla ilgili varsayımlarımızın gerçekle olan bağlantısı azalıyor, gerçekçi olmaktan uzaklaşıyor. Bu nedenle çok parametre sayısında da işe yarayacak yeni bir yönteme ihtiyaç duyduk. 
+
+Şimdi $X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri dağılımı olduğunu varsayarak MZMC'nin algoritmasını şu şekilde yazabiliriz:
 
 {% include pseudocode.html id="1" code="
 \begin{algorithm}
