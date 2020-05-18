@@ -309,39 +309,8 @@ MZMC'de ergodik olduğunu düşündüğümüz Markov Zinciri'inden gelen ve krit
 
 ## Algoritma Kodlama
 
-Hedefimiz elimizdeki gözlemleri kullanarak $\mu$ ortalamasına ait sonsal dağılımını bulmak olsun. Bunu yaparken varsayalım ki hedef dağılımımız Normal dağılım ve standart sapması da $1$, bunları önceden biliyoruz bir şekilde.
-
-Önce modüllerimizi yükleyelim
-
-```python
-import numpy as np
-import pandas as pd
-import scipy as sp
-import matplotlib.pyplot as plt
-from scipy.stats import norm
-```
-
-Ortalaması $0$ olan ve Normal dağılımdan gelen $20$ adet gözlem üretelim. 
-
-```python
-np.random.seed(225)
-
-gozlem = np.random.randn(20)
-plt.hist(gozlem, bins='auto') 
-plt.xlabel('gozlem')
-plt.ylabel('gözlem sıklığı')
-plt.show()
-```
-
-Ürettiğimiz rassal sayıların histogramı aşağıdaki gibi olacaktır. 
-
-<p align="center">
-<img src="/images/mcmc_3.png" width="65%" height="65%">
-</p>
-
 Şimdi bir model tanımlamamız lazım. Basit olsun diye hedef dağılımın Normal dağılım (ör; olabilirlik dağılımı) olduğunu varsayalım. Normal dağılımın bildiğin üzere iki parametresi var. 
-Biri $\mu$ ortalama, diğeri $\sigma$ standart sapma. Yukarıda dediğim gibi kolaylık olsun diye $\sigma=1$ kabul edelim ve $\mu$'nün sonsal dağılımı hakkında çıkarımda bulunmaya çalışalım. 
-Çıkarım yapmaya çalıştığımız her parametre için bir de öncül dağılım varsaymamız lazım. Şimdilik kolaylık olsun diye bunu da Normal dağılım olarak varsayalım. Yani varsayımlarımız şu şekilde;
+Biri $\mu$ ortalama, diğeri $\sigma$ standart sapma. Kolaylık olsun diye $\sigma=1$ kabul edelim ve $\mu$'nün sonsal dağılımı hakkında çıkarımda bulunmaya çalışalım. Çıkarım yapmaya çalıştığımız her parametre için bir de öncül dağılım varsaymamız lazım. Şimdilik kolaylık olsun diye bunu da Normal dağılım olarak varsayalım. Yani varsayımlarımız şu şekilde;
 
 <div>
 $$
@@ -349,6 +318,30 @@ $$
 x|\mu \sim \text{Normal}(x; \mu, 1)
 $$
 </div>
+
+Ortalaması $0$ olan ve Normal dağılımdan gelen $20$ adet rassal gözlem üretelim. Bunların gerçek hayatta gözlemlediğimiz sistemden geldiğini düşünebilirsin. 
+
+```python
+import numpy as np
+import pandas as pd
+import scipy as sp
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+np.random.seed(225)
+
+gozlem = np.random.randn(20)
+plt.hist(gozlem, bins='auto') 
+plt.xlabel('gozlem')
+plt.ylabel('gözlem sıklığı')
+plt.show(
+```
+
+Ürettiğimiz rassal gözlemlerin histogramı aşağıdaki gibi olacaktır. 
+
+<p align="center">
+<img src="/images/mcmc_3.png" width="65%" height="65%">
+</p>
 
 Bu modelin güzel tarafı şu ki artık sonsal dağılımı analitik olarak da hesaplayabiliriz. Standart sapması bilinen Normal dağılımlı bir olabilirlik varsa, bu durumda Normal dağılımlı bir $\mu$ konjuge öncül olacaktır (yani öncül dağılımla sonsal dağılım aynı olacak). Sonsal dağılımın parametrelerini nasıl hesaplayabileceğimizi wikipedia veya başka yerden bulabiliriz. Matematiksel çıkarımını <a href="https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxiYXllc2VjdHxneDplNGY0MDljNDA5MGYxYTM">şurada</a> bulabilirsin.
 
