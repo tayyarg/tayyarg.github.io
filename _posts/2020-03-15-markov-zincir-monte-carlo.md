@@ -181,13 +181,17 @@ Kaan: Markov Zinciri'ndeki durumların arasındaki geçişleri tanımlayan olas�
 
 Bu basamak öneri dağılımından Markov zincirine uyarak üretilen örneklerin hangilerini kabul edip hangilerini reddedeceğimizi belirler. 
 
+Önce Markov zincirinden henüz çekilen (mevcut) örneğin sonsal dağılımdan gelme olasılığı ile önceki örneğin sonsal dağılımdan gelme olasılığının oranını buluruz;
+
 $$
-r=\frac{mevcut \space durumun \space sonsal \space dağılımdan \space gelen \space olasılığı}{önceki \space durumun \space sonsal \space dağılımdan \space gelen \space olasılığı} 
+r=min\{1,\frac{önerilen \space örneğin \space olabilirliği \times önerilen \space örneğin \space öncül \space olasılığı}{ önceki \space örneğin \space olabilirliği \times önceki \space örneğin \space öncül \space olasılığı}\}
 $$
 
 Bu oranı düzgün dağılımdan ($U[0,1]$) rasgele seçtiğimiz bir sayıyla karşılaştırarak Markov zincirinden gelen yeni örneği kabul edip etmeyeceğimize karar veririz.
 
-Eğer örnek kabul etme olasılığımızdan küçükse örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. 
+Sonuçta bu oran $1$ ya da $1$'den büyükse yeni gelen örneği hemen kabul ediyoruz. Önerilen yeni örneğin sonsal dağılıma ait olma olasılığı bariz yüksek demektir. Ancak bu oran $1$'den küçükse burada bir seçim şansımız var. 
+
+Eğer düzgün dağılımdan gelen sayı kabul etme olasılığımızdan ($r$ oranından) küçükse Markov zincirinden gelen örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. 
 
 Bunu şöyle bir analojiyle açıklamaya çalışabilirim. Ortaya bir problem atıyorum ve aslında bu problemin elimde bir çözümü var. Ortaya sorduğum soruya bir yerden bir cevap geliyor. Eğer bu cevaptaki çözüm elimdekinden daha iyiyse yeni cevabı halihazırda çözüm olarak kabul ediyorum, değilse reddediyorum ve eski çözümü tutuyorum; emin değilsem de kabul edip etmemek konusunda zar atıyorum! 
 
@@ -339,13 +343,13 @@ for i in range(N):
     p_guncel = olabilirlik_guncel * oncul_guncel
     p_oneri = olabilirlik_oneri * oncul_oneri
     
-    # öneriyi kabul et?
-    p_kabul = p_oneri / p_guncel
-    
-    # genelde burada öncül olasılıkta hesaba katılır ama basit olsun diye burada görmezden gelelim 
-    kabul = np.random.rand() < p_kabul
+    u = np.random.uniform()
 
-    if kabul:
+    # öneriyi kabul et?
+    r = p_oneri / p_guncel
+    
+    # kabul edip etmeyeceğimize bakalım
+    if u<r:
         # pozisyonu güncelle
         mu_guncel = mu_oneri
     
