@@ -12,7 +12,7 @@ Matematiksel ispatlara girmeden Markov Zinciri Monte Carlo (MZMC)'nun mantığı
 
 Kaan: Elbette. Herşeyden önce bu Monte Carlo fikri nereden ortaya çıktıdan başlayabiliriz. 
 
-## Problem: Sonsal dağılımı analitik yollarla hesaplayamıyorsak ne olacak?
+## Problem: Ya sonsal dağılımı analitik yollarla hesaplayamıyorsak?
 
 Kalman filtresi bahsinde sonsal dağılımı analitik olarak hesaplayabilmiştik. Ancak her zaman o kadar şanslı olmayabiliriz. Dinamik - zamanla değişen - ve doğrusal olmayan sistemlerde, hele de dağılım Gaussian da değilse sonsal dağılımı analitik olarak hesaplayamayabileceğimizden ve bu durumda Monte Carlo yöntemi gibi ileri teknikler kullanıldığından bahsetmiştim. Üzerine bir de modelimizde yüzlerce ve hatta binlerce parametre varsa, integral daha da içinden çıkılmaz hale geliyor.
 
