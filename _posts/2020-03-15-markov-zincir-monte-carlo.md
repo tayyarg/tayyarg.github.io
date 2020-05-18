@@ -402,8 +402,8 @@ Yani rasgele yönlere atlamayı öneriyoruz, önerilerden hangisinin olasılığ
 ```python
 N = 1000
 mu_guncel = 1.0
-mu_oncul_mu=0
-mu_oncul_ss=1.
+mu_oncul_mu=1.0
+mu_oncul_ss=1.0
 oneri_genislik=.5
 sonsal = [mu_guncel]
 for i in range(N):
