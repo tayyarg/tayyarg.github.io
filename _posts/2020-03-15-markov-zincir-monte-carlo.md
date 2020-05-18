@@ -211,10 +211,10 @@ $X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri
     \STATE $i=0$'dan $N-1$'e döngü başlat 
     \STATE $u$ örneğini çek, öyle ki $u$ $[0,1]$ aralığında düzgün dağılımdan gelsin, $u ~ \sim U[0,1]$
     \STATE öneri dağılımından $x_{}^{\star}$ örneğini çek, öyle ki $x^{\star}$  $x_{}^{\star} ~ \sim q(x_{}^{\star}, x_{}^{(i)})$
-    \STATE kabul olasılığı $r = A(x^{i}, x^{\star})=min\{1, \frac{Z \times P(x^{\star}) \times q(x^{i}|x^{\star})}{Z \times P(x^{i}) \times q(x^{\star}|x^{i})}\}$'yi hesapla
+    \STATE kabul olasılığı $r = min\{1, \frac{Z \times P(x^{\star}) \times q(x^{i}|x^{\star})}{Z \times P(x^{i}) \times q(x^{\star}|x^{i})}\}$'yi hesapla
     \STATE Eğer $u < r$ ise $x^{i+1} = x^{\star}$ değilse $x^{i+1} = x^{i}$
     \STATE $i=i+1$
-    \STATE $i <= N-1$ ise $3.$ adıma geri dön
+    \STATE $i <= N-1$ ise $3$. adıma geri dön
 \end{algorithmic}
 \end{algorithm}
 " %}
