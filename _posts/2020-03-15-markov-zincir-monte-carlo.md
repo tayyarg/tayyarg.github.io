@@ -189,7 +189,7 @@ $$
 
 Sonuçta bu oran $1$ ya da $1$'den büyükse önerilen örneği hemen kabul ediyoruz. Önerilen yeni örneğin sonsal dağılıma ait olma olasılığı bariz yüksek demektir. Ancak bu oran $1$'den küçükse burada bir seçim şansımız var. 
 
-Bu oranı düzgün dağılımdan ($U[0,1]$) rasgele seçtiğimiz bir sayıyla karşılaştırarak Markov zincirinden gelen yeni örneği kabul edip etmeyeceğimize karar veririz.
+Oran $1$'den küçükse, bu oranı düzgün dağılımdan, $U[0,1]$, rasgele seçtiğimiz bir sayıyla karşılaştırarak Markov zincirinden gelen yeni örneği kabul edip etmeyeceğimize karar veririz.
 
 Eğer düzgün dağılımdan gelen sayı kabul etme olasılığımızdan ($r$ oranından) küçükse Markov zincirinden gelen örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. 
 
