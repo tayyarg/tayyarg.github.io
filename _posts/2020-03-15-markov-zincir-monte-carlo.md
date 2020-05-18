@@ -44,11 +44,9 @@ Emre: Yaklaşık olarak bulmaya çalışabiliriz.
 
 Kaan: Makul. Bulmaya çalıştığımız sonsal dağılımdan örnekler çekebilseydik belki Monte Carlo simülasyonu ile yaklaşık bir sonuç bulabilirdik ama bu da bize yetmezdi çünkü bunu yapmak için bile Bayes formülünü çözmemiz bir de örnek çekebilmek için dağılımın tersini hesaplamamız gerekirdi ki bu daha da zor olacaktır. 
 
-İşte burada sahneye Markov Zinciri Monte Carlo algoritması çıkıyor ki, basitçe söylemek gerekirse Monte Carlo simülasyonunu yapabilmemiz için bize Markov zinciri kurduran bir algoritma. Bu zincirin muhteşem matematiksel özellikleri ve Metropolis-Hastings uyarlaması bizi bu integrali direk olarak hesaplamaktan kurtarıyor!
+İşte burada sahneye Markov Zinciri Monte Carlo algoritması çıkıyor ki, basitçe söylemek gerekirse MZMC yukarıda sözü geçen integrali hesaplamaya gerek kalmadan ve analitik olarak çözmeden sonsal dağılımdan örnekler çekmemizi sağlıyor. Böylece bu örnekler üzerinden sonsal dağılımın beklenen değerini hesaplayabiliriz!
 
-Emre: Markov Zinciri varyantını anlatmadan Monte Carlo yaklaşımından bahsedecek misin?
-
-Kaan: Elbette, Markov Zinciri Monte Carlo fikrine Monte Carlo yaklaşımının en basit varyantından başlayıp bir dizi fikirler silsilesi ile varılabiliyor. Ancak ben onları atlayıp direk MZMC'nin nasıl çalıştığını anlatmaya çalışacağım. Yine de önce en altta yatan Monte Carlo yaklaşımından bahsetmeden geçmeyelim. MC yaklaşımının en basit halini bilmek bizi sezgisel olarak MZMC'yi anlamaya biraz hazırlayabilir. 
+Elbette Markov Zinciri Monte Carlo fikrine Monte Carlo (MC) yaklaşımının en basit varyantından başlayıp bir dizi fikirler silsilesi ile varılabiliyor. Önce en altta yatan MC yaklaşımından bahsedeyim. MC yaklaşımının en basit halini bilmek bizi sezgisel olarak MZMC'yi anlamaya biraz hazırlayabilir. 
 
 ## Monte Carlo Yaklaşımı 
 
