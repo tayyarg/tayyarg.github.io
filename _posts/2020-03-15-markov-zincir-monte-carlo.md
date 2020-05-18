@@ -383,7 +383,7 @@ Bu algoritmayı çalıştırınca şöyle sonuçlar görmeye başlarsın.
 
 $75000$. ve $100000$. iterasyonda önerilen yerlerin nasıl reddedildiğine dikkat et. Gösterimsel olarak kalabalık olmasın diye her $25000$ adımda bir çizdiriyoruz ancak sen istersen her bir adımda kabul/reddin nasıl olduğunu incele. Sonuç olarak MZMC sonsal dağılımı buluyor ve en yüksek olasılığın $\mu = 0$ civarında olduğunu gösteriyor. 
 
-Simülasyonun sonunda hesapladığımız verimlilik önerilen örneklerin ne kadarının kabul edildiğini gösteriyor. Genelde %70'in üzerinde kabul edilmişse modelimiz doğru kurulmuş demektir. 
+Simülasyonun sonunda hesapladığımız verimlilik önerilen örneklerin ne kadarının kabul edildiğini gösteriyor. Genelde %70'in üzerinde kabul edilmişse modelimiz doğru kurulmuş demektir. Bu simülasyonda %72 civarında kabul oranı çıkıyor ki bu da doğru yolda olduğumuzu gösteriyor. 
 
 
 MZMC ile elde ettiğimiz sonsal dağılımı analitik dağılımla karşılaştıralım.
