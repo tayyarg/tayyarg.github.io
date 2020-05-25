@@ -277,7 +277,7 @@ $$
 E\{e^2[n]\}=E\{(d[n]-y[n])^2\}=E\{d^2[n]\}+w^TE\{x[n]x^T[n]\}w-2w^TE\{d[n]x[n]\}
 $$
 
-Bu ifadenin içinde gördüğün $E\{x[n]x^T[n]\}$ 'yi $N \times N$ 'lik ilinti matrisi ve $E\{d[n]x[n]\}$'de $N \times 1$'lik çapraz-ilinti fonksiyonu olarak tanımlarsak. 
+Bu ifadenin içinde gördüğün $E\{x[n]x^T[n]\}$ 'yi $N \times N$ 'lik ilinti matrisi $\textbf{R}$ ve $E\{d[n]x[n]\}$'de $N \times 1$'lik çapraz-ilinti fonksiyonu $\textbf{p}$ olarak tanımlarsak. 
 
 $$
 R = E\{x[n]x^T[n]\}\\
