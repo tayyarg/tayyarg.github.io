@@ -158,7 +158,7 @@ Not: Bu figür <a href="https://slideplayer.com/slide/2342847/">Ordinary Least-S
 
 O zaman geometrik olarak şunu söyleyebiliriz, çözüm ancak ve ancak $b$ vektörünün $A$'nın <a href="https://towardsdatascience.com/what-is-column-space-with-a-machine-learning-example-8f8a8d4ec6c">sütun uzayı</a> üzerindeki ortogonal projeksiyonuna eşittir. 
 
-En küçük kareler yaklaşık çözümü ararken $A$'nün sütun vektörleri arasında hata vektörümüzü minimum yapan seti bulmaya çalışıyoruz ki, $A\hat{x}$ noktası $C(A)$ sütun uzayındaki tüm noktalardan sütun uzayına daha yakındır.  
+En küçük kareler yaklaşık çözümü ararken $A$'nın sütun vektörleri arasında hata vektörümüzü minimum yapan seti bulmaya çalışıyoruz ki, $A\hat{x}$ noktası $C(A)$ sütun uzayındaki tüm noktalardan sütun uzayına daha yakındır.  
 O noktayı bulduğumuzda artık $\hat{x_1}$ ve $\hat{x_2}$ doğrusal denklem takımının çözümüdür. Umarım bu sana sezgisel bir anlayış sağlamıştır. 
 
 Geometrik diğer bir yorum da hata performans yüzeyinin şekliyle ilgilidir. $\hat{e}$'nin $n$ boyutlu $x$ vektörüne göre çizimi bize $n+1$ boyutlu bir hiper-parabol verir. $x$'in tek boyutlu olduğu durumda sadece bir elemanı vardır ve yüzey basit bir paraboldür. İki boyutlu durumda paraboloid olur bu yüzey ve bundan büyük boyutları çizmek mümkün değildir. Aslında bu parabolu <a href="https://tayyarg.github.io/dogrusal_regresyon_probleminin_bayesci_cikarimla_cozulmesi/">doğrusal regresyon</a>'da hata analizi kısmında konuşmuştuk hatırlarsan.
