@@ -225,7 +225,7 @@ $$
 
 Gördüğün üzere $e$ hata denkleminde $x$'in sıfır olduğu yerde parabol $e$ eksenini $R$'de kesiyor.
 
-$Ax=b$'nin başka olasılıkları da var. Eğer sistem eksik-belirtilmiş (denklem sayısından çok bilinmeyen sayısı varsa), o zaman tek bir çözümü yoktur. Tekil Değer Çözümlemesi (singular value decomposition) yöntemi kullanılarak yeterince iyi bir çözüm bulunabilir. 
+İşin ilginç yanı $Ax=b$'nin çözümüne dair başka olasılıklar da var. Eğer sistem eksik-belirtilmiş (denklem sayısından çok bilinmeyen sayısı varsa), o zaman tek bir çözümü yoktur. Tekil Değer Çözümlemesi (singular value decomposition) yöntemi kullanılarak yeterince iyi bir çözüm bulunabilir. 
 
 Eğer bilinmeyen sayısı denklem sayısına eşitse, o zaman işimiz daha da kolay. Çözüm direk;
 
