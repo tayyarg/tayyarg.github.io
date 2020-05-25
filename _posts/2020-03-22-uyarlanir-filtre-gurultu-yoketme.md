@@ -74,7 +74,7 @@ $x$ girişine ait ayrık örnekler birer birer kaydırılarak (figürde gösteri
 Yani aslında bu figürün gösterdiği işlemi yaparsak;
 
 $$
-y[n] = w_0x[n] + w_1x[n-1] + ... + w_Nx[n-N]
+y[n] = w_0x[n] + w_1x[n-1] + ... + w_{N-1}x[n-N]
 $$
 
 ifadesini elde ederiz.
