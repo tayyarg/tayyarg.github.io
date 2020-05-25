@@ -429,7 +429,6 @@ plt.ylabel('oto-korelasyon')
 plt.title('analitik sonsal dağılım')
 plt.show()
 ```
-
 <p align="center">
 <img src="/images/mcmc_7.png" width="65%" height="65%">
 </p>
