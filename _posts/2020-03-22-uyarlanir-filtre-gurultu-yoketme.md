@@ -57,7 +57,7 @@ $$
 
 Bu tür filtrelere <a href="https://en.wikipedia.org/wiki/Finite_impulse_response">Sonlu Dürtü Yanıtlı (SDY) - (finite impulse responda - FIR) filtreler</a> denilir. Bu konu kendi içinde derin bir konu. Ancak şu kadarını söylemem lazım ki, bu filtreleri cazip yapan iki şey var. Birincisi, her zaman doğrusal fazda olmaları. İkincisi de, kutupları olmadığı için her zaman kararlı olmaları. Neden bunların önemli olduğunu anlatabilmek için bu filtre tipinin $z$ ve Fourier dönüşümü özelliklerinden bahsetmem gerekir. Bu detaya burada girmeyeceğim, temel bir konu olduğu için başka kaynaklardan araştırmanı tavsiye ederim. Ancak yine de burada SDY filtreden uyarlanabilir filtreye nasıl gittiğimizi anlatmaya çalışacağım.
 
-Şimdi yukarıdaki işlemi bir <a href="https://en.wikipedia.org/wiki/Convolution">konvolusyon</a> operasyonu olarak düşünerek şu şekilde ifade edebileceğimizi söyleyeceğim ve sen de bu konu hakkında yazılı birçok kitaba güvenerek bana inanacaksın (nihayetinde her alt başlığın detayına girmek istemiyorum- ama bunun ne olduğunu bilmiyorsan diğer kaynaklara bakıp devam etmende fayda var):
+Şimdi yukarıdaki işlemi bir <a href="https://en.wikipedia.org/wiki/Convolution">konvolüsyon</a> operasyonu olarak düşünerek şu şekilde ifade edebileceğimizi söyleyeceğim ve sen de bu konu hakkında yazılı birçok kitaba güvenerek bana inanacaksın (nihayetinde her alt başlığın detayına girmek istemiyorum- ama bunun ne olduğunu bilmiyorsan diğer kaynaklara bakıp devam etmende fayda var):
 
 $$
 y[n] = x[n] \circledast w[n]
