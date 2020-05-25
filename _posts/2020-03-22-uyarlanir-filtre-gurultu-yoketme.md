@@ -414,9 +414,8 @@ y = np.copy(signal)
 x = np.true_divide(y, 256)
 
 # filtre katsayılarını oluşturalım
-len_x = len(x)
 ind = np.arange(0,2.0,0.2)
-p1 = np.array(np.zeros(45)).transpose()
+p1 = np.array(np.zeros(50)).transpose()
 p2 = np.array([np.exp(-(x**2)) for x in ind]).transpose()
 p = np.append(p1,p2)
 p_normalized = [x/np.sum(p) for x in p]
@@ -426,16 +425,16 @@ len_p = len(p_normalized)
 d = lfilter(p, [1.0], x)
 
 # uyarlanır filtre katsayılarını ilklendirelim
-len_w = len_p
-w = np.zeros(len_w)
+w_len = len_p
+w = np.zeros(w_len)
 
 # sinyal gücü ve iterasyon sayısına bakarak adım aralığını bulalım (1/(N*E[x^2])'nin iki katı makul)
 mu = 2/(N*np.var(x))
 
 error_array = []
 # uyarlanır filtre algoritmasını çalıştıralım
-for i in range(len_w, N):
-  x_ = x[i:i-len_w:-1]
+for i in range(w_len, N):
+  x_ = x[i:i-w_len:-1]
   e = d[i] + np.array(w.T).dot(x_)
   w = w - mu * 2 * x_ * e
   error_array.append(e) 
