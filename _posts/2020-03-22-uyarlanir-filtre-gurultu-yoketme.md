@@ -247,7 +247,7 @@ Umarım aradaki benzerliği kurabilmişsindir.
 
 Burada dikkatini mühendisliğin ilginç bir yönüne çekmek istiyorum. Bir probleme matematiksel olarak bambaşka açılardan bakabiliyoruz. Bazen çözüme ulaşmak için her bir açıyı denememiz gerekebilir. Örneğin FIR filtresini bir fark denklemi olarak yazdık, sonra bir konvolüsyon işlemi olarak gördük, $z$ domeninde modelledik ve şimdi de aynı denklemi lineer cebirsel olarak doğrusal denklem sistemi olarak yazıyoruz.
 
-# Wiener-hopf Çözümü
+# Wiener-hopf Çözümü ve Bilinmeyen Sistem Modelleme
 
 Artık En-küçük Kareler tekniğinin doğrusal bir denklem takımını nasıl çözdüğünü biliyoruz. Bundan faydalanarak uyarlanır filtremizi tasarlayabiliriz. 
 
