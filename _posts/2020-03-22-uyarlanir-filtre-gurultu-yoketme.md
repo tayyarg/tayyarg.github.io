@@ -107,7 +107,7 @@ artık $w$ katsayıları değişebiliyor. Ama neye göre değiştireceğiz? Bili
 
 Matematiksel bakış açısından şunu söyleyebiliriz, uyarlama algoritması hatayı sıfıra indirmeyi başarırsa (sıfıra tam inmeyecektir ama yeterince yaklaşabilir) uyarlanabilir filtrenin transfer fonksiyonu modellemeye çalıştığımız bilinmeyen sistemin transfer fonksiyonuna eşit olacaktır. O noktadan itibaren uyarlanır filtrenin katsayıları artık güncellenmez. Ancak bilinmeyen sistem zamanla değişebilir. Bu durumda da uyarlanır filtre yine kendini güncelleyecektir.
 
-İşte aktif gürültü yoketme işinde yukarıda bahsettiğimiz bilinmeyen sistemleri böyle modelleyeceğiz. Bu fikri görüntü işleme de bulanık belirleme, haberleşmede kanal kestirimi, kontrol sistemlerinde sistem belirleme, ters-sistem belirleme, gürültü giderme ya da tahmin işlerinde sıkça kullanılırken bulabilirsin. 
+İşte aktif gürültü yoketme işinde yukarıda bahsettiğimiz bilinmeyen sistemleri böyle modelleyeceğiz. Bu fikri görüntü işlemede bulanık belirleme, haberleşmede kanal kestirimi, kontrol sistemlerinde sistem belirleme, ters-sistem belirleme, gürültü giderme ya da tahmin işlerinde sıkça kullanılırken bulabilirsin. 
 
 Peki öyleyse hatayı sıfıra indiren algoritma nasıl olabilir?
 
