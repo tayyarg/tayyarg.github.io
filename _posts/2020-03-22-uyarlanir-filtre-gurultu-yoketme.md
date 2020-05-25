@@ -138,7 +138,7 @@ b_1\\b_2\\ \vdots\\b_m
 $$
 </div>
 
-Bu probleme geometrik açıdan bakmak da mümkün. Bu lineer cebirin derin konularından biridir. Basitçe şunu söyleyebilirim ki, bulmaya çalıştığımız çözüm aslında aşağıdaki 
+Basitçe şunu söyleyebilirim ki, bulmaya çalıştığımız çözüm aslında aşağıdaki 
 <div>
 $$
 e = \|A\hat{x}-b\|^2
