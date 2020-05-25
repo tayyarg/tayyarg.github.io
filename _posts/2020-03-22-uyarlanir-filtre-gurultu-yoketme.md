@@ -97,7 +97,7 @@ Bunun için önce elimizdeki filtrenin katsayılarını değişebilir olarak hay
 <img src="/images/anc_5.png" width="45%" height="45%">
 </p>
 
-artık $w$ katsayıları değişebiliyor. Ama neye göre değiştireceğiz? Bilinmeyen bir sistemi modellemek için bu katsayıların ne olması lazım?
+artık $w$ katsayıları değişebiliyor. Ama neye göre değiştireceğiz? Bilinmeyen bir sistemi modellediğimizde bu katsayıların ne olması lazım?
 
 İşte bunun için bir algoritmaya ihtiyacımız var. Birazdan geliştireceğimiz algoritmayı kullanarak bilinmeyen sistemle elimizdeki filtreyi birbirine benzetmeye çalışacağız. Aradaki farkı sıfırlayınca ya da sıfıra çok yakın bir hale getirdiğimizde elimizdeki filtrenin artık bilinmeyen sistem gibi davrandığını düşünebiliriz. Yani sistemin çalışan bir modeli olacak elimizde. Bu fikri de görselleştirelim:
 
