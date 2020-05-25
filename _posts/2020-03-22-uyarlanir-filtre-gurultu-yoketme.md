@@ -287,7 +287,7 @@ $$
 O zaman ortalama karesel hatayı şöyle ifade edebiliriz:
 
 $$
-\zeta = E\{d[n]^2\} +\textbf{w}^T\textbf{R}\textbf{w}-w\textbf{w}^T\textbf{p}
+\zeta = E\{d[n]^2\} +\textbf{w}^T\textbf{R}\textbf{w}-\textbf{w}\textbf{w}^T\textbf{p}
 $$
 
 İşin güzel yanı şu ki, yukarıdaki denklem $\textbf{w}$'ya göre kuadratiktik yani sadece bir tane minimum noktası vardır. 
