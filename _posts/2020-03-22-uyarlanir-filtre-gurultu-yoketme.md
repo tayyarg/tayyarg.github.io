@@ -261,7 +261,7 @@ demiştik.
 
 Bu kez de yapmak istediğimiz şey bu hatayı minimize eden katsayıları bulmak. 
 
-Bunu yapabilmek için $x[n]$ ve $d[n]$ sinyallerini istatistiksel olarak biraz inceleyip üzerinde düşünmemiz lazım. Eğer $x[n]$ ve $d[n]$ <a href="https://en.wikipedia.org/wiki/Stationary_process">geniş-anlamda durağan</a> süreçlerse ve birbirleriyle ilintili (correlated) ise hata sinyalinin karelerinin ortalamasını minimize edebilir ki, bu çözüme Wiener-hopf çözümü denir. Hatırlatayım, bir rasgele sürecin istatistikleri yani ortalaması ve öz-ilinti fonksiyonu zamanla değişmiyorsa bu süreç geniş-anlamda durağan bir süreçtir. 
+Bunu yapabilmek için $x[n]$ ve $d[n]$ sinyallerini istatistiksel olarak biraz inceleyip üzerinde düşünmemiz lazım. Eğer $x[n]$ ve $d[n]$ <a href="https://en.wikipedia.org/wiki/Stationary_process">geniş-anlamda durağan</a> süreçlerse ve birbirleriyle ilintili (correlated) ise hata sinyalinin karelerinin ortalamasını minimize edebiliriz ki, bu çözüme Wiener-hopf çözümü denir. Hatırlatayım, bir rasgele sürecin istatistikleri yani ortalaması ve öz-ilinti fonksiyonu zamanla değişmiyorsa bu süreç geniş-anlamda durağan bir süreçtir. 
 
 Filtrenin çıkışının konvolüsyon sonucunun;
 
