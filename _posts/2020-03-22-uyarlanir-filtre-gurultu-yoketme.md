@@ -115,7 +115,7 @@ Peki öyleyse hatayı sıfıra indiren algoritma nasıl olabilir?
 
 Uyarlanır filtrelerin tasarımı temel olarak En-Küçük Kareler tekniğine dayanır. 
 
-Bu teknik $Ax=b$ şeklinde ifade edilen artık-belirtilmiş (over determined) doğrusal bir denklem setini çözmek için kullanılır. Bunun sebebi batittir; çünkü tüm doğrusal sistemler $Ax=b$ şeklinde ifade edilebilir. Burada $A$ bir matris, $b$ ve $x$ birer sütun vektörüdür. Amacımız elimizde $A$ ve $b$ varken $x$'i elde etmektir. 
+Bu teknik $Ax=b$ şeklinde ifade edilen artık-belirtilmiş (over determined) doğrusal bir denklem setini çözmek için kullanılır. Bunun sebebi basittir; çünkü tüm doğrusal sistemler $Ax=b$ şeklinde ifade edilebilir. Burada $A$ bir matris, $b$ ve $x$ birer sütun vektörüdür. Amacımız elimizde $A$ ve $b$ varken $x$'i elde etmektir. 
 
 $A$ matrisimizin boyutu $m \times n$'dir. $m>n$ olduğu durumlarda elimizde bilinmeyen sayısından çok denklem var demektir ki bu da aslında bu doğrusal denklem setini en küçük hata ile sağlayan tek bir $x$ çözümü var demektir.
 
