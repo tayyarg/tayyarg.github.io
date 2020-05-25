@@ -404,7 +404,7 @@ from scipy.io import wavfile
 import matplotlib.pyplot as plt
 
 # iterasyon sayisi
-N=16000
+N=10000
 
 # Jet içi gürültü kaydını yükleyelim
 fs, signal = wavfile.read('insidejet.wav')
