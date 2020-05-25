@@ -66,3 +66,7 @@ TI benim yakından bildiğim ve ürünleriyle yıllarca geliştirme yaptığım 
 Öyleyse özetle makine öğrenmesi, yapay zeka, derin öğrenme ve veri bilimi gibi disiplinlerin sinyal işlemecileri tehdit ettiğini söyleyebiliriz. Bu durumda sinyal işlemeyle uğraşanların bu disiplinlere kayıtsız kalmasını beklemek de güçtür. Neyse ki istatistiksel sinyal işleme konuları makine öğrenmesi konuları ile ciddi manada örtüşür. Bu nedenle gelecekte her ikisini bilen araştırmacılar sadece bir alanda kalanlara göre daha avantajlı bile olabilir. Diğer yandan da artık sadece kendi başına çalışan gömülü sistemler değil bulut ve sunucu tabanlı teknolojiler de DSP mühendislerinin çalışması gereken alanlar arasına girmiş gibi görünüyor. Bu teknolojilere de kayıtsız kalmamaları gerekir. 
 
 Umarım sorunu cevaplayabilmişimdir. 
+
+<p align="center">
+<img src="https://hitcounter.pythonanywhere.com/count/tag.svg" alt="Hits">
+</p> 
