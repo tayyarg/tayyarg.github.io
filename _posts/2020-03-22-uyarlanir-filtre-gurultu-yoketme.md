@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Sayısal Sinyal İşleme 2 - Uyarlanır (Adaptif) Filtreler ve Aktif Gürültü Yoketme
+title: Sayısal Sinyal İşleme 2 - Uyarlanır Filtreler ve Aktif Gürültü Yoketme
 tags: [adaptif filtre, uyarlanır filtre, dsp, sinyal işleme, lms, rls]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 ---
 
-Emre: Aktif gürültü yoketme nasıl çalışıyor?!  
+Emre: Apple Airpods'lar aktif gürültüyü nasıl yokediyor?
 
 Kaan: Sinyal işlemenin en zevkli konularından biridir. Gel birlikte bakalım nasıl oluyormuş.
 
