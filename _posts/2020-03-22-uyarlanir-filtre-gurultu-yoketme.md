@@ -336,7 +336,7 @@ $$
 \textbf{w}[n+1] = \textbf{w}[n]+\mu(-\nabla_n)
 $$
 
-Burada $\mu$'yü ilk kez gördün. Sen sormadan ben söyleyeyim $\mu$ bizim gradyan hesapladıkça ilerlemeyi kabul ettiğimiz adım aralığı. Bu adım aralığı uyarlamanın hızını ve yakınsaklık anındaki hatanın teorik olana (MMSE) yakınlığını belirliyor. $\mu$'yü küçük seçerek küçük sıçramalarla optimum noktaya ilerlenebilir ve bu yavaş olacaktır ama yine de optimum nokta civarında küçük adımlarla dolaşınca teoriye en yakın noktadan algoritma sonlandırılarak başarılı bir kestirim yapılabilir. Adım aralığı büyük tutulunca hızlıca yakınsama sağlanabilir ancak bu kez de optimum noktaya yakın yerlerde büyük sıçramalar yapacağımızdan optimum noktaya yaklaşmak zor olacaktır. 
+Burada $\mu$'yü ilk kez gördün. Sen sormadan ben söyleyeyim $\mu$ bizim gradyan hesapladıkça ilerlemeyi kabul ettiğimiz adım aralığı. Bu adım aralığı uyarlamanın hızını ve yakınsaklık anındaki hatanın teorik olana (MMSE) yakınlığını belirliyor. $\mu$'yü küçük seçerek küçük sıçramalarla optimum noktaya ilerlenebilir. Adım büyüklüğü küçük olduğundan yakınsama yavaş olacaktır ama yine de optimum nokta civarında küçük adımlarla dolaşınca teoriye en yakın noktada algoritma sonlandırılarak başarılı bir kestirim yapılabilir. Adım aralığı büyük tutulunca hızlıca yakınsama sağlanabilir ancak bu kez de optimum noktaya yakın yerlerde büyük sıçramalar yapacağımızdan optimum noktaya yaklaşmak zor olacaktır. 
 
 Herneyse, burada bir sorun gözüne çarpmadı mı?
 
