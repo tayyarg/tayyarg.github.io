@@ -456,6 +456,10 @@ Bu algoritmayı çalıştırınca ortaya çıkacak hata eğrisi aşağıdaki gib
 Simülasyonları olduğu şekilde bir Sayısal Sinyal İşleyici (digital signal processor- DSP) üzerinde gerçeklersen göreceksin ki teorik haliyle çalışmayacak. Bunun iki sebebi var. Birincisi, hoparlörden çıkan anti-gürültü akustik olarak referans mikrofonuna ulaşıp referans olarak ölçtüğümüz sinyali bozabilir.  
 İkinci olarak da, uyarlanır filtrenin çıkışındaki elektriksel sinyal hoparlörden çıkana kadar ve hata sinyali de mikrofondan elektriksel olarak okunup işlemciye ulaşana kadar iki farklı sistemden geçer. Bu problemlerin de hesaba katılması lazım.  
 
+Gerçek hayatta Filtered-x Least Mean Square (Fx-LMS) ya da RLS (Recursive Least Squares) algoritmaları kullanılmaktadır. Bu algoritmalar hem daha hızlı yakınsayan hem de daha az işlem gücüne ihtiyaç duyan algoritmalar. İleri seviyede bu işle uğraşmak istiyorsan bu kadar sezgisel ve teorik bilgiden sonra bu algoritmalara da bakabilirsin.
+
+Bir de gerçek dünya problemlerinde genellikle birden fazla referans mikrofonu ve birden fazla hoparlörlü (çok kanallı) aktif gürültü yoketme sistemleri geliştiriliyor. Çok kanallı AGY'nin matematiği de şimdiye kadar baktıklarımızdan çok farklı değil. Temel olarak bu bahsi anladıysan, çok kanallı çözümü anlatan literatürü de kolayca anlayabilirsin.
+
 ## Referanslar
 1. <a href="https://www.amazon.com/Adaptive-Filter-Theory-4th-fourth/dp/B0085AY57Q">Adaptive Filter Theory</a>, Simon Haykin
 2. İşaret İşlemede İleri Konular, Ders Notları, Fatih Kara
