@@ -12,7 +12,7 @@ Kaan: Sinyal işlemenin en zevkli konularından biridir. Gel birlikte bakalım n
 
 ## Problem - Aktif Gürültü Yoketme
 
-İstenmeyen bir gürültünün belirli bir bölgede akustik olarak bastırılmasına Aktif Gürültü Kontrolü deniliyor. Bunu başarmak için genellikle bir ya da birden fazla hoparlörden gürültüyle aynı genlikte fakat ters fazda bir sinyal (anti-gürültü) basılır. Gürültü ve anti-gürültü havada adeta bir toplama işleminden geçerek birbirini yok ederek. Bunun sebebi aynı genlikte fakat ters fazda iki dalganın aynı yönde hareket etmesi durumunda fiziksel olarak birbirini söndürmesidir. Bunu temsili olarak şöyle gösterebiliriz.
+İstenmeyen bir gürültünün belirli bir bölgede akustik olarak bastırılmasına Aktif Gürültü Kontrolü deniliyor. Bunu başarmak için genellikle bir ya da birden fazla hoparlörden gürültüyle aynı genlikte fakat ters fazda bir sinyal (anti-gürültü) basılır. Gürültü ve anti-gürültü havada adeta bir toplama işleminden geçerek birbirini yok eder. Bunun sebebi aynı genlikte fakat ters fazda iki dalganın aynı yönde hareket etmesi durumunda fiziksel olarak birbirini söndürmesidir. Bunu temsili olarak şöyle gösterebiliriz.
 
 <p align="center">
 <img src="/images/anc_1.png" width="65%" height="65%">
