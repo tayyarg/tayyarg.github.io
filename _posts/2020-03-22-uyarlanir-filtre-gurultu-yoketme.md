@@ -430,14 +430,14 @@ len_w = len_p
 w = np.zeros(len_w)
 
 # sinyal gücü ve iterasyon sayısına bakarak adım aralığını bulalım (1/(N*E[x^2])'nin iki katı makul)
-stepsize = 2/(N*np.var(x))
+mu = 2/(N*np.var(x))
 
 error_array = []
 # uyarlanır filtre algoritmasını çalıştıralım
 for i in range(len_w, N):
   x_ = x[i:i-len_w:-1]
   e = d[i] + np.array(w.T).dot(x_)
-  w = w - stepsize * 2 * x_ * e
+  w = w - mu * 2 * x_ * e
   error_array.append(e) 
 
 plt.plot(error_array)
