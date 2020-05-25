@@ -403,6 +403,9 @@ from scipy.signal import lfilter
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
 
+# iterasyon sayisi
+N=16000
+
 # Jet içi gürültü kaydını yükleyelim
 fs, signal = wavfile.read('insidejet.wav')
 y = np.copy(signal)
@@ -425,11 +428,13 @@ d = lfilter(p, [1.0], x)
 # uyarlanır filtre katsayılarını ilklendirelim
 len_w = len_p
 w = np.zeros(len_w)
-stepsize = 0.005
+
+# sinyal gücü ve iterasyon sayısına bakarak adım aralığını bulalım (1/(N*E[x^2])'nin iki katı makul)
+stepsize = 2/(N*np.var(x))
 
 error_array = []
 # uyarlanır filtre algoritmasını çalıştıralım
-for i in range(len_w, 16000):
+for i in range(len_w, N):
   x_ = x[i:i-len_w:-1]
   e = d[i] + np.array(w.T).dot(x_)
   w = w - stepsize * 2 * x_ * e
