@@ -459,6 +459,12 @@ Bu algoritmayı çalıştırınca ortaya çıkacak hata eğrisi aşağıdaki gib
 <img src="/images/anc_11.png" width="25%" height="25%">
 </p>
 
+Tasarladığımız birincil yok (primary path) filtre katsayıları da şöyle olacaktır:
+
+<p align="center">
+<img src="/images/anc_12.png" width="25%" height="25%">
+</p>
+
 ## Gerçek Hayat 
 
 Simülasyonları olduğu şekilde bir Sayısal Sinyal İşleyici (digital signal processor- DSP) üzerinde gerçeklersen göreceksin ki teorik haliyle çalışmayacak. Bunun iki sebebi var. Birincisi, hoparlörden çıkan anti-gürültü akustik olarak referans mikrofonuna ulaşıp referans olarak ölçtüğümüz sinyali bozabilir.  
