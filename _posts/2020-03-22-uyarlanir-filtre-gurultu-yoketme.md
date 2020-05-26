@@ -468,6 +468,7 @@ Tasarladığımız birincil yok (primary path) filtre katsayıları da şöyle o
 ## Gerçek Hayat 
 
 Simülasyonları olduğu şekilde bir Sayısal Sinyal İşleyici (digital signal processor- DSP) üzerinde gerçeklersen göreceksin ki teorik haliyle çalışmayacak. Bunun iki sebebi var. Birincisi, hoparlörden çıkan anti-gürültü akustik olarak referans mikrofonuna ulaşıp referans olarak ölçtüğümüz sinyali bozabilir.  
+
 İkinci olarak da, uyarlanır filtrenin çıkışındaki elektriksel sinyal hoparlörden çıkana kadar ve hata sinyali de mikrofondan elektriksel olarak okunup işlemciye ulaşana kadar iki farklı sistemden geçer. Bu problemlerin de hesaba katılması lazım.  
 
 Gerçek hayatta Filtered-x Least Mean Square (Fx-LMS) ya da RLS (Recursive Least Squares) algoritmaları kullanılmaktadır. Bu algoritmalar hem daha hızlı yakınsayan hem de daha az işlem gücüne ihtiyaç duyan algoritmalar. İleri seviyede bu işle uğraşmak istiyorsan bu kadar sezgisel ve teorik bilgiden sonra bu algoritmalara da bakabilirsin.
