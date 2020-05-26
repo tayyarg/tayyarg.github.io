@@ -421,13 +421,13 @@ p1 = np.array(np.zeros(50)).transpose()
 p2 = np.array([np.exp(-(x**2)) for x in ind]).transpose()
 p = np.append(p1,p2)
 p_normalized = [x/np.sum(p) for x in p]
-len_p = len(p_normalized)
+p_len = len(p_normalized)
 
 # x giriş sinyali üzerinde FIR filtreleme yapalım
 d = lfilter(p, [1.0], x)
 
 # uyarlanır filtre katsayılarını ilklendirelim
-w_len = len_p
+w_len = p_len
 w = np.zeros(w_len)
 
 # sinyal gücü ve iterasyon sayısına bakarak adım aralığını bulalım (1/(N*E[x^2])'nin iki katı makul)
@@ -441,11 +441,17 @@ for i in range(w_len, N):
   w = w - mu * 2 * x_ * e
   error_array.append(e) 
 
-plt.plot(error_array)
-plt.title("Jet içi gürültüsü - Uyarlanır Filtre hata eğrisi")
-plt.ylabel("e")
-plt.xlabel("iterasyon")
-plt.show
+f1 = plt.figure()
+f2 = plt.figure()
+
+ax1 = f1.add_subplot(111)
+ax1.plot(p)
+ax1.set_title('Birincil yol (primary path) filtre katsayıları')
+ax2 = f2.add_subplot(111)
+ax2.plot(error_array)
+ax2.set_title('Jet içi gürültüsü - Uyarlanır Filtre hata eğrisi')
+ax2.set(xlabel='iterasyon', ylabel='e')
+plt.show()
 ```
 Bu algoritmayı çalıştırınca ortaya çıkacak hata eğrisi aşağıdaki gibi olacak:
 
