@@ -211,7 +211,7 @@ $X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri
     \STATE öneri dağılımından $x_{}^{\star}$ örneğini çek, öyle ki $x^{\star}$  $x_{}^{\star} ~ \sim q(x_{}^{\star}, x_{}^{(i)})$
     \STATE kabul olasılığı $r = min\{1, \frac{Z \times P(x^{\star}) \times q(x^{i}|x^{\star})}{Z \times P(x^{i}) \times q(x^{\star}|x^{i})}\}$'yi hesapla
     \STATE Eğer $u < r$ ise $x^{i+1} = x^{\star}$ değilse $x^{i+1} = x^{i}$
-    \STATE $i=i+1$, eüer $i <= N-1$ ise $3$. adıma geri dön, değilse bitir
+    \STATE $i=i+1$, eğer $i <= N-1$ ise $3$. adıma geri dön, değilse bitir
 \end{algorithmic}
 \end{algorithm}
 " %}
@@ -222,7 +222,7 @@ $X$'in durum (durum-uzay modelindeki "durum") vektörümüz ve $q$'nun da öneri
 4. adımda elimizdeki $x^{i}$ örneğini $q$ öneri dağılımından geçiriyoruz. Yani ortalaması $x^{i}$ olacak şekilde $q$'dan bir örnek çekiyoruz. Bunu şöyle de ifade edebiliriz; $x^{\star} = X^{(i)} + \mathcal{N}(0, \sigma^2)$. (Yeni örneğimiz bir öncekinin yakınında bir yerde çıkacak.)
 5. adımda yeni parametrenin sonsal dağılımı ile bir önceki parametrenin sonsal dağılımlarının oranını hesaplıyoruz. Bu oran bizim "kabul etme olasılığımızı" belirliyor. Ancak  dikkat edersen $Z$'leri bilerek sadeleştirmeden yazdım. Aslında bu basamakta $Z$'ler sadeleşiyor, bu nedenle artık o malum integrali hesaplamamıza gerek kalmıyor! 
 6. adımda düzgün dağılımdan çektiğimiz örnekle bu oranı karşılaştırıyoruz. Eğer düzgün dağılımdan gelen sayı kabul etme olasılığımızdan ($r$ oranından) küçükse Markov zincirinden gelen örneği *yeni örnek* $x^{\star}$ olarak kabul ediyoruz, değilse de yeni örneğimiz bir öncekiyle aynı oluyor. 
-7. ve 8. adımda döngünün sonuna gelip gelmediğimize bakıyoruz, gelmediysek 3. adıma geri dönüyoruz
+7. adımda döngünün sonuna gelip gelmediğimize bakıyoruz, gelmediysek sayacı artırıp 3. adıma geri dönüyoruz
 
 
 Algoritmanın akışını şu şekilde görselleştirebiliriz:
