@@ -59,7 +59,7 @@ Bunu biraz görselleştirecek olursak.
 <img src="/images/kalman_fig0.png" width="65%" height="65%">
 </p>
 
-Dikkat et burada "gerçek" konumun ve hızın ne olduğunu bilmiyoruz. Bu nedenle $x_{t-1}$ *durumuna* ait konumu bile bir olasılık dağılımıyla (öncül dağılım) gösteriyoruz ve en yüksek olasılıkla aracın bu dağılımın beklenen değerinde ($\mu$) olduğunu düşünüyoruz. Figürde gösterdiğim $U$ bilgisi otopilotun bilgisi dahilinde motora giden hızlan/yavaşla komutlarını temsil eden kontrol değişken vektörü, kırmızı dağılım *durum* tahmin denklemleriyle elde ettiğimiz beklenen değeri $x_t$ olan tahmin dağılımı ve mavi dağılımda *ölçüm* (gözlem) tahmin denklemleriyle elde ettiğimiz beklenen değeri $z_t$ olan tahmin dağılımı olsun. Kalman filtresi, durum tahmin olasılık dağılımı ile ve ölçüm tahmin olasılık dağılımını çarparak yeni bir dağılım buluyor.  Bu dağılımın beklenen değeri $x_{est}$ aracın durumu ile ilgili yeni kestirimimiz oluyor ki bu kestirim aslında gerçekte yeni *durumunun* (konum + hız) ne olduğunu her iki tahminden de daha iyidir (yani varyansı durum tahmin dağılımı ve ölçüm tahmin dağılımın varyanslarından küçüktür ve beklenen değeri de optimal kestirimdir). 
+Dikkat et burada "gerçek" konumun ve hızın ne olduğunu bilmiyoruz. Bu nedenle $x_{t-1}$ *durumuna* ait konumu bile bir olasılık dağılımıyla (öncül dağılım) gösteriyoruz ve en yüksek olasılıkla aracın bu dağılımın beklenen değerinde ($\mu$) olduğunu düşünüyoruz. Figürde gösterdiğim $U$ bilgisi otopilotun bilgisi dahilinde motora giden hızlan/yavaşla komutlarını temsil eden kontrol değişken vektörü, kırmızı dağılım *durum* tahmin denklemleriyle elde ettiğimiz beklenen değeri $x_t$ olan tahmin dağılımı ve mavi dağılımda *ölçüm* (gözlem) tahmin denklemleriyle elde ettiğimiz beklenen değeri $z_t$ olan tahmin dağılımı olsun. Kalman filtresi, durum tahmin olasılık dağılımı ile ve ölçüm tahmin olasılık dağılımını çarparak yeni bir dağılım buluyor.  Bu dağılımın beklenen değeri $x_{est}$ aracın durumu ile ilgili yeni kestirimimiz oluyor ki bu kestirim aslında gerçekte yeni *durumunun* (konum + hız) ne olduğunu her iki tahminden de daha iyi bulur (yani varyansı durum tahmin dağılımı ve ölçüm tahmin dağılımın varyanslarından küçüktür ve beklenen değeri de optimal kestirimdir). 
 
 Şimdi işin matematiğine biraz daha girelim. *Durum* vektörü tahmin denklemini şöyle kurabiliriz:
 
@@ -84,13 +84,13 @@ Kaan: Bunu görsel olarak göstersem daha iyi olur.
 <img src="/images/kalman_fig04.png" width="50%" height="50%">
 </p>
 
-Çarpılan matris orijinal dağılımdaki her noktayı alır ve yeni bir yere taşır, ki bu yeni yerler modelimiz doğruysa sistemin bir sonraki zaman adımında bulunacağı stokastik koşulları temsil eder. *Durum* derken burada sistemin fiziksel konumu ve fiziksel hızını kastediyoruz tabi çünkü *durum* vektörümün bu iki parametreyi temsil ediyor. $A$ matrisi ile çarpımdan sonra varyans ve kovaryanslara aslında neler olduğundan birazdan bahsedeceğim. Ama şimdilik bu çarpımın yeni *durum* vektörünün kovaryans matrisini değiştirdiğini görmeni istedim.
+Çarpılan matris orijinal dağılımdaki her noktayı alır ve yeni bir yere taşır, ki bu yeni yerler modelimiz doğruysa sistemin bir sonraki zaman adımında bulunacağı stokastik koşulları temsil eder. *Durum* derken burada sistemin fiziksel konumu ve fiziksel hızını kastediyoruz tabi çünkü *durum* vektörümüz bu iki parametreyi temsil ediyor. $A$ matrisi ile çarpımdan sonra varyans ve kovaryanslara aslında neler olduğundan birazdan bahsedeceğim. Ama şimdilik bu çarpımın yeni *durum* vektörünün kovaryans matrisini değiştirdiğini görmeni istedim.
 
 Burada bir noktaya daha dikkat, dışarıdan herhangi bir şekilde kontrol edilmeyen sistemlerde kontrol vektörü ($\vec{u}$) ve kontrol matrisi $B$ gözardı edilir. 
 
 Tahmini *durum* kestirimi aynı zamanda *öncül kestirim* diye de isimlendirilir çünkü ölçüm alınmadan önce hesaplanır.
 
-Aynı şekilde ölçüm tahmin denklemini de yazabiliriz.
+Bir de ölçüm tahmin denklemine bakalım: 
 
 <div>
 $$
@@ -118,7 +118,7 @@ $$
 $$
 </div>
 
-Evet, işin sırrı bu ifadede. Bu ifadeye *sonsal kestirim* denilir ve $K$ literatürde Kalman kazancı olarak geçen terimdir. Parantez içinde kalan $z_t - \hat{z}_t$ ise düzeltme terimi diye geçer. Peki tüm bunlar bu ne demek?
+Evet, işin sırrı bu ifadede. Bu ifadeye *sonsal kestirim* denilir ve $K$ literatürde Kalman kazancı olarak geçen terimdir. Parantez içinde kalan $z_t - \hat{z}_t$ ise düzeltme terimi diye geçer. Peki tüm bunlar ne demek?
 
 Bu denklem bize şunu söylüyor. Elimizde bir yeni *durum* vektörü tahmini $\hat{x}_t$ ve bir de sensörün göstereceği yeni konum tahmini (ölçüm tahmini) $\hat{z}_t$ var. 
 Ölçüm tahminimiz ölçümden gelen gözlemle aynıysa o zaman parantez içindeki ifade sıfır olacaktır. Yani *durum* vektörü tahminimize güvenebiliriz. Farkın sıfırdan büyük olduğu zamanlardaysa, *durum* vektörü tahminimizin gözlemden gelen bir düzeltmeye ihtiyacı var demektir. Gözlemle gözleme ait ölçüm tahminimiz arasındaki fark bu düzeltmenin bir ölçüsü olacak. İşte bu farkın ne kadarını hesaba katacağımıza $K$ kalman kazancı karar verir. Kalman kazancı ortaya yeni çıkan bilginin bir ölçüsüdür. Eğer bu farkın ifade ettiği bilgi çoksa o zaman kazanç yüksek olacaktır. Yani ağırlığı artacaktır, aksi durumda küçük olacaktır. 
@@ -219,7 +219,7 @@ $$
 
 ## Kalman Filtre Algoritması
 
-Kalman filtresi özyinelemeli olarak iki adımı tekrar eder; *tahmin* ve ölçümden gelen bilgiyle *güncelleme*. Elimizdeki bilgilerle bir tahmin yapılır ve ardından ölçmeden gelen bilgiyle bir düzeltme güncellemesi. Ardından ortaya çıkan sonsal dağılım bir sonraki adımda öncül dağılım olara kullanılır. Böylece öncül inançlarımız da güncellenmiş olur. 
+Kalman filtresi özyinelemeli olarak iki adımı tekrar eder; *tahmin* ve ölçümden gelen bilgiyle *güncelleme*. Elimizdeki bilgilerle bir tahmin yapılır ve ardından ölçmeden gelen bilgiyle bir düzeltme güncellemesi. Ardından ortaya çıkan sonsal dağılım bir sonraki adımda öncül dağılım olarak kullanılır. Böylece öncül inançlarımız da güncellenmiş olur. 
 
 Buraya Bayesçi felsefeyle ilgili küçük bir not düşeyim; demek ki ön yargılı olmak değil, yeni bilgi geldiğinde bu yargıyı değiştirebilmek büyük kazanç sağlıyormuş!
 
@@ -244,7 +244,7 @@ $$
 $$
 </div>
 
-*Durum* vektöründe birden fazla rassal değişken olduğu için $E_x$ aslında kovaryans ve ölçüm vektöründe bir rassal değişken olduğu için $E_z$'de gerçekten varyans olacaktır.
+*Durum* vektöründe birden fazla rassal değişken olduğu için $E_x$ aslında kovaryans, diğer yandan, ölçüm vektöründe sadece bir rassal değişken olduğu için $E_z$ de aslında bu değişkene ait varyansı temsil edecektir.
 
 Bu bilgiyi kullanarak *durum* vektörü tahmini için elde edeceğimiz kovaryansı şöyle ifade edebiliriz:
 
