@@ -606,6 +606,4 @@ Kalman filtrelemenin Markov özelliği halihazırdaki *durumdan* bir önceki *du
 2. <a href="http://web.mit.edu/kirtley/kirtley/binlustuff/literature/control/Kalman%20filter.pdf">Tutorial: The Kalman Filter</a>
 3. <a href="https://arxiv.org/pdf/1910.03558.pdf">A Step by Step Mathematical Derivation and Tutorial on Kalman Filters</a>
 
-<p align="center">
-<img src="https://hitcounter.pythonanywhere.com/count/tag.svg" alt="Hits">
-</p> 
+<a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
