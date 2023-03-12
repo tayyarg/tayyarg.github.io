@@ -40,6 +40,4 @@ In this case, it is important to learn some strategies to detect low quality res
   This paper has started it all! It triggered the revolution that's been happening in the last decade in the AI world.
   It is widely regarded as one of the most influential publications in the field. 
   
-<p align="center">
-<img src="https://hitcounter.pythonanywhere.com/count/tag.svg" alt="Hits">
-</p>
+<a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
