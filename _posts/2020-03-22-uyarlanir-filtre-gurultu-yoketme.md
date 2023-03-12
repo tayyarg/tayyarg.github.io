@@ -481,8 +481,5 @@ Bir de gerçek dünya problemlerinde genellikle birden fazla referans mikrofonu 
 3. <a href="https://www.findsounds.com/ISAPI/search.dll?start=11&keywords=jet&seed=22">Jet ses kayıtları</a>
 4. <a href="https://towardsdatascience.com/what-is-column-space-with-a-machine-learning-example-8f8a8d4ec6c">What is Column Space? — Example, Intuition & Visualization</a>
 
-<p align="center">
-<img src="https://hitcounter.pythonanywhere.com/count/tag.svg" alt="Hits">
-</p> 
-
+<a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
 
