@@ -303,6 +303,4 @@ Emre: Bence bu kadar yeter. Ara vermeden olmaz :)
 
 Kaan: Peki o zaman, bir dahaki sefere ;)
 
-<p align="center">
-<img src="https://hitcounter.pythonanywhere.com/count/tag.svg" alt="Hits">
-</p> 
+<a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
