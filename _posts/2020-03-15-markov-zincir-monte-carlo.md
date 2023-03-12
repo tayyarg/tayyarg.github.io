@@ -456,6 +456,4 @@ Bir de önerilere bakarak nereye atlayacağını daha akıllıca yapan Hamiltoni
 3. <a href="http://people.sabanciuniv.edu/sinanyildirim/Monte%20Carlo%20yontemleri_sunum.pdf">Monte Carlo Yöntemleri, Sinan Yıldırım</a>
 4. <a href="https://www.cs.ubc.ca/~nando/540-2013/lectures/l14.pdf">Importance sampling & Markov chain Monte Carlo (MCMC), Lecture Notes, Nando de Freitas</a>
 
-<p align="center">
-<img src="https://hitcounter.pythonanywhere.com/count/tag.svg" alt="Hits">
-</p> 
+<a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
