@@ -5,7 +5,7 @@ excerpt: "A List of Projects"
 comments: false
 ---
 
-There's no project published here yet. But I am planning to share some of the interesting stuff I'm working on here to make the information public.
+Henüz bir proje yayınlamadım. 
 
 [tayyar.guzel@gmail.com](mailto:tayyar.guzel@gmail.com)
 
