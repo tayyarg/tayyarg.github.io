@@ -1,3 +1,3 @@
-# My Personal BLOG: Wireless, DSP, ML and AI.  
+# Kişisel Günlüğüm: Kablosuz İletişim, Sayısal Sinyal İşleme, Makine Öğrenmesi.  
 
-This blog post has been created to share thoughts and knowledge in the area of Wireless, DSP, ML and AI. I will be documenting ideas informally to myself hoping it will help anyone who visits this page as well.
+Bu blog yazısı Kablosuz, Sayısal Sinyal İşleme, Makine Öğrenmesi ve Kablosuz İletişim alanındaki düşünce ve bilgileri paylaşmak için oluşturulmuştur. 
