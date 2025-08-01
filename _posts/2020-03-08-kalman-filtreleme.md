@@ -4,6 +4,8 @@ title: Makine Öğrenmesi 5 - Kalman Filtre Tabanlı Otonom Sürüş
 tags: [kalman filtreleme, makine öğrenmesi, sinyal işleme, bayesçi çıkarım]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
+lang: tr
+ref: kalman-filter
 ---
 
 Emre: Nedir bu Kalman filtresi'nin mantığı? Nasıl otonom hareket eden robotlardan Apollo uzay programına kadar birçok alanda işe yarıyor?! 
