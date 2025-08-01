@@ -10,17 +10,25 @@
                         <h4>{{ site.title }}</h4>
                         <p>{{ site.description }}</p>
                     </li>
-    <li>
-      <ul class="lang-switcher" style="display:flex;gap:8px;list-style:none;padding:0;margin:0;">
-        {% for lang in site.languages %}
-          {% if lang == site.active_lang %}
-            <li><strong>{{ lang }}</strong></li>
-          {% else %}
-            <li><a href="{{ site.baseurl }}/{{ lang }}{{ page.url | remove_first: '/' }}">{{ lang }}</a></li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </li>
+
+                    <!-- Language Switcher -->
+                    <li class="lang-switcher">
+                    <a href="#">{% if site.active_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
+                    <ul class="dl-submenu">
+                        {% for lang in site.languages %}
+                            {% if lang == site.active_lang %}
+                                <li><span class="active">{{ lang | upcase }}</span></li>
+                            {% else %}
+                                {% if page.ref %}
+                                    <li><a href="{% if lang == site.default_lang %}{{ page.url }}{% else %}/{{ lang }}{{ page.url }}{% endif %}">{{ lang | upcase }}</a></li>
+                                {% else %}
+                                    <li><a href="{% if lang == site.default_lang %}/{% else %}/{{ lang }}/{% endif %}">{{ lang | upcase }}</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                   </li>
+                   
                     <li><a href="{{ site.url }}/about/"><span class="btn btn-inverse">Learn More</span></a></li>
                     {% if site.email %}<li>
                         <a href="mailto:{{ site.email }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
