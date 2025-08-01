@@ -220,3 +220,31 @@ header .entry-meta {
         background-position: center center;
     }
 }
+// Language switcher styles
+.post-language-links {
+    margin: 1em 0;
+    text-align: center;
+    
+    .lang-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: 1px solid $border-color;
+        border-radius: 3px;
+        text-decoration: none;
+        font-size: 0.8em;
+        color: $text-color;
+        transition: all 0.3s ease;
+        
+        &.active {
+            background: $border-color;
+            color: darken($text-color, 10%);
+            cursor: default;
+        }
+        
+        &:hover:not(.active) {
+            background: lighten($border-color, 5%);
+            color: darken($text-color, 10%);
+        }
+    }
+}
