@@ -385,15 +385,11 @@ All this is done for any sub-level being entered.
         background: rgba(255, 255, 255, 0.1);
     }
     
-    ul {
-        list-style: none;
-        margin: 0;
+    .dl-submenu {
+        display: block !important;  // Force submenu to always show
+        position: relative;
+        background: rgba(0, 0, 0, 0.8);
         padding: 0;
-        display: block;
-    }
-    
-    li {
-        display: block;
     }
     
     a {
@@ -407,6 +403,6 @@ All this is done for any sub-level being entered.
         
         &:hover {
             background: rgba(255, 255, 255, 0.1);
-        }	
+        }   
     }
 }
