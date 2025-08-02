@@ -12,23 +12,23 @@
                     </li>
 
                     <!-- Language Switcher -->
-                    <li class="lang-switcher">
-                    <a href="#">{% if site.active_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
-                    <ul class="dl-submenu">
-                        {% for lang in site.languages %}
-                            {% if lang == site.active_lang %}
-                                <li><span class="active">{{ lang | upcase }}</span></li>
-                            {% else %}
-                                {% if page.ref %}
-                                    <li><a href="{% if lang == site.default_lang %}{{ page.url }}{% else %}/{{ lang }}{{ page.url }}{% endif %}">{{ lang | upcase }}</a></li>
+                    <li class="lang-switcher dl-subviewopen">
+                        <a href="#" class="dl-subviewopen">{% if site.active_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
+                        <ul class="dl-submenu dl-menuopen">
+                            {% for lang in site.languages %}
+                                {% if lang == site.active_lang %}
+                                    <li><span class="active">{{ lang | upcase }}</span></li>
                                 {% else %}
-                                    <li><a href="{% if lang == site.default_lang %}/{% else %}/{{ lang }}/{% endif %}">{{ lang | upcase }}</a></li>
+                                    {% if page.ref %}
+                                        <li class="dl-subviewopen"><a href="{% if lang == site.default_lang %}{{ page.url }}{% else %}/{{ lang }}{{ page.url }}{% endif %}">{{ lang | upcase }}</a></li>
+                                    {% else %}
+                                        <li class="dl-subviewopen"><a href="{% if lang == site.default_lang %}/{% else %}/{{ lang }}/{% endif %}">{{ lang | upcase }}</a></li>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                   </li>
-                   
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    
                     <li><a href="{{ site.url }}/about/"><span class="btn btn-inverse">Learn More</span></a></li>
                     {% if site.email %}<li>
                         <a href="mailto:{{ site.email }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
