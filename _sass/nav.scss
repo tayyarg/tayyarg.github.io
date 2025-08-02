@@ -379,8 +379,15 @@ All this is done for any sub-level being entered.
         font-weight: 600;
     }
     a {
-        text-transform: uppercase;
+        color: #ffffff;    
+		text-transform: uppercase;
         font-size: 12px;
         font-weight: 600;
+		padding: 10px 15px;
+		display: block;
+		text-decoration: none;
+		&:hover {
+			background: rgba(255, 255, 255, 0.1);
+		}	
     }
 }
