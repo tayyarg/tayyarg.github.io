@@ -424,4 +424,60 @@ All this is done for any sub-level being entered.
             }
         }
     }
+
+	.dl-menuwrapper li.lang-switcher {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border-radius: 3px;
+    position: relative;
+    
+    > a {
+        color: #ffffff !important;
+        padding: 10px 15px;
+        display: block;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        background: rgba(0, 0, 0, 0.8) !important;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+    }
+    
+    .active {
+        color: #ffffff !important;
+        padding: 10px 15px;
+        display: block;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .dl-submenu {
+        display: block !important;
+        position: relative;
+        background: rgba(0, 0, 0, 0.8) !important;
+        padding: 0;
+        
+        li {
+            display: block !important;
+            
+            a {
+                color: #ffffff !important;    
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 600;
+                padding: 10px 15px;
+                display: block;
+                text-decoration: none;
+                background: rgba(0, 0, 0, 0.8) !important;
+                
+                &:hover {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                }   
+            }
+        }
+    }
+}
 }
