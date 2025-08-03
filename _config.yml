@@ -91,6 +91,6 @@ exclude: [README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.j
 
 # Polyglot settings
 languages: ["en", "tr"]
-default_lang: "en"
+default_lang: "tr"
 exclude_from_localization: ["javascript", "images", "css", "scripts", "favicon.ico"]
 parallel_localization: true

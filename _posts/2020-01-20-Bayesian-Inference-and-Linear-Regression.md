@@ -8,11 +8,11 @@ lang: en
 ref: ml3-bayeslinreg
 ---
 
-Emre: So, what exactly is *Bayesian* inference?
+Emre: What is this thing called Bayesian inference?
 
-Kaan: Let me walk you through an example. We’ll revisit the classical linear-regression problem and then look at its Bayesian interpretation.
+Kaan: I can explain it through an example.
 
-## 1  Deterministic View
+Bayesian inference is a probabilistic approach. To give a bit of information about what it is, we can consider the linear-regression problem.
 
 Suppose the taxi from home to the airport charges a fixed 7 TL flag-drop plus 0.8 TL per kilometre. With distance $X$ and fare $Y$:
 
