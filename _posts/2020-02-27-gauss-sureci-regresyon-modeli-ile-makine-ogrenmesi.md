@@ -5,6 +5,7 @@ tags: [gaussian, regresyon, makine öğrenmesi, bayesçi çıkarım]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
+ref: ml4-gpr
 ---
 
 Emre: Gauss süreçlerinin sonsuz sayıda fonksiyon üzerinde bir dağılıma nasıl sahip olabildiğini ve bunun ne işe yaradığını açıklayabilir misin?! 
