@@ -22,8 +22,8 @@ layout: compress
                     </a>
                 </div>
                 <div class="post-list">
-                    {% assign list_posts = site.posts | where: "lang", site.active_lang %}
-                    {% for post in list_posts %} 
+                    {% for post in site.posts %}
+                    {% if post.lang == page.lang %} 
                         {% if post.project %}
                     <ul>
                         <li class="wow fadeInLeft" data-wow-duration="1.5s">

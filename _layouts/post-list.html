@@ -22,7 +22,8 @@ layout: compress
                     </a>
                 </div>
                 <div class="post-list">
-                    {% assign list_posts = site.posts | where: "lang", site.active_lang %}
+                    {% assign current_lang = page.lang | default: site.active_lang | default: site.default_lang %}
+                    {% assign list_posts = site.posts | where: "lang", current_lang %}
                     {% for post in list_posts %}
                         {% if post.project == null %}
                     <ul>
@@ -32,6 +33,7 @@ layout: compress
                             <a href="{{ site.url }}{{ post.url }}" class="btn zoombtn">Read More</a>
                         </li>
                     </ul>
+                        {% endif %}
                         {% endif %}
                     {% endfor %}
                 </div>
