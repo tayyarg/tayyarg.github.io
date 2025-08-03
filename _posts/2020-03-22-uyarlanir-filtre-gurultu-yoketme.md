@@ -4,6 +4,7 @@ title: Sayısal Sinyal İşleme 2 - Uyarlanır Filtreler ve Aktif Gürültü Yok
 tags: [adaptif filtre, uyarlanır filtre, dsp, sinyal işleme, lms, rls]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
+lang: tr
 ---
 
 Emre: Apple Airpods'lar aktif gürültüyü nasıl yokediyor?

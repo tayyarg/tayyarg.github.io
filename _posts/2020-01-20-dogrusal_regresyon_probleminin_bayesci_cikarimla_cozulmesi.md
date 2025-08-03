@@ -4,6 +4,7 @@ title: Makine Öğrenmesi  3 - Bayesçi Çıkarım ve Doğrusal Regresyon
 tags: [regresyon, makine öğrenmesi, bayesçi çıkarım]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
+lang: tr
 ---
 
 Emre: Nedir abi bu Bayesçi çıkarım?
