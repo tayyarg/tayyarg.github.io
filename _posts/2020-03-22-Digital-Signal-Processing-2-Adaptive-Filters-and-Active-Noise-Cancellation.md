@@ -259,6 +259,179 @@ So, how can we find an algorithm that minimises the error?
 
 # Least Squares
 
-The design of adaptive filters is fundamentally based on the Least Squares (LS) technique.
+The design of adaptive filters is fundamentally rooted in the **Least-Squares (LS)** technique.  
+LS solves an over-determined linear-equation set of the form $Ax=b$—and every linear system can be written in that form.  
+$A$ is an $m\times n$ matrix, $x$ and $b$ are column vectors.  
+When $m > n$ we have more equations than unknowns, hence (in the absence of exact consistency) only *one* $x$ minimises the error.
 
-(From here on the derivation follows the Turkish version faithfully; all equations are kept the same. For brevity of this sample translation, the rest of the article ― covering LS, Wiener–Hopf, LMS, and implementation details ― is omitted here but would be translated in full for the final version.)
+In matrix form
+
+<div>
+$$
+\begin{bmatrix}
+ a_{11} & a_{12} & \cdots & a_{1n}\\
+ a_{21} & a_{22} & \cdots & a_{2n}\\
+ \vdots & \vdots & \ddots & \vdots\\
+ a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{bmatrix}
+\begin{bmatrix}
+ x_1\\x_2\\ \vdots\\x_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+ b_1\\b_2\\ \vdots\\b_m
+\end{bmatrix}
+$$
+</div>
+
+The optimum $\hat x$ minimises the squared error energy
+<div>
+$$
+ e = \lVert A\hat x - b \rVert^2.
+$$
+</div>
+
+Geometrically, $b$ **does not** lie in the column-space $C(A)$, but we can project it orthogonally onto that space; the projection equals $A\hat x$ and the joining vector is the error.
+
+<p align="center"><img src="/images/anc_7.png" width="25%" height="25%"></p>
+
+Hence the LS solution is
+<div>
+$$
+ \hat x_{\text{LS}} = (A^\mathrm{T}A)^{-1}A^\mathrm{T}b.
+$$
+</div>
+
+# Wiener–Hopf Solution and Unknown-System Modelling
+
+We now exploit LS ideas to design our adaptive filter.  
+Recall the architecture with the *unknown system* and the *adaptive filter* in parallel; the difference between their outputs forms the error:
+<div>
+$$
+ e[n]=d[n]-y[n].
+$$
+</div>
+Our goal is to choose the weight vector **w** that minimises the **mean-squared error (MSE)**.
+
+Assume the input $x[n]$ and desired signal $d[n]$ are **wide-sense stationary** and correlated.  
+If the filter output is
+<div>
+$$
+ y[n]=\sum_{k=0}^{N}w_k\,x[n-k]=\mathbf{w}^\mathrm{T}\mathbf{x}[n],
+$$
+</div>
+then
+<div>
+$$
+ E\{e^2[n]\}=E\{d^2[n]\}+\mathbf{w}^\mathrm{T}E\{\mathbf{x}[n]\mathbf{x}^\mathrm{T}[n]\}\mathbf{w}-2\mathbf{w}^\mathrm{T}E\{d[n]\mathbf{x}[n]\}.
+$$
+</div>
+Define the $N\times N$ **autocorrelation matrix** $\mathbf R$ and the $N\times1$ **cross-correlation vector** $\mathbf p$:
+<div>
+$$
+ \mathbf R = E\{\mathbf{x}[n]\mathbf{x}^\mathrm{T}[n]\}, \qquad
+ \mathbf p = E\{d[n]\mathbf{x}[n]\}.
+$$
+</div>
+Then the cost function is
+<div>
+$$
+ \zeta = E\{d^2[n]\}+\mathbf{w}^\mathrm{T}\mathbf R\mathbf w-2\mathbf{w}^\mathrm{T}\mathbf p.
+$$
+</div>
+Because $\zeta$ is **quadratic** in $\mathbf w$, it has one minimum.  Setting the gradient to zero yields the **Wiener–Hopf equations**:
+<div>
+$$
+ \nabla=2\mathbf R\mathbf w-2\mathbf p=0 \;\Longrightarrow\; \boxed{\;\mathbf w_{\text{opt}} = \mathbf R^{-1}\mathbf p\;}
+$$
+</div>
+
+<p align="center"><img src="/images/anc_9.png" width="25%" height="25%"></p>
+
+Great—but computing $\mathbf R$ and $\mathbf R^{-1}$ is $\mathcal O(N^3)$ and therefore infeasible for real-time ANC.  Enter **gradient-descent** algorithms.
+
+# Least-Mean Squares (LMS)
+
+LMS is a stochastic-gradient approximation that converges to the Wiener solution under mild conditions.  
+The instantaneous gradient estimate is
+<div>
+$$
+ \hat\nabla_n = -2e[n] \mathbf x[n],
+$$
+</div>
+and the weight-update rule becomes
+<div>
+$$
+ \mathbf{w}[n+1]=\mathbf{w}[n]+2\mu e[n] \mathbf x[n],
+$$
+</div>
+where $0<\mu<\tfrac{1}{N E\{x^2[n]\}}$ controls convergence speed versus steady-state error.
+
+Algorithm summary:
+
+{% include pseudocode.html id="lms-en" code="\n\begin{algorithm}\n\caption{LMS Algorithm}\n\begin{algorithmic}\n    \STATE $y[n]=\mathbf w^\mathrm{T}[n]\mathbf x[n]$\n    \STATE $e[n]=d[n]-y[n]$\n    \STATE $\mathbf w[n+1]=\mathbf w[n]+2\mu e[n]\mathbf x[n]$\n\end{algorithmic}\n\end{algorithm}\n" %}
+
+# Active Noise Cancellation — Python Demo
+
+Below is a *minimal* Python script that demonstrates LMS-based ANC on an in-cabin jet noise recording (*insidejet.wav*).  The code mirrors the Turkish original; comments are translated.
+
+```python
+import numpy as np
+from scipy.signal import lfilter
+from scipy.io import wavfile
+import matplotlib.pyplot as plt
+
+N = 10_000                # iterations
+fs, signal = wavfile.read("insidejet.wav")
+
+# Normalise 8-bit recording
+x = signal.astype(np.float32) / 256.0
+
+# Primary-path FIR coefficients (example)
+ind = np.arange(0, 2.0, 0.2)
+p1 = np.zeros(50)
+p2 = np.exp(-(ind**2))
+p = np.concatenate((p1, p2))
+p /= np.sum(p)              # normalise energy
+
+# Desired signal after primary path
+d = lfilter(p, [1.0], x)
+
+w = np.zeros_like(p)        # adaptive weights
+mu = 2.0 / (N * np.var(x))  # step size 2/(N·E[x²])
+
+errors = []
+for n in range(len(p), N):
+    x_vec = x[n:n-len(p):-1]
+    e = d[n] - np.dot(w, x_vec)
+    w += 2 * mu * e * x_vec
+    errors.append(e)
+
+plt.figure(); plt.plot(p); plt.title("Primary-path coefficients")
+plt.figure(); plt.plot(errors); plt.title("LMS error curve");
+plt.xlabel("iteration"); plt.ylabel("e")
+plt.show()
+```
+Running the script yields the following curves:
+
+<p align="center"><img src="/images/anc_11.png" width="25%" height="25%"></p>
+
+<p align="center"><img src="/images/anc_12.png" width="25%" height="25%"></p>
+
+# Real Life
+
+On actual hardware the textbook ANC loop *will not* behave exactly as in simulation—chiefly because:
+
+1. **Acoustic feedback**: The anti-noise emitted by the loudspeaker propagates to the reference microphone and contaminates $x[n]$.
+2. **Secondary and sensor paths**: The electric signal leaving the DSP passes through amplifiers, DACs, loudspeakers, free-air acoustics, microphones, ADCs, and preamps before re-entering the DSP.
+
+Therefore practical systems employ **Filtered-x LMS (Fx-LMS)** or **Recursive Least Squares (RLS)**, and often involve *multiple* microphones/loudspeakers (multi-channel ANC).  Nevertheless, if you grasp the single-channel maths above you can readily understand the literature on multi-channel extensions.
+
+# References
+
+1. Simon Haykin, *Adaptive Filter Theory* (4th ed.).  
+2. Fatih Kara, *Advanced Topics in Signal Processing* (lecture notes).  
+3. Jet-noise recordings: <https://www.findsounds.com>.  
+4. “What is Column Space? — Example, Intuition & Visualization,” *Towards Data Science*.
+
+<a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
