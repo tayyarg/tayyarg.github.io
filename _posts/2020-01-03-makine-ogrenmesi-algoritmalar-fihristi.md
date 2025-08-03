@@ -5,6 +5,7 @@ tags: [makine öğrenmesi, algoritma]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
+ref: ml2-index
 ---
 
 Emre: Makine öğrenmesinin kısa bir özeti ve hangi algoritmaların hangi problemlerde kullanıldığına değinebilir misin?
