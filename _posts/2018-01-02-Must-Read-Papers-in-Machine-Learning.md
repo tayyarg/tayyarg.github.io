@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Makine Öğrenmesi 1 - Top five "must-read" papers in the ML domain for newcomers
+title: Machine Learning 1 - Top five "must-read" papers in the ML domain for newcomers
 tags: [machine learning]
 lang: en
 ---
