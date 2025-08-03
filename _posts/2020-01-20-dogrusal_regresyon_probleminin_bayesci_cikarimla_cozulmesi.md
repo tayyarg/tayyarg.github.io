@@ -5,6 +5,7 @@ tags: [regresyon, makine öğrenmesi, bayesçi çıkarım]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
+ref: ml3-bayeslinreg
 ---
 
 Emre: Nedir abi bu Bayesçi çıkarım?
