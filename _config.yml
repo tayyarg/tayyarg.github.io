@@ -76,7 +76,7 @@ linkedin:           tayyarg
 google_analytics: UA-151032665-1
 
 # Gems
-gems:
+plugins:
   - jekyll-mentions
   - jekyll-feed
   - jekyll-sitemap
