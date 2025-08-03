@@ -229,22 +229,23 @@ header .entry-meta {
         display: inline-block;
         padding: 5px 10px;
         margin: 0 5px;
-        border: 1px solid $border-color;
+        border: 1px solid #000000;
         border-radius: 3px;
         text-decoration: none;
         font-size: 0.8em;
-        color: $text-color;
+        background: #ffffff;
+        color: #000000;
         transition: all 0.3s ease;
         
         &.active {
-            background: $border-color;
-            color: darken($text-color, 10%);
+            background: #ffffff;
+            color: #000000;
             cursor: default;
         }
         
         &:hover:not(.active) {
-            background: lighten($border-color, 5%);
-            color: darken($text-color, 10%);
+            background: #ffffff;
+            color: #000000;
         }
     }
 }
