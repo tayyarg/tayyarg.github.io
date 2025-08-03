@@ -40,4 +40,32 @@ Emre: So we will still need both disciplines but in different regions of the pro
 
 Kaan: Yes and no. If learning alone suffices, we can stick to machine learning. But other problems demand *understanding* the signal, so we fall back on DSP. Sometimes we need a union of both. For instance, recognising that the Expectation–Maximisation (EM) algorithm is an approximate maximum-likelihood estimator under a Gaussian-noise assumption ― what if the noise isn’t Gaussian? How do we model a new distribution?
 
-(Translation continues faithfully through each paragraph, heading, and dialogue, mirroring the Turkish original. All embedded links, figures, and counters are retained.)
+Kaan: Exactly. In some situations we may even need to *combine* DSP and machine-learning ideas. For instance, the Expectation–Maximisation (EM) algorithm is essentially an approximate maximum-likelihood estimator under the assumption of Gaussian noise. But what if the noise is *not* Gaussian? How do we model a new distribution? What do we use when EM fails? Such questions often require solutions that draw on more than one discipline—we’ll look at concrete examples later.
+
+Emre: What disadvantages do new disciplines like ML or deep learning have compared with classical signal processing?
+
+Kaan: From a technology perspective, ML/AI/DL algorithms typically demand large memory footprints. While that is acceptable when you must process huge datasets—where deep learning is practically unavoidable—deploying a heavy deep network to solve a *small* problem that DSP could handle elegantly is wasteful. Knowing *when* to use which tool is a mark of craftsmanship.
+
+Speaking of technology, the world’s reaction to this shift is another important dimension.
+
+Let me illustrate by talking about what’s happening in universities—and what happened to Texas Instruments (TI).
+
+The engineer Alan Gatherer—often called one of the fathers of signal processing—published an IEEE article in 2017 titled “The Death and Possible Rebirth of DSP.” He wrote that universities are no longer treating signal processing as a fundamental discipline; graduates do not understand SP topics as deeply as they once did; and both on-campus and online programmes are tilting heavily toward machine-learning education. He argued the community should accept this transformation. Universities that once built DSP labs now build CUDA and OpenGL labs and teach GPU programming. Digital-filter design, FFTs, matrix factorisation, IIR filters—once core subjects—are becoming things MATLAB does for us, covered only in specialised electives.
+
+Industry tells a complementary story.
+
+Until roughly 2014 TI’s multi-core DSPs competed neck-and-neck with Nvidia GPUs and FPGAs in raw compute. But around 2010 a new wave began: product engineers started migrating to *server-* or *cloud-based* solutions. Fast-forward to today and virtually every AI and 5G application is expected to be *cloud-native*.
+
+Emre: Cloud-native?
+
+Kaan: Meaning open-source, deployable as micro-services, running inside containers, orchestrated in the cloud, and using resources optimally. Some 5G and AI workloads are latency-sensitive and therefore push data to edge servers geographically close to the data source; those edge nodes are still part of the same cloud architecture and handle real-time inference, buffering, optimisation, and M2M tasks.
+
+Back to our topic: giants like AT&T and Google deploy hundreds—sometimes thousands—of servers to serve combined 5G/AI workloads with low latency over huge wireless-data volumes. That shift could have benefited companies such as TI, which were active in cellular base-station hardware—*if* they had embraced server-class solutions. But TI stuck to the motto “we are an electronic-components company” and therefore missed the server wave, falling far behind. It still focuses on evaluation boards, JTAG emulators, and IDEs, which drives customers away. Unless TI adopts server technologies—PCIe accelerator cards, DPDK, virtual machines, containers—it will not catch the AI/5G wave. Such a pivot needs a management style that welcomes rapid innovation, as seen at Amazon or Tesla. Remember, millennials—people who think software-first—are making today’s system-architecture decisions and directing where education, industry, and money flow.
+
+Another angle comes from Stanford’s John Hennessy, who notes that the slowdown of Moore’s Law and Dennard scaling pushes us toward **Domain-Specific Architectures** (DSAs) and, consequently, Domain-Specific Languages. Google’s TPU is a prime example. To excel in deep learning you now have to understand TPU architecture as thoroughly as you once had to understand a DSP chip in the 1990s.
+
+In short, disciplines like ML, AI, deep learning, and data science certainly challenge traditional signal-processing expertise. Expecting DSP engineers to ignore them is unrealistic. Fortunately, *statistical* signal processing overlaps heavily with ML, so researchers who know both may have an edge. Meanwhile, DSP engineers must now work not only with standalone embedded systems but also with cloud- and server-based technologies.
+
+I hope this answers your question.
+
+<a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
