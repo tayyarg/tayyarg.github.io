@@ -5,6 +5,7 @@ tags: [adaptive filter, dsp, signal processing, lms, rls]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
+ref: dsp2-anc
 ---
 
 Emre: How do Apple AirPods actively cancel noise?

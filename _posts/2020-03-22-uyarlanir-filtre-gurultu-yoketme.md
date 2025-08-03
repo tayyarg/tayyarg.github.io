@@ -5,6 +5,7 @@ tags: [adaptif filtre, uyarlanır filtre, dsp, sinyal işleme, lms, rls]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
+ref: dsp2-anc
 ---
 
 Emre: Apple Airpods'lar aktif gürültüyü nasıl yokediyor?
