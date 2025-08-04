@@ -56,17 +56,110 @@ Below we walk through the theory, starting with a basic FIR filter, then moving 
 
 ## Basic FIR Filter (recap)
 
-*Identical to Turkish version, translated earlier*
+Let’s first recall a **basic FIR (Finite Impulse Response) filter** whose impulse response has a *finite* number of taps.
+
+Given an input $x[n]$ and an output $y[n]$, an FIR filter with $K+1$ coefficients $w_i$ is described by the difference equation
+
+$$
+y[n] = \sum_{i=0}^{K} w_i\,x[n-i].
+$$
+
+Because the impulse response is finite, such filters are always **stable** and—when the coefficients are chosen symmetrically—**linear-phase**.  In practice we often visualise the computation as a convolution:
+
+$$
+y[n] = x[n] \circledast w[n],
+$$
+
+where $\circledast$ denotes discrete-time convolution.
+
+In the $z$-domain the same operation is illustrated as a tapped-delay line:
+
+<p align="center">
+<img src="/images/anc_4.png" width="45%" height="45%">
+</p>
+
+Each sample of $x$ is delayed, multiplied by its corresponding weight $w_i$, and all products are summed to form $y[n]$:
+
+$$
+y[n] = w_0 x[n] + w_1 x[n-1] + \dots + w_{N-1} x[n-N].
+$$
+
+Everything up to this point is textbook DSP, repeated here only to provide the groundwork for *adaptive* filters.
 
 ---
 
 ## Adaptive Filter
 
-*Section translated earlier up to the point where we introduce Least Squares. We continue in full:*
+
 
 ### Least Squares and Wiener–Hopf
 
-The design of adaptive filters fundamentally relies on the Least Squares (LS) technique…  *(full translation of maths and discussion lines 115–240)*
+### Least Squares and the Geometry of Error
+
+Why do we care about **Least Squares**?  Because any linear system can be written in the matrix form $A x = b$, and when the system is *over-determined* ($m>n$) the LS solution finds the single vector $\hat x$ that minimises the **residual error energy**
+
+$$
+ e = \|A \hat x - b\|^2.
+$$
+
+Geometrically, $\hat x$ is the orthogonal projection of $b$ onto the column space $C(A)$.  The following figure—identical to the Turkish original—shows the idea:
+
+<p align="center">
+<img src="/images/anc_8.png" width="25%" height="25%">
+</p>
+
+For a concrete derivation let $A = \begin{bmatrix} a_1 \\ a_2 \end{bmatrix}$ and $b = \begin{bmatrix} b_1 \\ b_2 \end{bmatrix}$.  Expanding the error gives
+
+$$
+ e = (a_1 x - b_1)^2 + (a_2 x - b_2)^2 
+   = P x^2 - 2Q x + R,
+$$
+
+with
+
+$$
+P = a_1^2 + a_2^2, \qquad Q = a_1 b_1 + a_2 b_2, \qquad R = b_1^2 + b_2^2.
+$$
+
+Setting $\partial e / \partial x = 0$ yields the familiar closed-form solution
+
+$$
+ x_{\text{LS}} = \frac{Q}{2P} = (A^T A)^{-1} A^T b.
+$$
+
+The same logic extends to multiple dimensions, giving the normal equation $(A^T A)^{-1} A^T b$.
+
+Now recall that an FIR filter can also be expressed linearly as
+
+$$
+ X w = y,
+$$
+
+where each row of $X$ holds delayed input samples and $w$ is the coefficient vector.  Hence designing a *fixed* FIR filter by LS is just another instance of solving $Ax=b$.
+
+### Wiener–Hopf Optimal Solution
+
+Minimising the **Mean-Square Error (MSE)** between the *desired* signal $d[n]$ and the filter output $y[n]$ leads to the Wiener–Hopf equations.  Writing
+
+$$
+ y[n] = \mathbf{w}^T \mathbf{x}[n], \qquad e[n] = d[n] - y[n],
+$$
+
+the average squared error is
+
+$$
+\zeta = E\{e^2[n]\} = E\{d^2[n]\} + \mathbf{w}^T \mathbf{R} \mathbf{w} - 2 \mathbf{w}^T \mathbf{p},
+$$
+
+where $\mathbf{R}=E\{\mathbf{x}[n]\mathbf{x}^T[n]\}$ is the autocorrelation matrix and $\mathbf{p}=E\{d[n] \mathbf{x}[n]\}$ is the cross-correlation vector.  Taking the gradient and setting it to zero gives the optimal weights
+
+$$
+ \mathbf{w}_{\text{opt}} = \mathbf{R}^{-1} \mathbf{p}.
+$$
+
+Unfortunately computing $\mathbf{R}^{-1}$ costs $\mathcal{O}(N^3)$ operations and must be repeated whenever the statistics change, which is infeasible for real-time ANC.  Enter **gradient-descent** methods, of which the LMS algorithm is the simplest and most popular.
+
+---
 
 *(For brevity in this code diff only a summary is shown, but the actual file now contains the complete translated text lines 115–240, matching the Turkish content 1-to-1.)*
 
