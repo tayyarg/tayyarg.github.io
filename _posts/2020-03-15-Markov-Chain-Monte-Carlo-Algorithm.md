@@ -26,7 +26,9 @@ $$
 P(\theta|x) = \frac{P(x|\theta) P(\theta)}{P(x)}
 $$
 
-$P(\theta|x)$ gives us the probability distribution of our model parameters given the observations $x$. This is the posterior distribution we want to find. But to compute this, we multiply the prior $P(\theta)$ (the distribution we assume about the parameters before seeing any data) with the likelihood $P(x|\theta)$ (the distribution of the observations if we knew everything about the parameters). This part is easy.
+$P(\theta|x)$ gives us the probability distribution of our model parameters given the observations $x$. 
+This is the posterior distribution we want to find. But to compute this, we multiply the prior $P(\theta)$ (the distribution we assume about the parameters 
+before seeing any data) with the likelihood $P(x|\theta)$ (the distribution of the observations if we knew everything about the parameters). This part is easy.
 
 Now, let's look at the denominator. What was $P(x)$?
 
