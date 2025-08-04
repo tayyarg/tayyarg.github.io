@@ -22,7 +22,7 @@ layout: compress
                     </a>
                 </div>
                 <div class="post-list">
-                    {% assign current_lang = page.lang | default: site.active_lang | default: site.default_lang %}
+                    {% assign current_lang = site.default_lang %}
                     {% assign list_posts = site.posts | where: "lang", current_lang %}
                     {% for post in list_posts %}
                         {% if post.project == null %}

@@ -13,10 +13,10 @@
 
                     <!-- Language Switcher -->
                     <li class="lang-switcher dl-subviewopen">
-                        <a href="#" class="dl-subviewopen">{% if site.active_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
+                        <a href="#" class="dl-subviewopen">{% if site.default_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
                         <ul class="dl-submenu dl-menuopen">
                             {% for lang in site.languages %}
-                                {% if lang == site.active_lang %}
+                                {% if lang == site.default_lang %}
                                     <li><span class="active">{{ lang | upcase }}</span></li>
                                 {% else %}
                                     {% if page.ref %}
