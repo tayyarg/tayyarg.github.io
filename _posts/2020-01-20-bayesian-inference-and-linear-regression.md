@@ -6,6 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: ml3-bayeslinreg
+redirect_from: /Bayesian-Inference-and-Linear-Regression/
 ---
 
 Emre: What is this thing called Bayesian inference?

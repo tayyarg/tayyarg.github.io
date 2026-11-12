@@ -5,6 +5,7 @@ tags: [dsp, signal processing, 5G, machine learning, artificial intelligence]
 comments: true
 lang: en
 ref: dsp1-dspdead
+redirect_from: /Digital-Signal-Processing-1-Is-DSP-Dead/
 ---
 
 Emre: The whole industry seems to be shifting toward Artificial Intelligence (AI), 5G, Data Science, and Machine Learning. What does that mean for the Digital Signal Processing (DSP) crowd? Is DSP dead?

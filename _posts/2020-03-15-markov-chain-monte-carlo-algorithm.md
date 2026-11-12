@@ -6,6 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: ml6-mcmc
+redirect_from: /Markov-Chain-Monte-Carlo-Algorithm/
 ---
 
 Emre: The Markov Chain Monte Carlo method is used everywhere machine learning is needed, from genetics and GPS positioning to nuclear weapons research, RADAR and robotics, and financial forecasting.
