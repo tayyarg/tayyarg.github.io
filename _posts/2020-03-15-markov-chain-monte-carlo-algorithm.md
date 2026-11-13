@@ -38,16 +38,16 @@ Emre: The evidence. That is, the probability that the observations $x$ came from
 Kaan: Exactly. Here, we need to marginalize over $\theta$. In other words, to leave $x$ alone, we need to integrate over all possible values of $\theta$.
 
 $$
-Z = P(x) = \int_{\Theta}^{} p(Y|X,\theta)p(\theta)d\theta
+Z = P(x) = \int_{\Theta} P(x|\theta)P(\theta)\,d\theta
 $$
 
-At the end of this integral, we get a normalization constant $Z$. We need this normalization to ensure that the probability values of our posterior distribution range between $0$ and $1$.
+At the end of this integral, we get a normalization constant $Z$. We need this normalization so that our posterior distribution integrates to $1$, i.e., so that it is a valid probability distribution.
 
 But what if we can't find this integral analytically in closed form?
 
 Emre: We can try to find it approximately.
 
-Kaan: Reasonable. If we could draw samples from the posterior distribution we're trying to find, maybe we could get an approximate result with a Monte Carlo simulation, but even that wouldn't be enough because even to do this, we'd have to solve Bayes' formula and compute the inverse of the distribution to sample from it, which is even harder.
+Kaan: Reasonable. If we could draw samples from the posterior distribution we're trying to find, maybe we could get an approximate result with a Monte Carlo simulation, but even that wouldn't be enough because even to do this, we'd have to solve Bayes' formula and compute the inverse of its cumulative distribution function to sample from it, which is even harder.
 
 This is where the Markov Chain Monte Carlo algorithm comes in. Simply put, MCMC allows us to draw samples from the posterior distribution without computing the integral or solving the posterior analytically. In this way, we can compute the expected value of the posterior distribution from these samples!
 
@@ -67,7 +67,7 @@ The early variant of the Monte Carlo approach emerged in the 18th century with t
 
 Actually, the Lazzarini story is a bit complicated. Lazzarini could calculate $\pi$ with great precision using the equation he found, but when the experiment was changed slightly, there was a large deviation, so people wondered if Lazzarini designed the experiment to give the best result. Anyway, that's outside our topic.
 
-Later, advanced variants of the Monte Carlo method came up again in 1940 at Los Alamos National Laboratory during nuclear weapons research. As the algorithm gained popularity, it began to be used in every field today, from genetics and GPS positioning to RADAR, robotics, and financial forecasting.
+Later, advanced variants of the Monte Carlo method came up again in the 1940s at Los Alamos National Laboratory during nuclear weapons research. As the algorithm gained popularity, it began to be used in every field today, from genetics and GPS positioning to RADAR, robotics, and financial forecasting.
 
 So what made the Monte Carlo method so special or successful?
 
@@ -75,7 +75,7 @@ The secret behind the Monte Carlo method's success is actually the Law of Large 
 
 As a result, the MC component allows us to draw samples from a distribution (e.g., $\theta_t \sim \mathcal{N}(0.5, \sigma^2)$) and compute the expected value of the distribution from these samples.
 
-Remember, the advantage of the MC step is this seemingly simple but very functional LLN assumption. I'll get to why it works.
+Remember, the advantage of the MC step is this seemingly simple but very functional LLN result. I'll get to why it works.
 
 #### Importance Sampling
 
@@ -86,10 +86,10 @@ Our goal is to find a way to estimate $P(x)$ or $Z$ (the integral above) approxi
 The essence of this idea is: we propose a distribution $q(\theta)$ that we know and think is close to the posterior distribution of the actual system we're working on, and we use this distribution as follows:
 
 $$
-Z = \int_{}^{} \frac{p(Y|\theta)p(\theta)\color{red}{q(\theta)}d\theta}{\color{red}{q(\theta)}}
+Z = \int_{}^{} \frac{p(x|\theta)p(\theta)\color{red}{q(\theta)}d\theta}{\color{red}{q(\theta)}}
 $$
 
-After all, dividing the numerator and denominator by the same thing doesn't change the result, right?
+After all, multiplying and dividing by the same thing doesn't change the result, right?
 
 In this case, we can write $Z$ as:
 
@@ -99,13 +99,13 @@ Z=\int_{}^{} W(\theta)\color{red}{q(\theta)}d\theta
 $$
 </div>
 
-So $W$ here is a function of $\theta$. For example, suppose we draw samples from $q(\theta) \sim \mathcal{N}{(0, 1000)}$, we can substitute the values and compute $W$. Here, again, the LLN helps us. The Law of Large Numbers tells us:
+So $W(\theta) = p(x\vert\theta)p(\theta)/q(\theta)$ here is a function of $\theta$ that we can evaluate. For example, suppose we draw samples $\theta^{(i)} \sim q(\theta) = \mathcal{N}(0, 1000)$; we can substitute the values and compute $W$. Here, again, the LLN helps us. The Law of Large Numbers tells us:
 
 $$
 Z \approx \frac{1}{N} \sum_{i=1}^{N} W(\theta^{(i)})
 $$
 
-This means that if $W$ is a function of $\theta$, this integral is equivalent to the average of the samples (I won't go into the proof).
+This means that the integral can be approximated by the average of $W$ over the samples drawn from $q(\theta)$, and the approximation gets better as $N$ grows (I won't go into the proof).
 
 So, using the samples from our $q(\theta)$, we can now approximately compute $Z$. Nice, so the problem should be solved now, right?
 
@@ -119,10 +119,10 @@ Kaan: Of course. Drawing samples from a proposed distribution gave us a new pers
 
 Instead of histograms, we can work on predictive distributions.
 
-Given past data $Y_{1:t}$, we can write the probability distribution for our future prediction $Y_{t+1}$ at time $X_{t+1}$ as:
+Given past data $Y_{1:t}$, we can write the probability distribution for our prediction $Y_{t+1}$ for a new input $X_{t+1}$ as:
 
 $$
-P(Y_{t+1}|X_{t+1},Y_{1:t}) = \frac{1}{Z} \int_{}^{} P(Y_{t+1}|X_{t+1}, \theta) P(Y_{t+1}|\theta)P(\theta)d\theta
+P(Y_{t+1}|X_{t+1},Y_{1:t}) = \frac{1}{Z} \int_{}^{} P(Y_{t+1}|X_{t+1}, \theta) P(Y_{1:t}|X_{1:t},\theta)P(\theta)d\theta
 $$
 
 We know how to find $Z$ with Monte Carlo importance sampling. But this time, we need to do something more.
@@ -134,16 +134,16 @@ We'll use the $W$ trick again (i.e., multiply and divide by $q(\theta)$ to make 
 Then, we can express our predictive distribution as:
 
 $$
-P(Y_{t+1}|X_{t+1},D) = \sum_{i=1}^{N} \hat{w}(\theta^{(i)})P(Y_{t+1}|X_{t+1},\theta^{(i)})
+P(Y_{t+1}|X_{t+1},Y_{1:t}) \approx \sum_{i=1}^{N} \hat{w}^{(i)}P(Y_{t+1}|X_{t+1},\theta^{(i)})
 $$
 
 where
 
 $$
-\hat{w}^i = \frac{w^i}{\sum_{j}^{}w^j}
+\hat{w}^{(i)} = \frac{w^{(i)}}{\sum_{j} w^{(j)}}, \quad w^{(i)} = \frac{P(Y_{1:t}|X_{1:t},\theta^{(i)})P(\theta^{(i)})}{q(\theta^{(i)})}, \quad \theta^{(i)} \sim q(\theta)
 $$
 
-Here, we're again computing a histogram, but this time the weights are normalized. As a result, the integral of the distribution we compute will be $1$. That is, it will satisfy the necessary condition for being a probability distribution function.
+Here, we're again computing a weighted sum over samples, but this time the weights are normalized so that they sum to $1$. As a result, the predictive distribution we compute also integrates to $1$. That is, it will satisfy the necessary condition for being a probability distribution function.
 
 We've made a big leap forward. The derivation from the initial form of the predictive distribution to here is too long and complex to do here.
 
@@ -151,13 +151,13 @@ But let me explain the logic. By applying Monte Carlo to both the numerator and 
 
 Now, without having to compute histograms for huge-dimensional data, we can compute the approximate posterior distribution. However, unfortunately, this doesn't solve all our problems.
 
-Importance sampling can be used for problems with $5$-$10$ parameters (e.g., bioinformatics, logistic regression). As long as the $q(\theta)$ we propose is a reasonable distribution and contains the expected value of $\theta$, we can trust this approach. In robotics problems (e.g., autonomous vacuum robots), the Sequential Importance Sampling variant called Particle Filtering is often used.
+Importance sampling can be used for problems with $5$-$10$ parameters (e.g., bioinformatics, logistic regression). As long as the $q(\theta)$ we propose is a reasonable distribution and covers the region where the posterior has most of its probability mass (ideally with heavier tails than the posterior), we can trust this approach. In robotics problems (e.g., autonomous vacuum robots), the Sequential Importance Sampling variant called Particle Filtering is often used.
 
 However, as the number of parameters to estimate increases, the $q(\theta)$ distributions we propose inevitably become unrealistic. Therefore, for cases with a high number of parameters (e.g., financial forecasting), another solution was needed. Thus, the Markov Chain Monte Carlo algorithm was born.
 
 ### Markov Chain (MC)
 
-A Markov chain ensures that the state $\theta$ depends only on $\theta_{t-1}$. That is, if you model a stochastic state-space model as a Markov process, the next state of the system is conditional only on the previous state $\theta_{t-1}$, not on all previous states $\theta_{t-1, t-2, ..., t-N}$.
+A Markov chain ensures that the state $\theta_t$ depends only on $\theta_{t-1}$. That is, if you model a stochastic state-space model as a Markov process, the next state of the system is conditional only on the previous state $\theta_{t-1}$, not on all previous states $\theta_{t-1, t-2, ..., t-N}$.
 
 We can express the new state as: $\theta_{t} \sim \mathcal{N}(\theta_{t-1}, \sigma^2)$.
 
@@ -171,32 +171,31 @@ What does this figure show us?
 
 On the right, each new sample is generated from a Normal distribution whose mean is the previous sample. The histogram on the left is the histogram of the generated random samples. Notice that the histogram doesn't look much like the proposal distribution on the right. That's because these samples are produced by random-walk.
 
-As a result, we still manage to draw samples from a stationary (even ergodic) distribution using the Markov chain.
-Still, the distribution of the samples we draw doesn't look like the posterior (or the proposal distribution). The Metropolis-Hastings algorithm will solve this problem.
+Note that a pure random walk like this doesn't even have a stationary distribution: it keeps wandering further and further away. The distribution of the samples we draw doesn't look like the posterior (or the proposal distribution) either. The Metropolis-Hastings algorithm will solve this problem: its accept/reject step turns the random walk into a Markov chain whose stationary distribution is exactly the posterior.
 
-Let me mention that here we assumed the Markov Chain has a stationary distribution and is an *ergodic* process. The chain must have many properties (irreducibility, periodicity, recurrence, etc.). This is a crucial point of MCMC and could be discussed for pages, so for now, trust me that this assumption works.
+Let me mention that for MCMC to work, the Markov Chain must have a stationary distribution and be an *ergodic* process. The chain must have several properties for this (irreducibility, aperiodicity, positive recurrence, etc.). This is a crucial point of MCMC and could be discussed for pages, so for now, trust me that this assumption works.
 
 Emre: At least, what does "ergodic" mean?
 
-Kaan: Let's call the probability matrix that defines the transitions between states in the Markov Chain $T$. If all states in the $T$ transition matrix can reach each other and the average time (number of samples) we take is long enough, this chain is called an ergodic Markov chain. If the average time is long enough, theoretically, the sample average will approach the true mean of the signal.
+Kaan: Let's call the probability matrix that defines the transitions between states in the Markov Chain $T$. If every state can be reached from every other state through $T$ (irreducibility), the chain doesn't get stuck in deterministic cycles (aperiodicity), and it keeps returning to every state in finite expected time (positive recurrence), the chain is called an ergodic Markov chain. For an ergodic chain, if we average over a long enough time (number of samples), the sample average approaches the expected value under the stationary distribution, no matter where the chain started.
 
 ### Metropolis-Hastings (MH) algorithm
 
 This step determines which of the samples produced by the Markov chain from the proposal distribution we accept and which we reject.
 
-First, we find the ratio of the probability that the newly drawn (current) sample from the Markov chain came from the posterior to the probability that the previous sample came from the posterior:
+First, we find the ratio of the (unnormalized) posterior density at the newly proposed sample to the posterior density at the previous sample. For a symmetric proposal distribution, such as the Normal random walk above, this is:
 
 $$
-r=min\{1,\frac{likelihood\ of\ proposed\ sample \times prior\ probability\ of\ proposed\ sample}{likelihood\ of\ previous\ sample \times prior\ probability\ of\ previous\ sample}\}
+r=\min\left\{1,\frac{\text{likelihood of proposed sample} \times \text{prior of proposed sample}}{\text{likelihood of previous sample} \times \text{prior of previous sample}}\right\}
 $$
 
-If $r=1$, we immediately accept the proposed sample. This means the probability that the new sample belongs to the posterior is obviously higher. But if this ratio is less than $1$, we have a choice.
+If $r=1$, we immediately accept the proposed sample. This means the posterior density at the new sample is at least as high as at the previous sample. But if this ratio is less than $1$, we have a choice.
 
 If the ratio is less than $1$, we compare this ratio to a random number drawn from the uniform distribution $U[0,1]$ and decide whether to accept the new sample from the Markov chain.
 
 If the random number from the uniform distribution is less than our acceptance probability ($r$), we accept the new sample $x^{\star}$ as the *new sample*; otherwise, our new sample is the same as the previous one.
 
-I can try to explain this with an analogy. I pose a problem and actually have a solution in hand. A new answer comes from somewhere to the question I posed. If the solution in this answer is better than the one I have, I accept the new answer as the current solution; otherwise, I reject it and keep the old solution; if I'm not sure, I roll the dice whether to accept it or not!
+I can try to explain this with an analogy. I pose a problem and actually have a solution in hand. A new answer comes from somewhere to the question I posed. If the solution in this answer is better than the one I have, I accept the new answer as the current solution; if it is worse, I don't reject it outright: I roll the dice and still accept it with a probability that gets smaller the worse it is!
 
 ### MCMC Algorithm
 
@@ -213,8 +212,8 @@ Assuming $X$ is our state vector (the "state" in the state-space model) and $q$ 
     \STATE Initialize $x_{}^{0}$ and choose proposal distribution $q$
     \STATE Start loop from $i=0$ to $N-1$
     \STATE Draw sample $u$ from the uniform distribution on $[0,1]$, $u \sim U[0,1]$
-    \STATE Draw sample $x_{}^{\star}$ from the proposal distribution, $x^{\star} \sim q(x_{}^{\star}, x_{}^{(i)})$
-    \STATE Compute acceptance probability $r = min\{1, \frac{Z \times P(x^{\star}) \times q(x^{i}|x^{\star})}{Z \times P(x^{i}) \times q(x^{\star}|x^{i})}\}$
+    \STATE Draw sample $x_{}^{\star}$ from the proposal distribution, $x^{\star} \sim q(x^{\star}|x^{(i)})$
+    \STATE Compute acceptance probability $r = \min\{1, \frac{Z \times P(x^{\star}) \times q(x^{i}|x^{\star})}{Z \times P(x^{i}) \times q(x^{\star}|x^{i})}\}$
     \STATE If $u < r$ then $x^{i+1} = x^{\star}$ else $x^{i+1} = x^{i}$
     \STATE $i=i+1$, if $i \leq N-1$ go back to step 3, else stop
 \end{algorithmic}
@@ -224,8 +223,8 @@ Assuming $X$ is our state vector (the "state" in the state-space model) and $q$ 
 In step 1, we initialize our parameter vector and choose the proposal distribution that we think resembles the target distribution.
 In step 2, we start a loop.
 In step 3, we draw a random number from the uniform $U$ distribution in $[0,1]$.
-In step 4, we pass our $x^{i}$ sample through the proposal distribution $q$. That is, we draw a sample from $q$ with mean $x^{i}$. In other words, $x^{\star} = X^{(i)} + \mathcal{N}(0, \sigma^2)$. (Our new sample will come out somewhere near the previous one.)
-In step 5, we compute the ratio of the posterior of the new parameter to the posterior of the previous parameter. This ratio determines our "acceptance probability." Notice that I deliberately wrote $Z$ without canceling it. In fact, at this step, the $Z$s cancel, so we no longer need to compute that infamous integral!
+In step 4, we pass our $x^{i}$ sample through the proposal distribution $q$. That is, we draw a sample from $q$ with mean $x^{i}$. In other words, $x^{\star} = x^{(i)} + \mathcal{N}(0, \sigma^2)$. (Our new sample will come out somewhere near the previous one.)
+In step 5, we compute the ratio of the posterior of the new parameter to the posterior of the previous parameter. This ratio determines our "acceptance probability." Notice that I deliberately wrote $Z$ without canceling it. In fact, at this step, the $Z$s cancel, so we no longer need to compute that infamous integral! (The $q$ terms are the Hastings correction; for a symmetric proposal such as our Normal random walk, they are equal and cancel too.)
 In step 6, we compare this ratio to the sample we drew from the uniform distribution. If the random number from the uniform distribution is less than our acceptance probability ($r$), we accept the new sample from the Markov chain as the *new sample* $x^{\star}$; otherwise, our new sample is the same as the previous one.
 In step 7, we check if we've reached the end of the loop; if not, we increment the counter and go back to step 3.
 
@@ -245,8 +244,10 @@ Now we need to define a model. For simplicity, let's assume the target distribut
 
 <div>
 $$
+\begin{gathered}
 \mu \sim \text{Normal}(0, 1) \\
 x|\mu \sim \text{Normal}(x; \mu, 1)
+\end{gathered}
 $$
 </div>
 
@@ -254,15 +255,13 @@ Let's generate $20$ random observations from a Normal distribution with mean $0$
 
 ```python
 import numpy as np
-import pandas as pd
-import scipy as sp
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 
 np.random.seed(225)
 
 data = np.random.randn(20)
-plt.hist(data, bins='auto') 
+plt.hist(data, bins='auto')
 plt.xlabel('observation')
 plt.ylabel('frequency')
 plt.show()
@@ -274,7 +273,7 @@ The histogram of the generated random observations will look like this:
 <img src="/images/mcmc_3.png" width="65%" height="65%">
 </p>
 
-The nice thing about this model is that we can now also compute the posterior analytically. If the likelihood is a Normal distribution with known standard deviation, then a Normal prior for $\mu$ will be conjugate (i.e., the prior and posterior distributions will be the same type). You can find how to compute the parameters of the posterior from Wikipedia or elsewhere. The mathematical derivation can be found <a href="https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxiYXllc2VjdHxneDplNGY0MDljNDA5MGYxYTM">here</a>.
+The nice thing about this model is that we can now also compute the posterior analytically. If the likelihood is a Normal distribution with known standard deviation, then a Normal prior for $\mu$ will be conjugate (i.e., the prior and posterior distributions will be the same type). You can find how to compute the parameters of the posterior from Wikipedia or elsewhere. The mathematical derivation can be found in <a href="https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf">Conjugate Bayesian analysis of the Gaussian distribution</a> by Kevin Murphy.
 
 Let's see what the analytical posterior looks like when we have the observations.
 
@@ -325,7 +324,8 @@ Now let's look at the MCMC code and what results it produces.
 ```python
 N = 100000
 mu_current = 1.0
-prior_mu = 1.0
+# prior: mu ~ Normal(0, 1)
+prior_mu = 0.0
 prior_sd = 1.0
 proposal_sd = 0.2
 posterior = [mu_current]
@@ -337,28 +337,45 @@ for i in range(N):
     # compute likelihood (multiply probabilities for each observation)
     likelihood_current = norm(mu_current, 1).pdf(data).prod()
     likelihood_proposal = norm(mu_proposal, 1).pdf(data).prod()
-    
+
     # compute prior probabilities for current and proposed mu
     prior_current = norm(prior_mu, prior_sd).pdf(mu_current)
     prior_proposal = norm(prior_mu, prior_sd).pdf(mu_proposal)
-    
+
     p_current = likelihood_current * prior_current
     p_proposal = likelihood_proposal * prior_proposal
-    
+
     u = np.random.uniform()
 
     # compute acceptance probability
     r = p_proposal / p_current
-    
+    accepted = u < r
+
+    # plot the posterior and the proposal every N/4 iterations
+    if i == 0 or (i + 1) % (N // 4) == 0:
+        fig, ax1 = plt.subplots(ncols=1, figsize=(4, 4))
+        x = np.linspace(-3, 3, 5000)
+        color = 'g' if accepted else 'r'
+
+        # analytical posterior
+        posterior_analytical = compute_posterior_analytical(data, x, prior_mu, prior_sd)
+        ax1.plot(x, posterior_analytical)
+        posterior_current = compute_posterior_analytical(data, mu_current, prior_mu, prior_sd)
+        posterior_proposal = compute_posterior_analytical(data, mu_proposal, prior_mu, prior_sd)
+        ax1.plot([mu_current] * 2, [0, posterior_current], marker='o', color='b')
+        ax1.plot([mu_proposal] * 2, [0, posterior_proposal], marker='o', color=color)
+        ax1.set(title='iteration %i\nposterior(mu=%.2f) = %.5f\nposterior(mu=%.2f) = %.5f' % (i+1, mu_current, posterior_current, mu_proposal, posterior_proposal))
+
     # accept?
-    if u < r:
+    if accepted:
         # update position
         mu_current = mu_proposal
         accept_count += 1
-    
+
     posterior.append(mu_current)
 
 print("Efficiency = ", accept_count/N)
+plt.show()
 ```
 
 When you run this algorithm, you'll start to see results like this:
@@ -369,7 +386,7 @@ When you run this algorithm, you'll start to see results like this:
 
 Pay attention to how proposed positions are rejected at the $75{,}000$th and $100{,}000$th iterations. To avoid clutter, we plot every $25{,}000$ steps, but you can examine how acceptance/rejection works at each step if you want. As a result, MCMC finds the posterior distribution and shows that the highest probability is around $\mu = 0$.
 
-At the end of the simulation, the efficiency we compute shows how many of the proposed samples were accepted. If more than 70% are accepted, our model is set up correctly. In this simulation, the acceptance rate is around 72%, which shows we're on the right track.
+At the end of the simulation, the efficiency we compute shows what fraction of the proposed samples were accepted. In this simulation, the acceptance rate is around 72%. The acceptance rate doesn't tell us whether the model is correct; it tells us whether the width of the proposal distribution is well tuned. If it is very high, the steps are too small and the chain explores the distribution slowly; if it is very low, most proposals are rejected and the chain gets stuck. For a one-dimensional random-walk Metropolis sampler like ours, a rate of around 40–50% is usually considered ideal, so we could even increase `proposal_sd` a bit.
 
 Let's compare the posterior distribution we obtained with MCMC to the analytical distribution.
 
@@ -377,7 +394,7 @@ Let's compare the posterior distribution we obtained with MCMC to the analytical
 import seaborn as sns
 
 ax = plt.subplot()
-sns.distplot(np.array(posterior[500:]), ax=ax, label='posterior estimate')
+sns.histplot(np.array(posterior[500:]), stat='density', kde=True, ax=ax, label='posterior estimate')
 x = np.linspace(-1.0, 1.0, 500)
 post = compute_posterior_analytical(data, x, 0, 1)
 ax.plot(x, post, 'g', label='analytical posterior')
@@ -386,10 +403,10 @@ ax.legend();
 ```
 
 <p align="center">
-<img src="/images/mcmc_6.png" width="65%" height="65%">
+<img src="/images/mcmc_6_en.png" width="65%" height="65%">
 </p>
 
-We calculated the histogram of the $\mu$ values we accepted. Don't let this confuse you. The distribution we found also looks like the distribution of the observations sampled from the Normal distribution, but this is our estimate. In another model, a completely different distribution could have emerged.
+We calculated the histogram of the $\mu$ values we accepted. Don't let this confuse you. The distribution we found is a Normal-looking curve, just like the distribution the observations were sampled from, but don't confuse the two: this is our estimate of the posterior distribution of the parameter $\mu$, not the distribution of the observations. It is much narrower (standard deviation of about $0.22$ instead of $1$) because $20$ observations tell us a lot about $\mu$. In another model, a completely different distribution could have emerged.
 
 ## Real Life
 
@@ -401,25 +418,27 @@ To get rid of the first problem, we can discard the first samples we draw (e.g.,
 
 2. Autocorrelation of the Markov Chain
 
-For the Markov process to work as expected, a state should depend only on the previous state. As dependence on earlier states increases, MCMC's performance will decrease.
+By construction, each sample in the chain depends directly only on the previous sample. But since each new sample is proposed close to the previous one, consecutive samples are still correlated, and this correlation carries over several steps. Correlated samples carry less information than independent ones, so the more autocorrelated the chain is, the more samples we need for the same accuracy.
 
 Let's look at the autocorrelation of the posterior distribution we obtained.
 
 ```python
-from pymc3.stats import autocorr
+def autocorr(x, lag):
+    return np.corrcoef(x[:-lag], x[lag:])[0, 1]
+
 lags = np.arange(1, 30)
 plt.plot(lags, [autocorr(np.array(posterior), l) for l in lags])
 plt.xlabel('lag')
 plt.ylabel('autocorrelation')
-plt.title('analytical posterior distribution')
+plt.title('autocorrelation of the MCMC samples')
 plt.show()
 ```
 
 <p align="center">
-<img src="/images/mcmc_7.png" width="65%" height="65%">
+<img src="/images/mcmc_7_en.png" width="65%" height="65%">
 </p>
 
-As you can see from the figure, the $i+1$th sample is not only dependent on the $i$th sample. There is also strong correlation with earlier samples. To get rid of this problem, instead of accepting consecutive samples, we can accept every $n$th sample. This is called "thinning" in the Markov Chain literature. The sample space is enlarged, and every $n$th sample is kept.
+As you can see from the figure, the $(i+1)$th sample is correlated not only with the $i$th sample but also with earlier samples; the correlation only dies out after about $20$ steps. To reduce this problem, instead of keeping consecutive samples, we can run the chain longer and keep only every $n$th sample. This is called "thinning" in the Markov Chain literature. (Thinning mainly saves memory; keeping all the samples never makes the estimate worse.)
 
 As a result, by using MCMC, we can obtain:
 
@@ -427,11 +446,11 @@ As a result, by using MCMC, we can obtain:
 2. the posterior distribution of predictions
 3. the posterior distribution for model comparison
 
-Other than these two problems, Metropolis-Hastings has its own issues. For example, the proposal distribution chosen by MH is symmetric. The Gibbs Sampler is another MCMC variant introduced to automate this choice.
+Other than these two problems, Metropolis-Hastings has its own issues. For example, we have to choose and tune the proposal distribution by hand (we used a symmetric Normal random walk, which is the original Metropolis algorithm; Hastings generalized it to asymmetric proposals). The Gibbs Sampler is another MCMC variant that removes this choice by sampling each parameter directly from its conditional distribution given the others.
 
 On the other hand, MCMC is computationally intensive. That's why you may find studies in the literature that parallelize the algorithm.
 
-There's also the Hamiltonian Monte Carlo variant, which makes smarter jumps by looking at the proposals. You can check that out too.
+There's also the Hamiltonian Monte Carlo variant, which makes smarter, longer jumps by using the gradient of the posterior. You can check that out too.
 
 ## References
 
