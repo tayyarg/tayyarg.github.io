@@ -231,7 +231,7 @@ In step 7, we check if we've reached the end of the loop; if not, we increment t
 We can visualize the flow of the algorithm as follows:
 
 <p align="center">
-<img src="/images/mcmc_2.png" width="65%" height="65%">
+<img src="/images/mcmc_2_en.png" width="65%" height="65%">
 </p>
 
 The figure on the left shows us our <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chain</a>.
@@ -270,7 +270,7 @@ plt.show()
 The histogram of the generated random observations will look like this:
 
 <p align="center">
-<img src="/images/mcmc_3.png" width="65%" height="65%">
+<img src="/images/mcmc_3_en.png" width="65%" height="65%">
 </p>
 
 The nice thing about this model is that we can now also compute the posterior analytically. If the likelihood is a Normal distribution with known standard deviation, then a Normal prior for $\mu$ will be conjugate (i.e., the prior and posterior distributions will be the same type). You can find how to compute the parameters of the posterior from Wikipedia or elsewhere. The mathematical derivation can be found in <a href="https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf">Conjugate Bayesian analysis of the Gaussian distribution</a> by Kevin Murphy.
@@ -296,7 +296,7 @@ plt.show()
 The probability distribution of $\mu$ (analytically) based on our observations looks like this:
 
 <p align="center">
-<img src="/images/mcmc_4.png" width="65%" height="65%">
+<img src="/images/mcmc_4_en.png" width="65%" height="65%">
 </p>
 
 In real life, we're not that lucky. Usually, the prior isn't conjugate and the posterior isn't easy enough to derive by hand.
@@ -381,10 +381,10 @@ plt.show()
 When you run this algorithm, you'll start to see results like this:
 
 <p align="center">
-<img src="/images/mcmc_5.png" width="65%" height="65%">
+<img src="/images/mcmc_5_en.png" width="65%" height="65%">
 </p>
 
-Pay attention to how proposed positions are rejected at the $75{,}000$th and $100{,}000$th iterations. To avoid clutter, we plot every $25{,}000$ steps, but you can examine how acceptance/rejection works at each step if you want. As a result, MCMC finds the posterior distribution and shows that the highest probability is around $\mu = 0$.
+In each snapshot, the blue line is the current position and the other line is the proposed one: green if the proposal was accepted, red if it was rejected. At the $1$st and $100{,}000$th iterations, the proposals have a lower posterior than the current position and are rejected. At the $25{,}000$th iteration, the proposal is better, so it is accepted right away. Now look at the $75{,}000$th iteration: the proposal is clearly worse, yet it is accepted. That's the dice roll at work, and it's what lets MCMC explore the whole distribution instead of just climbing to its peak. (At the $50{,}000$th iteration, you can see the chain visiting the tail of the distribution for exactly this reason.) To avoid clutter, we plot every $25{,}000$ steps, but you can examine how acceptance/rejection works at each step if you want. As a result, MCMC finds the posterior distribution and shows that the highest probability is around $\mu = 0$.
 
 At the end of the simulation, the efficiency we compute shows what fraction of the proposed samples were accepted. In this simulation, the acceptance rate is around 72%. The acceptance rate doesn't tell us whether the model is correct; it tells us whether the width of the proposal distribution is well tuned. If it is very high, the steps are too small and the chain explores the distribution slowly; if it is very low, most proposals are rejected and the chain gets stuck. For a one-dimensional random-walk Metropolis sampler like ours, a rate of around 40–50% is usually considered ideal, so we could even increase `proposal_sd` a bit.
 
