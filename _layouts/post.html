@@ -35,7 +35,7 @@ comments: true
                     <!-- Language Switcher -->
                     {% if page.ref %}
                     <div class="post-language-links">
-                        {% assign current_lang = site.default_lang %}
+                        {% assign current_lang = page.lang | default: site.default_lang %}
                         {% for lang in site.languages %}
                             {% if lang == current_lang %}
                                 <span class="lang-btn active">{{ lang | upcase }}</span>
