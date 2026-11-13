@@ -22,19 +22,23 @@ layout: compress
                     </a>
                 </div>
                 <div class="post-list">
+                    {% assign current_lang = page.lang | default: site.default_lang %}
                     {% for post in site.posts %}
-                    {% if post.lang == page.lang %} 
-                        {% if post.project %}
+                    {% if post.project and post.lang == current_lang %}
                     <ul>
                         <li class="wow fadeInLeft" data-wow-duration="1.5s">
                             <a class="zoombtn" href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
                             <p>{{ post.excerpt }}</p>
-                            <a href="{{ site.url }}{{ post.url }}" class="btn zoombtn">Read More</a>
+                            {% for lang in site.languages %}
+                                {% assign version = site.posts | where: "ref", post.ref | where: "lang", lang | first %}
+                                {% if version %}
+                            <a href="{{ site.url }}{{ version.url }}" class="btn zoombtn">{% if lang == "tr" %}Türkçe{% else %}English{% endif %}</a>
+                                {% endif %}
+                            {% endfor %}
                         </li>
                     </ul>
-                      {% endif %}
-                     {% endif %}
-                     {% endfor %}
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
