@@ -16,7 +16,7 @@ Machine learning is usually grouped into three major categories:
 
 1. **Unsupervised Learning**  
 2. **Supervised Learning**  
-3. **Reinforcement (Semi-supervised) Learning**
+3. **Reinforcement Learning**
 
 There is a vast literature on each, so I’ll keep things brief.  
 To reach true *fluency* in ML you should be comfortable thinking about the following core topics.  Knowing where a real-world problem sits in this landscape clarifies which solution space to explore.  Future blog posts will dive into these areas one by one and steadily build a fully Turkish–English knowledge base.
@@ -26,11 +26,11 @@ To reach true *fluency* in ML you should be comfortable thinking about the follo
 ## Fundamentals
 
 * Shannon’s **Source Coding Theorem** – data compression limits  
-* **Bayesian statistics & learning** – <https://tayyarg.github.io/dogrusal_regresyon_probleminin_bayesci_cikarimla_cozulmesi/>  
+* **Bayesian statistics & learning** – <https://tayyarg.github.io/bayesian-inference-and-linear-regression/>  
 * **Cox axioms** – foundation of Bayesian probability  
 * **Bayesian model comparison**  
-* Information theory – **entropy estimation** ([Elements of Information Theory](http://www.cs-114.org/wp-content/uploads/2015/01/Elements_of_Information_Theory_Elements.pdf))  
-* Textbook recommendation – Murphy, *Machine Learning: A Probabilistic Perspective*
+* Information theory – **entropy estimation** ([Elements of Information Theory](https://doi.org/10.1002/047174882X), Cover & Thomas)  
+* Textbook recommendation – Murphy, [*Machine Learning: A Probabilistic Perspective*](https://www.cs.ubc.ca/~murphyk/MLbook/)
 
 ## Models
 
@@ -44,24 +44,24 @@ To reach true *fluency* in ML you should be comfortable thinking about the follo
 * **Expectation–Maximisation (EM)**  
 * **Belief Propagation**  
 * **Forward–Backward**  
-* **Kalman Filtering & Extended Kalman Filtering** – <https://tayyarg.github.io/kalman-filtreleme/>  
+* **Kalman Filtering & Extended Kalman Filtering** – <https://tayyarg.github.io/kalman-filtering/>  
 * **Variational Methods**  
 * **Laplace Approximation & BIC**  
-* **Markov Chain Monte Carlo (MCMC)**  
+* **Markov Chain Monte Carlo (MCMC)** – <https://tayyarg.github.io/markov-chain-monte-carlo-algorithm/>  
 * **Particle Filtering**  
 * **Expectation Propagation**
 
 ## Unsupervised Learning
 
-* **Factor Analysis / Dimensionality Reduction** – Principal Component Analysis (PCA)  
+* **Factor Analysis & Principal Component Analysis (PCA)** – dimensionality reduction  
 * **Independent Component Analysis (ICA)**  
 * **Clustering with Mixture Models** – *k-means*, GMMs  
 * **Singular Value Decomposition (SVD)**
 
 ## Supervised Learning
 
-* **Linear Regression** – <https://tayyarg.github.io/dogrusal_regresyon_probleminin_bayesci_cikarimla_cozulmesi/>  
-* **Gaussian Process Regression** – <http://www.gaussianprocess.org/gpml/>  
+* **Linear Regression** – <https://tayyarg.github.io/bayesian-inference-and-linear-regression/>  
+* **Gaussian Process Regression** – <https://tayyarg.github.io/gaussian-process-regression-for-machine-learning/>, <http://www.gaussianprocess.org/gpml/>  
 * **Logistic Regression**  
 * **Decision Trees**  
 * **Random Forest**  

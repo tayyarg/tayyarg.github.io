@@ -16,61 +16,61 @@ Makine öğrenmesi üç ana kategoriden oluşur.
 
 1. Gözetimsiz Öğrenme
 2. Gözetimli Öğrenme
-3. Pekiştirmeli (Yarı-gözetimli) Öğrenme
+3. Pekiştirmeli Öğrenme
 
 Bu konuda çok kaynak olduğu için detaylarına girmeyeceğim. 
 
 Özetle makine öğrenmesi konusunda uzmanlık seviyesine ulaşmak için bu kategorilere ait aşağıdaki konularda akıcı düzeyde düşünebilmek gerekir. Bu temel bilgiler ışığında gerçek dünyada karşımıza çıkan problemlerin hangi çözüm uzayında olduğu hakkında daha net bir fikre sahip olabiliriz. İlerleyen blog yazılarında aşağıdaki konular hakkında zaman zaman yazarak tüm liste hakkında tamamıyla Türkçeleştirilmiş bir kaynak oluşturmayı hedefliyorum. 
 
-Temel Bilgiler
+## Temel Bilgiler
 
 - Shannon'ın Kaynak Kodlama Teoremi / <a href="https://www.amazon.com/Springer-International-Engineering-Computer-Science-ebook/dp/B000WNL86A">Source Coding Theorem</a>
 - <a href="https://tayyarg.github.io/dogrusal_regresyon_probleminin_bayesci_cikarimla_cozulmesi/">Bayesçi istatistik</a>- Bayes kuralı / Bayesian statistics and learning
 - Cox Aksiyomları (Bayesçi olasılık teorisinin temeli) / Cox axioms
 - Bayesçi Model Karşılaştırma / Bayesian model comparison
-- Bilgi Teorisi - Entropi Kestirimi / <a href="http://www.cs-114.org/wp-content/uploads/2015/01/Elements_of_Information_Theory_Elements.pdf">Information theory - entropy estimation</a> 
+- Bilgi Teorisi - Entropi Kestirimi / <a href="https://doi.org/10.1002/047174882X">Information theory - entropy estimation</a> 
 - Ders kitabı önerisi - <a href="https://www.cs.ubc.ca/~murphyk/MLbook/">Machine Learning: a Probabilistic Perspective</a>
 
-Modeller
+## Modeller
 
 - Saklı Markov Modelleri / (HMMs)
 - <a href="https://en.wikipedia.org/wiki/State-space_representation">Durum Uzay Modelleri</a> / State space models (SSMs)
 - Boltzmann Makineleri / Boltzmann machines
 - Grafik Modelleri / directed, undirected, factor graphs
 
-Algoritmalar
+## Algoritmalar
 
 - Beklenti-Maksimizasyon / The EM Algorithm
 - İnanç Yayılımı / Belief propagation
 - İleri-Geri / Forward-backward
 - <a href="https://tayyarg.github.io/kalman-filtreleme/">Kalman Filtreleme</a> / Kalman filtering and extended Kalman filtering
-- Varyasyonel Metodlar / Variational methodu
-- Laplas Yakınsaması ve Bayes Bilgi Kriteri / Laplace approximation and BIC
-- Markov Zinciri Monte Carlo yöntemleri / Markov Chain Monte Carlo
+- Varyasyonel Metodlar / Variational methods
+- Laplace Yaklaşımı ve Bayes Bilgi Kriteri / Laplace approximation and BIC
+- <a href="https://tayyarg.github.io/markov-zincir-monte-carlo/">Markov Zinciri Monte Carlo yöntemleri</a> / Markov Chain Monte Carlo
 - Parçacık Filtreleme / Particle filtering
-- Beklenti Yayılım / Expectation propagation
+- Beklenti Yayılımı / Expectation propagation
 
-Gözetimsiz Öğrenme
+## Gözetimsiz Öğrenme
 
-- Faktör Analizi - boyut azaltma / principal component analysis - PCA
+- Faktör Analizi ve Temel Bileşen Analizi - boyut azaltma / factor analysis, principal component analysis - PCA
 - Bağımsız Bileşen Analizi / independent component analysis - ICA
 - Karışım Modelleriyle Kümeleme  / Mixture models clustering / k-means
 - Tekil Değer Ayrışımı / SVD - singular value decomposition
 
-Gözetimli Öğrenme 
+## Gözetimli Öğrenme
 
 - <a href="https://tayyarg.github.io/dogrusal_regresyon_probleminin_bayesci_cikarimla_cozulmesi/">Doğrusal regresyon</a>
-- <a href="https://tayyarg.github.io/dogrusal_regresyon_probleminin_bayesci_cikarimla_cozulmesi/">Gauss Süreç Regresyonu</a> / <a href="http://www.gaussianprocess.org/gpml/">Gaussian Process Regression</a>
+- <a href="https://tayyarg.github.io/gauss-sureci-regresyon-modeli-ile-makine-ogrenmesi/">Gauss Süreç Regresyonu</a> / <a href="http://www.gaussianprocess.org/gpml/">Gaussian Process Regression</a>
 - Lojistik regresyon 
 - Karar Ağaçları / Decision Trees
 - Rastgele Orman / Random Forest
-- Kolektif öğrenme metodları / Ensemble methods 
+- Kolektif öğrenme metodları / Ensemble methods
 - Naif Bayes Sınıflandırması
 - Tek Katmanlı Öğrenme — Perceptron
 - Sinir Ağları (çok-katmanlı perceptronlar) ve geri-yayılım / backpropagation
 - Destek Vektör Makineleri / Support vector machines
 
-Pekiştirmeli Öğrenme / Reinforcement Learning
+## Pekiştirmeli Öğrenme / Reinforcement Learning
 
 - Değer fonksiyonları / Value functions
 - Bellman Denklemi
@@ -80,7 +80,7 @@ Pekiştirmeli Öğrenme / Reinforcement Learning
 - Aktör-Kritik Algoritması
 - Zamansal Fark Öğrenimi / TD(lambda)
 
-Basit öğrenme teorisi
+## Temel Öğrenme Teorisi
 
 - Vapnik–Chervonenkis Boyutu
 - Regülarizasyon
