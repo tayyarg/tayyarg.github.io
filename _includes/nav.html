@@ -12,17 +12,17 @@
                     </li>
 
                     <!-- Language Switcher -->
+                    {% assign current_lang = page.lang | default: site.default_lang %}
                     <li class="lang-switcher dl-subviewopen">
-                        <a href="#" class="dl-subviewopen">{% if site.default_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
+                        <a href="#" class="dl-subviewopen">{% if current_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
                         <ul class="dl-submenu dl-menuopen">
                             {% for lang in site.languages %}
-                                {% if lang == site.default_lang %}
+                                {% if lang == current_lang %}
                                     <li><span class="active">{{ lang | upcase }}</span></li>
-                                {% else %}
-                                    {% if page.ref %}
-                                        <li class="dl-subviewopen"><a href="{% if lang == site.default_lang %}{{ page.url }}{% else %}/{{ lang }}{{ page.url }}{% endif %}">{{ lang | upcase }}</a></li>
-                                    {% else %}
-                                        <li class="dl-subviewopen"><a href="{% if lang == site.default_lang %}/{% else %}/{{ lang }}/{% endif %}">{{ lang | upcase }}</a></li>
+                                {% elsif page.ref %}
+                                    {% assign translation = site.posts | where: "ref", page.ref | where: "lang", lang | first %}
+                                    {% if translation %}
+                                        <li class="dl-subviewopen"><a href="{{ translation.url }}">{{ lang | upcase }}</a></li>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}

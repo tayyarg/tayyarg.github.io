@@ -25,8 +25,8 @@ To reach true *fluency* in ML you should be comfortable thinking about the follo
 
 ## Fundamentals
 
-* Shannon’s **Source Coding Theorem** – data compression limits  
-* **Bayesian statistics & learning** – <https://tayyarg.github.io/bayesian-inference-and-linear-regression/>  
+* Shannon’s **[Source Coding Theorem](https://www.amazon.com/Springer-International-Engineering-Computer-Science-ebook/dp/B000WNL86A)** – data compression limits  
+* **[Bayesian statistics & learning](https://tayyarg.github.io/bayesian-inference-and-linear-regression/)** – Bayes’ rule  
 * **Cox axioms** – foundation of Bayesian probability  
 * **Bayesian model comparison**  
 * Information theory – **entropy estimation** ([Elements of Information Theory](https://doi.org/10.1002/047174882X), Cover & Thomas)  
@@ -35,7 +35,7 @@ To reach true *fluency* in ML you should be comfortable thinking about the follo
 ## Models
 
 * **Hidden Markov Models (HMMs)**  
-* **State-Space Models (SSMs)**  
+* **[State-Space Models (SSMs)](https://en.wikipedia.org/wiki/State-space_representation)**  
 * **Boltzmann Machines**  
 * **Graphical Models** – directed, undirected, factor graphs
 
@@ -44,10 +44,10 @@ To reach true *fluency* in ML you should be comfortable thinking about the follo
 * **Expectation–Maximisation (EM)**  
 * **Belief Propagation**  
 * **Forward–Backward**  
-* **Kalman Filtering & Extended Kalman Filtering** – <https://tayyarg.github.io/kalman-filtering/>  
+* **[Kalman Filtering & Extended Kalman Filtering](https://tayyarg.github.io/kalman-filtering/)**  
 * **Variational Methods**  
 * **Laplace Approximation & BIC**  
-* **Markov Chain Monte Carlo (MCMC)** – <https://tayyarg.github.io/markov-chain-monte-carlo-algorithm/>  
+* **[Markov Chain Monte Carlo (MCMC)](https://tayyarg.github.io/markov-chain-monte-carlo-algorithm/)**  
 * **Particle Filtering**  
 * **Expectation Propagation**
 
@@ -60,8 +60,8 @@ To reach true *fluency* in ML you should be comfortable thinking about the follo
 
 ## Supervised Learning
 
-* **Linear Regression** – <https://tayyarg.github.io/bayesian-inference-and-linear-regression/>  
-* **Gaussian Process Regression** – <https://tayyarg.github.io/gaussian-process-regression-for-machine-learning/>, <http://www.gaussianprocess.org/gpml/>  
+* **[Linear Regression](https://tayyarg.github.io/bayesian-inference-and-linear-regression/)**  
+* **[Gaussian Process Regression](https://tayyarg.github.io/gaussian-process-regression-for-machine-learning/)** – see also Rasmussen & Williams, [*Gaussian Processes for Machine Learning*](http://www.gaussianprocess.org/gpml/)  
 * **Logistic Regression**  
 * **Decision Trees**  
 * **Random Forest**  
