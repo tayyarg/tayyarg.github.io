@@ -32,22 +32,6 @@ comments: true
                     </p><!-- /.entry-reading-time -->
                     {% endif %}
                     
-                    <!-- Language Switcher -->
-                    {% if page.ref %}
-                    <div class="post-language-links">
-                        {% assign current_lang = page.lang | default: site.default_lang %}
-                        {% for lang in site.languages %}
-                            {% if lang == current_lang %}
-                                <span class="lang-btn active">{{ lang | upcase }}</span>
-                            {% else %}
-                                {% assign posts = site.posts | where: "ref", page.ref | where: "lang", lang %}
-                                {% for post in posts %}
-                                    <a href="{{ post.url }}" class="lang-btn">{{ lang | upcase }}</a>
-                                {% endfor %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
 
                     {% if page.project %}
                     <a class="btn zoombtn" href="{{site.url}}/projects/">

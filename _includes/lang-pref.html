@@ -1,0 +1,20 @@
+    <!-- Language preference: chosen once on the landing page, stored in the browser.
+         Elements with class lang-tr / lang-en are shown only in their language. -->
+    <style>
+        html[data-lang="tr"] .lang-en, html[data-lang="en"] .lang-tr { display: none !important; }
+    </style>
+    <script>
+    (function () {
+        var chosen = null;
+        try { chosen = localStorage.getItem('lang'); } catch (e) {}
+        document.documentElement.setAttribute('data-lang', chosen || '{{ page.lang | default: site.default_lang }}');
+        {% if page.ref and page.lang %}{% for lang in site.languages %}{% if lang != page.lang %}{% assign translation = site.posts | where: "ref", page.ref | where: "lang", lang | first %}{% if translation %}
+        /* a page with a translation: follow the language the reader chose */
+        if (chosen === '{{ lang }}') { location.replace('{{ translation.url }}' + location.hash); }
+        {% endif %}{% endif %}{% endfor %}{% endif %}
+    })();
+    function setLanguage(lang) {
+        try { localStorage.setItem('lang', lang); } catch (e) {}
+        document.documentElement.setAttribute('data-lang', lang);
+    }
+    </script>

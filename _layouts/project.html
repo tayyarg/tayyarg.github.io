@@ -16,25 +16,19 @@ layout: compress
         <div class="wrapper animated fadeIn">
             <div class="content">
                 <div class="post-title">
-                    <h1>{{ page.title }}</h1>
+                    <h1><span class="lang-tr">{{ page.title_tr | default: page.title }}</span><span class="lang-en">{{ page.title }}</span></h1>
                     <a class="btn zoombtn" href="{{site.url}}">
                         <i class="fa fa-home"></i>
                     </a>
                 </div>
                 <div class="post-list">
-                    {% assign current_lang = page.lang | default: site.default_lang %}
                     {% for post in site.posts %}
-                    {% if post.project and post.lang == current_lang %}
-                    <ul>
+                    {% if post.project %}
+                    <ul class="{% if post.ref %}lang-{{ post.lang | default: site.default_lang }}{% endif %}">
                         <li class="wow fadeInLeft" data-wow-duration="1.5s">
                             <a class="zoombtn" href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
                             <p>{{ post.excerpt }}</p>
-                            {% for lang in site.languages %}
-                                {% assign version = site.posts | where: "ref", post.ref | where: "lang", lang | first %}
-                                {% if version %}
-                            <a href="{{ site.url }}{{ version.url }}" class="btn zoombtn">{% if lang == "tr" %}Türkçe{% else %}English{% endif %}</a>
-                                {% endif %}
-                            {% endfor %}
+                            <a href="{{ site.url }}{{ post.url }}" class="btn zoombtn">{% if post.lang == "en" %}Read More{% else %}Devamını Oku{% endif %}</a>
                         </li>
                     </ul>
                     {% endif %}

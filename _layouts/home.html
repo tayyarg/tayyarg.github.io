@@ -32,16 +32,15 @@ layout: compress
                     {% include social-links.html %}
                   <hr class="hr-line">
                   <h3 class="title">
-                         <a class="btn zoombtn" href="{{ site.url }}/about">
-                         About
-                         </a>
-                         <a class="btn zoombtn" href="{{ site.url }}/posts">
-                         Posts
-                         </a>
-                         <a class="btn zoombtn" href="{{ site.url }}/projects">
-                         Projects
-                         </a>
+                         <a class="btn zoombtn lang-tr" href="{{ site.url }}/about/">Hakkında</a>
+                         <a class="btn zoombtn lang-en" href="{{ site.url }}/about-en/">About</a>
+                         <a class="btn zoombtn" href="{{ site.url }}/posts/"><span class="lang-tr">Yazılar</span><span class="lang-en">Posts</span></a>
+                         <a class="btn zoombtn" href="{{ site.url }}/projects/"><span class="lang-tr">Projeler</span><span class="lang-en">Projects</span></a>
                  </h3>
+                 <div class="lang-choice">
+                         <a href="#" class="lang-option" data-choice="tr" onclick="setLanguage('tr'); return false;">Türkçe</a>
+                         <a href="#" class="lang-option" data-choice="en" onclick="setLanguage('en'); return false;">English</a>
+                 </div>
             </div>
         </div>
     </header>

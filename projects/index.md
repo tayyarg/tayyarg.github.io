@@ -1,6 +1,7 @@
 ---
 layout: project
 title: All Projects
+title_tr: Tüm Projeler
 excerpt: "A List of Projects"
 comments: false
 ---

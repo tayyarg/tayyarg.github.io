@@ -11,25 +11,8 @@
                         <p>{{ site.description }}</p>
                     </li>
 
-                    <!-- Language Switcher -->
-                    {% assign current_lang = page.lang | default: site.default_lang %}
-                    <li class="lang-switcher dl-subviewopen">
-                        <a href="#" class="dl-subviewopen">{% if current_lang == "en" %}English{% else %}Türkçe{% endif %}</a>
-                        <ul class="dl-submenu dl-menuopen">
-                            {% for lang in site.languages %}
-                                {% if lang == current_lang %}
-                                    <li><span class="active">{{ lang | upcase }}</span></li>
-                                {% elsif page.ref %}
-                                    {% assign translation = site.posts | where: "ref", page.ref | where: "lang", lang | first %}
-                                    {% if translation %}
-                                        <li class="dl-subviewopen"><a href="{{ translation.url }}">{{ lang | upcase }}</a></li>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    
-                    <li><a href="{{ site.url }}/about/"><span class="btn btn-inverse">Learn More</span></a></li>
+                    <li class="lang-tr"><a href="{{ site.url }}/about/"><span class="btn btn-inverse">Hakkımda</span></a></li>
+                    <li class="lang-en"><a href="{{ site.url }}/about-en/"><span class="btn btn-inverse">Learn More</span></a></li>
                     {% if site.email %}<li>
                         <a href="mailto:{{ site.email }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
                     </li>{% endif %}

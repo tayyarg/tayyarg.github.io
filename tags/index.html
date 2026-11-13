@@ -11,17 +11,19 @@ comments: false
 <ul class="entry-meta inline-list">
   {% for item in (0..site.tags.size) %}{% unless forloop.last %}
     {% capture this_word %}{{ tags_list[item] | strip_newlines }}{% endcapture %}
-  	<li><a href="#{{ this_word }}" class="tag"><span class="term">{{ this_word }}</span> <span class="count">{{ site.tags[this_word].size }}</span></a></li>
+    {% assign n_tr = site.tags[this_word] | where: "lang", "tr" | size %}{% assign n_en = site.tags[this_word] | where: "lang", "en" | size %}
+  	<li class="{% if n_tr == 0 %}lang-en{% elsif n_en == 0 %}lang-tr{% endif %}"><a href="#{{ this_word }}" class="tag"><span class="term">{{ this_word }}</span> <span class="count"><span class="lang-tr">{{ n_tr }}</span><span class="lang-en">{{ n_en }}</span></span></a></li>
   {% endunless %}{% endfor %}
 </ul>
 
 {% for item in (0..site.tags.size) %}{% unless forloop.last %}
   {% capture this_word %}{{ tags_list[item] | strip_newlines }}{% endcapture %}
-	<article>
+  {% assign n_tr = site.tags[this_word] | where: "lang", "tr" | size %}{% assign n_en = site.tags[this_word] | where: "lang", "en" | size %}
+	<article class="{% if n_tr == 0 %}lang-en{% elsif n_en == 0 %}lang-tr{% endif %}">
 	<h2 id="{{ this_word }}" class="tag-heading">{{ this_word }}</h2>
 		<ul>
     {% for post in site.tags[this_word] %}{% if post.title != null %}
-      <li class="entry-title"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+      <li class="entry-title {% if post.ref %}lang-{{ post.lang | default: site.default_lang }}{% endif %}"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
     {% endif %}{% endfor %}
 		</ul>
 	</article><!-- /.hentry -->

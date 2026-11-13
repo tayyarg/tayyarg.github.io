@@ -220,32 +220,26 @@ header .entry-meta {
         background-position: center center;
     }
 }
-// Language switcher styles
-.post-language-links {
-    margin: 1em 0;
+// Language choice on the landing page
+.lang-choice {
+    margin: 1.2em 0 0.6em;
     text-align: center;
-    
-    .lang-btn {
+
+    .lang-option {
         display: inline-block;
-        padding: 5px 10px;
-        margin: 0 5px;
-        border: 1px solid #000000;
+        padding: 4px 12px;
+        margin: 0 4px;
+        border: 1px solid rgba(0, 0, 0, 0.35);
         border-radius: 3px;
-        text-decoration: none;
         font-size: 0.8em;
-        background: #ffffff;
-        color: #000000;
-        transition: all 0.3s ease;
-        
-        &.active {
-            background: #ffffff;
-            color: #000000;
-            cursor: default;
-        }
-        
-        &:hover:not(.active) {
-            background: #ffffff;
-            color: #000000;
-        }
+        color: inherit;
+        text-decoration: none;
+        opacity: 0.55;
     }
+}
+html[data-lang="tr"] .lang-option[data-choice="tr"],
+html[data-lang="en"] .lang-option[data-choice="en"] {
+    opacity: 1;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.08);
 }
