@@ -1,20 +1,21 @@
 ---
 layout: post
-title: Proje - Kablosuz Algılayıcı Ağlarında Yayıcı Konumlama için Uyarlanır Sıkıştırma
+title: Proje - Kablosuz Algılayıcı Ağlarında Sinyal Yayıcı Konumlama için Uyarlanır Sıkıştırma
 excerpt: "Bir radarın yerini algılayıcılar arasındaki varış zamanı farkıyla bulmak ve algılayıcıların paylaşması gereken veriyi konum doğruluğunu kaybetmeden sıkıştırmak: dinamik programlama ve Lagrange çarpanlarıyla optimal bit dağıtımı. Yüksek lisans tezime dayanıyor."
-tags: [proje, tdoa, yayıcı konumlama, veri sıkıştırma, bit dağıtımı, lagrange çarpanları, dinamik programlama, dsp]
+tags: [proje, tdoa, sinyal yayıcı konumlama, veri sıkıştırma, bit dağıtımı, lagrange çarpanları, dinamik programlama, dsp]
 comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: proj-tdoa-compression
+redirect_from: /proje-yayici-konumlama-icin-uyarlanir-sikistirma/
 project: true
 ---
 
 Emre: Göremediğin bir radarın yerini sadece yaydığı sinyali kullanarak nasıl bulabilirsin?
 
-Kaan: Onu aynı anda birkaç farklı yerden dinleyerek. Bu proje, Prof. Mark L. Fowler'ın danışmanlığında yazdığım *Adaptive Compression Method for Emitter Location in Wireless Sensor Networks* (Binghamton University, State University of New York, 2004) başlıklı yüksek lisans tezime dayanıyor. Tez, doğrudan onun yayıcı konumlama için veri sıkıştırma üzerine çalışmalarının üzerine kurulu. Her şeyi sentetik radar sinyalleriyle Python'da yeniden yazdım, böylece her adımı kendin çalıştırabilirsin.
+Kaan: Onu aynı anda birkaç farklı yerden dinleyerek. Bu proje, Prof. Mark L. Fowler'ın danışmanlığında yazdığım *Adaptive Compression Method for Emitter Location in Wireless Sensor Networks* (Binghamton University, State University of New York, 2004) başlıklı yüksek lisans tezime dayanıyor. Tez, doğrudan onun sinyal yayıcı konumlama için veri sıkıştırma üzerine çalışmalarının üzerine kurulu. Her şeyi sentetik radar sinyalleriyle Python'da yeniden yazdım, böylece her adımı kendin çalıştırabilirsin.
 
-## Problem - Bir Yayıcının Yerini Bulmak
+## Problem - Bir Sinyal Yayıcının Yerini Bulmak
 
 Bir radarın bilinmeyen bir konumdan yayın yaptığını ve konumları bilinen birkaç uçakta (ya da yer algılayıcısında) alıcılarımız olduğunu varsayalım. Tüm alıcılar aynı darbeyi yakalar ama her biri biraz farklı bir anda, çünkü darbe her birine farklı bir mesafe kat ederek ulaşır.
 
@@ -26,13 +27,13 @@ $$
 $$
 </div>
 
-olur. Burada $$\mathbf{p}$$ yayıcının konumu, $$\mathbf{r}_i$$ $$i$$. alıcının konumu, $$c$$ ise ışık hızıdır. Darbenin ne zaman yayıldığını bilmemize gerek olmadığına dikkat et: farkta sadeleşip gidiyor.
+olur. Burada $$\mathbf{p}$$ sinyal yayıcının konumu, $$\mathbf{r}_i$$ $$i$$. alıcının konumu, $$c$$ ise ışık hızıdır. Darbenin ne zaman yayıldığını bilmemize gerek olmadığına dikkat et: farkta sadeleşip gidiyor.
 
 Emre: Ama tek bir denklem bize bir konum veremez ki.
 
-Kaan: Doğru. Tek bir TDOA bize iki alıcıya olan uzaklıkların farkının sabit olduğunu söyler ve iki sabit noktaya olan uzaklıklarının farkı sabit olan noktaların kümesi bir **hiperboldür** (3 boyutta hiperboloid). Yani her TDOA yayıcıyı bir hiperbolün üzerine yerleştirir. Bir düzlemde üç alıcıyla iki bağımsız TDOA, yani iki hiperbol elde ederiz. Yayıcı onların kesiştiği yerdedir. 3 boyutta dördüncü bir alıcıya ya da **varış frekansı farkına (frequency difference of arrival - FDOA)** ihtiyacımız var: alıcılar hareket ediyorsa Doppler kayması her alıcıda farklıdır ve frekans farkı bize bir denklem daha verir.
+Kaan: Doğru. Tek bir TDOA bize iki alıcıya olan uzaklıkların farkının sabit olduğunu söyler ve iki sabit noktaya olan uzaklıklarının farkı sabit olan noktaların kümesi bir **hiperboldür** (3 boyutta hiperboloid). Yani her TDOA sinyal yayıcıyı bir hiperbolün üzerine yerleştirir. Bir düzlemde üç alıcıyla iki bağımsız TDOA, yani iki hiperbol elde ederiz. Sinyal yayıcı onların kesiştiği yerdedir. 3 boyutta dördüncü bir alıcıya ya da **varış frekansı farkına (frequency difference of arrival - FDOA)** ihtiyacımız var: alıcılar hareket ediyorsa Doppler kayması her alıcıda farklıdır ve frekans farkı bize bir denklem daha verir.
 
-Bunu birbirinden 40 km uzaktaki üç alıcı ve yaklaşık 75 km uzakta bir yayıcıyla görelim. TDOA'lar 20 ns hatayla ölçülüyor ve konumu iki hiperbol denklemini doğrusal olmayan en küçük karelerle çözerek buluyoruz.
+Bunu birbirinden 40 km uzaktaki üç alıcı ve yaklaşık 75 km uzakta bir sinyal yayıcıyla görelim. TDOA'lar 20 ns hatayla ölçülüyor ve konumu iki hiperbol denklemini doğrusal olmayan en küçük karelerle çözerek buluyoruz.
 
 ```python
 import numpy as np
@@ -43,10 +44,10 @@ rng = np.random.default_rng(3) # sonuclar tekrarlanabilir olsun diye rasgele say
 c = 3e8  # isik hizi [m/s]
 
 receivers = np.array([[0, 0], [40e3, 0], [15e3, 30e3]])  # uc alici [m]
-emitter = np.array([60e3, 45e3])                          # bilinmeyen yayici [m]
+emitter = np.array([60e3, 45e3])                          # bilinmeyen sinyal yayici [m]
 
 def tdoas(p):
-    """p konumundaki bir yayici icin 2. ve 3. alicilarin 1. aliciya gore TDOA'lari."""
+    """p konumundaki bir sinyal yayici icin 2. ve 3. alicilarin 1. aliciya gore TDOA'lari."""
     d = np.linalg.norm(receivers - p, axis=1)
     return (d[1:] - d[0]) / c
 
@@ -64,12 +65,12 @@ d = [np.hypot(x - rx, y - ry) for rx, ry in receivers]
 plt.contour(x / 1e3, y / 1e3, (d[1] - d[0]) / c - measured[0], [0], colors='tab:blue')
 plt.contour(x / 1e3, y / 1e3, (d[2] - d[0]) / c - measured[1], [0], colors='tab:orange')
 plt.plot(*receivers.T / 1e3, 'k^', ms=10, label='alıcılar')
-plt.plot(*emitter / 1e3, 'r*', ms=16, label='yayıcı')
+plt.plot(*emitter / 1e3, 'r*', ms=16, label='sinyal yayıcı')
 plt.plot(*estimate / 1e3, 'gx', ms=12, mew=3, label='kestirim')
 plt.plot([], [], color='tab:blue', label='TDOA 1-2. alıcılar')
 plt.plot([], [], color='tab:orange', label='TDOA 1-3. alıcılar')
 plt.xlabel('x [km]'); plt.ylabel('y [km]')
-plt.title('İki TDOA ile yayıcı konumlama')
+plt.title('İki TDOA ile sinyal yayıcı konumlama')
 plt.legend(loc='center left', bbox_to_anchor=(1.02, 0.5)); plt.gca().set_aspect('equal')
 plt.show()
 ```
@@ -82,7 +83,7 @@ Konum hatasi: 68.1 m
 <img src="/images/proj_tdoa_location.png" width="60%" height="60%">
 </p>
 
-İki hiperbol yayıcıda kesişiyor ve kestirim yaklaşık 70 metre uzakta. Bunun ne kadar hassas olduğuna dikkat et: ışık 20 ns'de sadece 6 m yol alır, ama alıcılardan uzakta hiperboller birbirini dar bir açıyla keser, bu yüzden birindeki küçük bir hata kesişim noktasını çok kaydırır (buna geometrik hassasiyet seyrelmesi, geometric dilution of precision, denir). TDOA hatasının her nanosaniyesi önemli: konum doğruluğu ancak TDOA doğruluğu kadar iyidir.
+İki hiperbol sinyal yayıcıda kesişiyor ve kestirim yaklaşık 70 metre uzakta. Bunun ne kadar hassas olduğuna dikkat et: ışık 20 ns'de sadece 6 m yol alır, ama alıcılardan uzakta hiperboller birbirini dar bir açıyla keser, bu yüzden birindeki küçük bir hata kesişim noktasını çok kaydırır (buna geometrik hassasiyet seyrelmesi, geometric dilution of precision, denir). TDOA hatasının her nanosaniyesi önemli: konum doğruluğu ancak TDOA doğruluğu kadar iyidir.
 
 ## TDOA'yı Ölçmek
 
@@ -202,7 +203,7 @@ Kestiricimiz Cramér–Rao sınırına ulaşıyor (aradaki küçük fark istatis
 
 Emre: Kayıplı sıkıştırma her yerde. Standart bir yöntem kullanamaz mıyız?
 
-Kaan: Standart yöntemler orijinal sinyalle yeniden oluşturulan sinyal arasındaki **ortalama karesel hatayı (MSE)** minimize eder: sinyalin aynı *görünmesini* sağlamaya çalışırlar. Ama bu sinyale kimse bakmayacak. Onu bir makine bir TDOA kestirmek için kullanacak, bu yüzden doğru kalite ölçüsü sıkıştırmanın TDOA doğruluğuna ne kadar zarar verdiğidir. Prof. Fowler'ın çalışmalarının çıkış noktası da buydu: MSE, yayıcı konumlama için yanlış bozulma ölçüsüdür.
+Kaan: Standart yöntemler orijinal sinyalle yeniden oluşturulan sinyal arasındaki **ortalama karesel hatayı (MSE)** minimize eder: sinyalin aynı *görünmesini* sağlamaya çalışırlar. Ama bu sinyale kimse bakmayacak. Onu bir makine bir TDOA kestirmek için kullanacak, bu yüzden doğru kalite ölçüsü sıkıştırmanın TDOA doğruluğuna ne kadar zarar verdiğidir. Prof. Fowler'ın çalışmalarının çıkış noktası da buydu: MSE, sinyal yayıcı konumlama için yanlış bozulma ölçüsüdür.
 
 Cramér–Rao sınırına tekrar bak. Sıkıştırma doğruluğa iki şekilde zarar verebilir:
 
