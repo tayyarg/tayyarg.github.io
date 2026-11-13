@@ -29,9 +29,9 @@ When we know the equation deterministically, we can calculate the cost of all tr
 <img src="/images/taxi_equation.png"/>
 </p>
 
-# Classical Linear Regression
+## Classical Linear Regression
 
-Now let’s see what the statistical approach looks like. Suppose we are again in the taxi, but this time we do not know the flag-drop fee or the cost per km. Nevertheless, in order to calculate the cost of future trips we want to estimate the linear equation that the taximeter uses. Suppose we ignore the digits after the decimal point that appear on the taximeter display and write down only the integer part of the cost per km. At this point our task is to fit a line to the points we have noted in order to find the parameters of the following equation:
+Now let’s see what the statistical approach looks like. Suppose we are again in the taxi, but this time we do not know the flag-drop fee or the cost per km. Nevertheless, in order to calculate the cost of future trips we want to estimate the linear equation that the taximeter uses. Suppose that, for each trip, we write down the distance and the cost shown on the taximeter, ignoring the digits after the decimal point (that is, we only note the integer part of the cost). At this point our task is to fit a line to the points we have noted in order to find the parameters of the following equation:
 
 $$
 Y = \theta_{0} + \theta_{1} * X
@@ -53,17 +53,17 @@ so that $\theta_{0} = 6.6$ and $\theta_{1} = 0.8$.
 
 Wait a second, how did we obtain this estimate?
 
-Actually the *least-squares* method in the context of linear regression has been extensively covered in the literature; therefore I will not go into the details of the algorithm here. However, to build up our story I need to remind some fundamentals.
+Actually the *least-squares* method in the context of linear regression has been extensively covered in the literature; therefore I will not go into the details of the algorithm here. However, to build up our story, I need to remind you of some fundamentals.
 
 Since we assume we do not know the deterministic equation, we will use a statistical approach to *predict* the $Y$ values. The first thing we need to do is to use all the information we have about what the linear relationship between $X$ and $Y$ will be. By looking at how the data are distributed on a two-dimensional plane, we can see that they can be expressed more accurately by a line equation than by a curve equation. In that case our model will be
 
 $$
-\hat{y_i} = \theta_0 + \theta_1 x_i + \epsilon_i
+y_i = \theta_0 + \theta_1 x_i + \epsilon_i
 $$
 
-where $\hat{y_i}$ represents the prediction for the $i$-th observation and $\epsilon_i$ represents the error (or “residual”) for the $i$-th observation.
+where $y_i$ represents the $i$-th observation, $\theta_0 + \theta_1 x_i$ is the part our line explains, and $\epsilon_i$ represents the error (or “residual”) for the $i$-th observation. Our prediction for the $i$-th observation is therefore $\hat{y}_i = \theta_0 + \theta_1 x_i$.
 
-If we express the prediction $\theta_0 + \theta_1 x_i$ as $\theta^T x_i$, the error—computed as the difference between the true value $y_i$ and the prediction $\hat{y_i} = \theta^T x_i$—becomes
+If we express the prediction $\theta_0 + \theta_1 x_i$ as $\theta^T x_i$ (with $\theta = [\theta_0, \theta_1]^T$ and $x_i = [1, x_i]^T$), the error—computed as the difference between the true value $y_i$ and the prediction $\hat{y_i} = \theta^T x_i$—becomes
 
 $$
 \epsilon_i = y_i - \hat{y_i} = y_i - \theta^T x_i.
@@ -75,10 +75,10 @@ $$
 g(\theta) = \sum_{i=1}^{n} (\epsilon_i)^2 = \sum_{i=1}^{n} (y_i - \hat{y_i})^2 = \sum_{i=1}^{n} (y_i - \theta^T x_i)^2,
 $$
 
-the least-squares fitting method, which has at least one solution for our problem, tries to minimise the RSS:
+the least-squares fitting method, which has at least one solution for our problem, tries to find the parameters that minimise the RSS:
 
 $$
-J(\theta_1, \theta_2) = \underset{\theta_1, \theta_2}{\arg\min} \sum_{i=1}^{n} (y_i - \hat{y_i})^2 = \sum_{i=1}^{n} (y_i - \theta^T x_i)^2.
+\hat{\theta} = \underset{\theta_0, \theta_1}{\arg\min} \; J(\theta_0, \theta_1), \qquad J(\theta_0, \theta_1) = \sum_{i=1}^{n} (y_i - \theta^T x_i)^2.
 $$
 
 Emre: What is this equation trying to do?
@@ -104,7 +104,7 @@ Kaan: The gradient tells us in which direction we should move to reach the minim
 The figure below shows how the "Gradient Descent" method reaches the minimum point on a convex function for a single parameter.
 
 <p align="center">
-<img src="/images/gd_tr.png" width="300" height="300"/>
+<img src="/images/gd_tr_en.png" width="300" height="300"/>
 </p>
 
 On the other hand, in our example there was only one predictor variable $X_1$ and two unknown parameters ($\theta_0$, $\theta_1$). In real-world problems, however, the number of predictor variables can be very large. If we were trying to predict the price of a used car, for instance, there would be many variables such as the brand, model, mileage, safety equipment, etc., which would turn the problem from a simple regression problem into a multiple regression problem. In that case our model would be
@@ -113,14 +113,14 @@ $$
 \hat{y_i} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_p x_p.
 $$
 
-This is no longer a simple linear-regression problem but a “multiple regression” problem. Working in high dimensions makes taking derivatives quite difficult, so we usually work continuously with gradients. As in the previous example, a method that stops the iteration when the gradient falls below a threshold is used to search for the optimal point.
+This is no longer a simple linear-regression problem but a “multiple regression” problem. With many variables, solving the closed-form equations requires inverting a large matrix, which becomes computationally expensive, so we usually find the solution iteratively with gradients instead. As in the previous example, a method that stops the iteration when the gradient falls below a threshold is used to search for the optimal point.
 
 In general, in multiple regression the gradient is expressed as
 
 $$
-\nabla J(\theta_1, \dots, \theta_p) = \begin{bmatrix}
+\nabla J(\theta_0, \dots, \theta_p) = \begin{bmatrix}
 \frac{\partial J}{\partial \theta_0} \\
-\frac{\partial J}{\partial \theta_0} \\
+\frac{\partial J}{\partial \theta_1} \\
 \vdots \\
 \frac{\partial J}{\partial \theta_p}
 \end{bmatrix}.
@@ -134,15 +134,15 @@ Kaan: Yes, now let’s come to solving the linear-regression problem with a Baye
 
 Emre: What do you mean?
 
-Kaan: Instead of a “curve fitting” that minimises the cost function, this time we need a “curve fitting” that maximises the likelihood of the observations we have. In general, using our assumptions about how the data come into being, we can calculate the likelihood of the data as
+Kaan: Instead of a “curve fitting” that minimises the cost function, this time we need a “curve fitting” that maximises the likelihood of the observations we have. In general, using our assumptions about how the data come into being (here, that the observations are independent of each other), we can calculate the likelihood of the data as
 
 $$
-L \text{ (likelihood)} = p(y | x) = p(y_1 | x_1, \theta) * p(y_2 | x_2, \theta) * \dots * p(y_n | x_n, \theta).
+L \text{ (likelihood)} = p(y | X, \theta) = p(y_1 | x_1, \theta) * p(y_2 | x_2, \theta) * \dots * p(y_n | x_n, \theta).
 $$
 
 We want to find the parameter values $\theta$ that maximise this likelihood function $L$.
 
-Emre: How can we calculate each likelihood $p(y_i | x_i, \theta)$ separately?
+Emre: How can we calculate each likelihood $p(y_i \vert x_i, \theta)$ separately?
 
 Kaan: This is where the Gaussian distribution comes to our aid. Remember we assumed above that the mean of the errors is zero. Let’s go one step further and assume that the probability distribution of the error values follows a Gaussian distribution.
 
@@ -151,7 +151,7 @@ Emre: What does the Gaussian distribution look like?
 Kaan: Our famous bell curve, or in other words the Normal distribution. Remember that the Gaussian distribution is expressed as
 
 $$
-\mathcal{N}(\mu, \sigma^2) = \frac{1}{\sigma \sqrt{2\pi}} e^{-(x - \mu)^2 / (2\sigma^2)}.
+\mathcal{N}(x | \mu, \sigma^2) = \frac{1}{\sigma \sqrt{2\pi}} e^{-(x - \mu)^2 / (2\sigma^2)}.
 $$
 
 Here $x$ is our random variable, $\mu$ represents the mean, and $\sigma$ represents the standard deviation.
@@ -161,7 +161,7 @@ As a shape, what does it look like?
 If we visualise it for $\mu = 0$ and $\sigma = 1$, it looks like this:
 
 <p align="center">
-<img src="/images/normal_dist_mu_0_sigma_1.png" width="468" height="309"/>
+<img src="/images/normal_dist_mu_0_sigma_1_en.png" width="468" height="309"/>
 </p>
 
 Then we can express the probability distribution of the error in our problem as
@@ -170,25 +170,27 @@ $$
 \epsilon_i \sim \mathcal{N}(0, \sigma^2).
 $$
 
-Now, getting back to where we left off, we were thinking about how to calculate each $p(y_i | x_i, \theta)$ in the likelihood expression $L$.
+Now, getting back to where we left off, we were thinking about how to calculate each $p(y_i \vert x_i, \theta)$ in the likelihood expression $L$.
 
-Emre: What does the expression $p(y_i | x_i, \theta)$ tell us?
+Emre: What does the expression $p(y_i \vert x_i, \theta)$ tell us?
 
 Kaan: It tells us the likelihood distribution of the random variable $y_i$ given that we know $x_i$ and $\theta$.
 
 We said at the very beginning
 
 $$
-\hat{y_i} = \theta_0 + \theta_1 x_i + \epsilon_i.
+y_i = \theta_0 + \theta_1 x_i + \epsilon_i.
 $$
 
-Since the only random variables in this equation are $y_i$ and $\epsilon_i$, the distribution of $y_i$ is actually of the same type as the distribution of $\epsilon_i$.
+Since $x_i$ and $\theta$ are given, the only random variables in this equation are $y_i$ and $\epsilon_i$, so the distribution of $y_i$ is actually of the same type as the distribution of $\epsilon_i$.
 
-However, we need to pay attention to one thing: while the types of the distributions are the same, the parameter values are different. We can use a property of the Gaussian distribution to find the distribution parameters of $y_i$. If $X \sim \mathcal{N}(\mu, \sigma^2)$ and $Y \sim \mathcal{N}(0, \sigma^2)$, then
+However, we need to pay attention to one thing: while the types of the distributions are the same, the parameter values are different. We can use a property of the Gaussian distribution to find the distribution parameters of $y_i$. If $Y \sim \mathcal{N}(0, \sigma^2)$ and $\mu$ is a constant, then
 
 $$
-X = \mu + Y.
+X = \mu + Y \sim \mathcal{N}(\mu, \sigma^2).
 $$
+
+In other words, adding a constant to a Gaussian random variable only shifts its mean.
 
 Using this property, and knowing that $y_i = \theta^T x_i + \epsilon_i$, we can write
 
@@ -232,7 +234,7 @@ $$
 p(A | B) = \frac{p(B | A) p(A)}{p(B)}.
 $$
 
-This rule actually gives us the conditional probability of event $A$ based on observation $B$ (or “evidence,” a term frequently used in Bayesian statistics). In its original form, the denominator of the equation is more complicated, but here we simply wrote $p(B)$ in the denominator. The reason is that when the probability of $A$ is calculated over all probabilities of $B$, the probability of $B$ occurring becomes independent of $A$. This is called “marginalisation.” In this case $p(B)$ acts only as a constant that normalises the equation.
+This rule actually gives us the conditional probability of event $A$ based on observation $B$ (or “evidence,” a term frequently used in Bayesian statistics). In its expanded form, the denominator of the equation is more complicated, $p(B) = \sum_{A} p(B \vert A) p(A)$ (an integral for continuous variables), but here we simply wrote $p(B)$. The reason is that since $p(B)$ is computed by summing over all possible values of $A$, it no longer depends on $A$. This is called “marginalisation.” In this case $p(B)$ acts only as a constant that normalises the equation.
 
 So we can say
 
@@ -246,9 +248,9 @@ Bayes works as follows: In the light of prior information about a hypothesis, we
 posterior distribution $\propto$ likelihood (information from evidence) × prior distribution (pre-belief)
 </p>
 
-In summary, in Bayesian statistics the result is basically a probability distribution. That is, instead of point estimates, the probability distributions that make up the estimate! That is, instead of a hypothesis that the parameter of a linear model equals 5, we talk about a parameter that follows a Normal distribution with mean 5 and standard deviation 0.7. Trying to compute point estimates is a “Frequentist” approach. I cannot help mentioning something here. The statistical world is polarised around these two axes. One is the Frequentist approach, which makes little or no use of prior information about the hypothesis, and the other is the Bayesian approach. If you ask any sensible person, “When we get new data about the event we are analysing, do our beliefs get closer to the absolute truth?” they will say “yes.” Understanding this does not require superior intelligence. But what is truly ingenious is setting this up in a mathematical framework that can be expressed under all circumstances. That is what Bayes did. The Bayesian approach handles the prior and the new data within a framework of consistent principles. That is why we are following the Bayesian approach here.
+In summary, in Bayesian statistics the result is basically a probability distribution. That is, instead of point estimates, we get the probability distributions that make up the estimate! That is, instead of a hypothesis that the parameter of a linear model equals 5, we talk about a parameter that follows a Normal distribution with mean 5 and standard deviation 0.7. Computing only point estimates is what the “Frequentist” approach does. I cannot help mentioning something here. The statistical world is polarised around these two axes. One is the Frequentist approach, which makes little or no use of prior information about the hypothesis, and the other is the Bayesian approach. If you ask any sensible person, “When we get new data about the event we are analysing, do our beliefs get closer to the absolute truth?” they will say “yes.” Understanding this does not require superior intelligence. But what is truly ingenious is setting this up in a mathematical framework that can be expressed under all circumstances. That is what Bayes did. The Bayesian approach handles the prior and the new data within a framework of consistent principles. That is why we are following the Bayesian approach here.
 
-In many cases in the expression above, the likelihood $p(B|A)$ on the right-hand side of the equation is determined by the process that generates the observations. For that process we need to make some assumptions, but let’s not go into that detail. What is most important to note here is that the biggest trick of the Bayesian approach is that the posterior distribution becomes the prior distribution for the next inference. Let’s note this in an important corner of our minds!
+In many cases in the expression above, the likelihood $p(B \vert A)$ on the right-hand side of the equation is determined by the process that generates the observations. For that process we need to make some assumptions, but let’s not go into that detail. What is most important to note here is that the biggest trick of the Bayesian approach is that the posterior distribution becomes the prior distribution for the next inference. Let’s note this in an important corner of our minds!
 
 Anyway, we have moved too far away from our main problem; let’s take one step back. Based on Bayes’s rule we can now talk about priors and posteriors. In that case, the way to use Bayesian inference in our problem begins with calculating a posterior probability distribution for each parameter.
 
@@ -264,7 +266,7 @@ Kaan: Didn’t something catch your eye here?
 
 Emre: What did I miss?
 
-Kaan: Using MAP estimates would be a “Frequentist” approach. We do not want point estimates. If we are to perform Bayesian inference, we must find the probability distributions of the parameters! For these reasons we should not attach special importance to MAP estimates and should continue on our way.
+Kaan: A MAP estimate is still just a single point. It throws away all the information about uncertainty that the posterior distribution carries, which brings us back to point estimates. If we are to perform full Bayesian inference, we must use the whole probability distributions of the parameters! For these reasons we should not attach special importance to MAP estimates and should continue on our way.
 
 In that case we have to find a probability distribution for $y^*$ for each $x^*$.
 To do that, we need to find the posterior probability distributions of the coefficients in the model—which represent all possible linear models, each corresponding to a different prediction of $y$. Thus each prediction coming from each possible linear model will be weighted by the probabilities of those models. That is,
@@ -273,7 +275,7 @@ $$
 p(y^* | x^*, X, y) = \int_{\theta} p(y^* | x^*, \theta) p(\theta | X, y)\, d\theta.
 $$
 
-In this formula, we assume that $X$ and $y$ are given to us as the training data. The $x^*$ represents new observations. Using these three data pieces we try to predict $y^*$. To do that we need to marginalise over the posterior probability distributions of $\theta$. As a result we get a Gaussian distribution whose variance depends on the magnitude of $x^*$.
+In this formula, we assume that $X$ and $y$ are given to us as the training data. The $x^*$ represents new observations. Using these three data pieces we try to predict $y^*$. To do that we need to marginalise over the posterior probability distributions of $\theta$. With a Gaussian prior and Gaussian noise, the result is again a Gaussian distribution, whose variance depends on $x^*$: it grows the further $x^*$ is from the training data.
 
 Here another beauty of the Bayesian approach comes to light. If we obtain predictions in this way, we get additional information about the uncertainty of each prediction.
 
@@ -282,7 +284,7 @@ Emre: It is always best to know that you don’t know something!
 Kaan: Exactly. As can be seen in the example below, the margin of error for the predictions grows as we move away from the observations (the grey lines show the confidence interval for each prediction). The Bayesian approach thus tells us how confident we can be in our predictions.
 
 <p align="center">
-<img src="/images/bayesci_egri_uydurma.png" width="431" height="287"/>
+<img src="/images/bayesci_egri_uydurma_en.png" width="431" height="287"/>
 </p>
 
 In summary, we have looked at the linear-regression problem from both the Frequentist and the Bayesian perspectives.
@@ -297,11 +299,8 @@ Examples of Bayesian inference algorithms include Markov Chain Monte Carlo (more
 
 Statistical problems in which Bayesian inference is used range from e-commerce, insurance and sentiment analysis to topic detection in text, finance, healthcare, the stock market and autonomous vehicles. For that reason everyone working in machine learning should learn this subject, even if only at a basic level.
 
-Emre: I think that’s enough. It’s not possible without taking a break :)
+Emre: I think that’s enough. I need a break :)
 
 Kaan: Okay then, until next time ;)
 
 <a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
-
-
-
