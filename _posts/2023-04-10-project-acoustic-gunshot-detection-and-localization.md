@@ -12,7 +12,7 @@ project: true
 
 Emre: How can a system hear a single gunshot and tell you which direction it came from?
 
-Kaan: I worked on a system like that some time ago. I can't share the original data or the details of that project, but the ideas behind it are classic signal processing, and we can rebuild the whole thing in a simulation. Everything you'll see below, including every figure, comes from synthetic data.
+Kaan: I worked on a system like that some time ago. I can't share the original data or the details of that project, but the ideas behind it are classic signal processing, and we can rebuild the whole thing in a simulation.
 
 ## Problem
 

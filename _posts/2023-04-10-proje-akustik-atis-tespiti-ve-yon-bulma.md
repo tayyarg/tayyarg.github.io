@@ -12,7 +12,7 @@ project: true
 
 Emre: Bir sistem tek bir silah sesini duyup sana hangi yönden geldiğini nasıl söyleyebilir?
 
-Kaan: Bir süre önce böyle bir sistem üzerinde çalışmıştım. O projenin orijinal verilerini ya da detaylarını paylaşamam ama arkasındaki fikirler klasik sinyal işleme ve her şeyi bir simülasyonla yeniden kurabiliriz. Aşağıda göreceğin her şey, tüm figürler de dahil, sentetik verilerden geliyor.
+Kaan: Bir süre önce böyle bir sistem üzerinde çalışmıştım. O projenin orijinal verilerini ya da detaylarını paylaşamam ama arkasındaki fikirler klasik sinyal işleme ve her şeyi bir simülasyonla yeniden kurabiliriz.
 
 ## Problem
 
