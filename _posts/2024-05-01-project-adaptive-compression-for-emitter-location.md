@@ -501,6 +501,4 @@ The DFT costs $$O(N \log N)$$, and computing the distortion tables costs $$O(N +
 8. A. Ortega, K. Ramchandran, <a href="https://doi.org/10.1109/79.733495">Rate-distortion methods for image and video compression</a>, IEEE Signal Processing Magazine, 1998
 9. S. Stein, <a href="https://doi.org/10.1109/TASSP.1981.1163621">Algorithms for ambiguity function processing</a>, IEEE Transactions on Acoustics, Speech, and Signal Processing, 1981
 
-The dynamic programming routine in the original MATLAB code of the thesis was written by Mo Chen, also of Prof. Fowler's group.
-
 <a href="https://www.freecounterstat.com" title="visitor counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=cx3ac8d6kfuk49ch6bj6m322mq883cqy" border="0" title="visitor counters" alt="visitor counters"></a>
