@@ -38,9 +38,9 @@ Let's assume our autopilot has a state vector $\vec{x}$ representing position ($
 
 <div>
 $$
-\vec{x} = \begin{bmatrix} 
-p\\ 
-v 
+\vec{x} = \begin{bmatrix}
+p\\
+v
 \end{bmatrix}
 $$
 </div>
@@ -58,31 +58,30 @@ Can we use both pieces of information to make a better estimate than either coul
 Let's visualize this a bit.
 
 <p align="center">
-<img src="/images/kalman_fig0.png" width="65%" height="65%">
+<img src="/images/kalman_fig0_en.png" width="65%" height="65%">
 </p>
 
-Notice that we do not know the "true" position and velocity. Therefore, even the position of the state at $x_{t-1}$ is shown as a probability distribution (prior distribution), and we think the vehicle is most likely at the expected value ($\mu$) of this distribution. The $U$ in the figure represents the control variable vector, which includes the acceleration/deceleration commands sent to the engine within the autopilot's knowledge; the red distribution is the expected value $x_t$ of the state prediction equations, and the blue distribution is the expected value $z_t$ of the measurement prediction equations. The Kalman filter multiplies the state prediction probability distribution and the measurement prediction probability distribution to find a new distribution. The expected value of this distribution, $x_{est}$, is our new estimate of the vehicle's state (position + velocity), which is actually better than either estimate alone (i.e., the variance of the state prediction and measurement prediction distributions is reduced, and the expected value is the optimal estimate).
+Notice that we do not know the "true" position and velocity. Therefore, even the position of the state at $x_{t-1}$ is shown as a probability distribution (prior distribution), and we think the vehicle is most likely at the expected value ($\mu$) of this distribution. The $U$ in the figure represents the control variable vector, which includes the acceleration/deceleration commands sent to the engine within the autopilot's knowledge. The red distribution is our state prediction, with expected value $x_t$, and the blue distribution is the measurement, centered at the GPS reading $z_t$. The Kalman filter multiplies the state prediction distribution by the measurement distribution to find a new distribution (green). The expected value of this distribution, $x_{est}$, is our new estimate of the vehicle's state (position + velocity), which is actually better than either estimate alone (i.e., its variance is smaller than the variances of both the prediction and the measurement, and its expected value is the optimal estimate).
 
-Now let's get a bit more into the mathematics. We can set up the state vector prediction equation as follows:
+Now let's get a bit more into the mathematics. We can write how the state actually evolves (first equation) and our prediction of it (second equation) as follows:
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{red}{\mathbf{\hat{x}}_t} &= \mathbf{A} \mathbf{\hat{x}}_{t-1} + \mathbf{B} \color{red}{\vec{\mathbf{u}_t} + \varepsilon_{x}} 
-\end{split}  
-\end{equation}
+\begin{aligned}
+\mathbf{x}_t &= \mathbf{A} \mathbf{x}_{t-1} + \mathbf{B} \vec{\mathbf{u}}_t + \color{darkorange}{\varepsilon_{x}} \\
+\color{red}{\mathbf{\hat{x}}_t} &= \mathbf{A} \mathbf{\hat{x}}_{t-1} + \mathbf{B} \vec{\mathbf{u}}_t
+\end{aligned}
 $$
 </div>
 
-$\varepsilon_{x}$ is an error distribution modeling the uncertainty in our state vector estimate, and in the Kalman filter, this distribution is always assumed to be Gaussian. Notice that our prediction is actually set up as a linear equation. $A$ and $B$ are the linear system matrices in this dynamic equation, representing the state vector $\hat{x}_{t-1}$ and the control (external factor) vector $\vec{u_t}$.
+$\varepsilon_{x}$ is the process noise: the random disturbances we cannot model (wind, wheel slip, etc.). In the Kalman filter, it is always assumed to be a zero-mean Gaussian. Since we cannot know its value, our prediction (the second equation) uses the model without it; we'll account for it through its covariance instead. Notice that our prediction is actually set up as a linear equation. $A$ and $B$ are the linear system matrices in this dynamic equation that multiply the state vector $\hat{x}_{t-1}$ and the control (external factor) vector $\vec{u}_t$.
 
 Emre: What does it mean to multiply a distribution by a coefficient matrix in linear systems?
 
 Kaan: It would be better if I showed this visually.
 
 <p align="center">
-<img src="/images/kalman_fig04.png" width="50%" height="50%">
+<img src="/images/kalman_fig04_en.png" width="50%" height="50%">
 </p>
 
 The multiplied matrix takes every point in the original distribution and moves it to a new place, which, if our model is correct, represents the stochastic conditions the system will be in at the next time step. By "state" here, we mean the physical position and velocity of the system, because our state vector represents these two parameters. After multiplying by the $A$ matrix, I will talk about what happens to the variance and covariance soon. For now, just see that this multiplication changes the covariance matrix of the new state vector.
@@ -91,19 +90,18 @@ One more point: in systems not controlled externally, the control vector ($\vec{
 
 The predicted state estimate is also called the prior estimate because it is calculated before the measurement is taken.
 
-Let's look at the measurement prediction equation:
+Let's look at the measurement equation and our measurement prediction:
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{royalblue}{\mathbf{\hat{z}}_t} &= \mathbf{C} \color{red}{\mathbf{\hat{x}}_{t}} + \color{darkorange}{\varepsilon_{z}} 
-\end{split}  
-\end{equation}
+\begin{aligned}
+\color{royalblue}{\mathbf{z}_t} &= \mathbf{C} \mathbf{x}_t + \color{darkorange}{\varepsilon_{z}} \\
+\color{royalblue}{\mathbf{\hat{z}}_t} &= \mathbf{C} \color{red}{\mathbf{\hat{x}}_{t}}
+\end{aligned}
 $$
 </div>
 
-Here, $C$ is again the coefficient of the linear prediction equation. Notice that the state vector prediction is used as input in the measurement prediction, and we add the measurement error probability distribution $\varepsilon_{z}$ to the equation. Soon it will be clear why we do this. For now, it's enough to say that this error distribution is also assumed to be Gaussian.
+Here, $C$ is again the coefficient of the linear equation. The first equation says that the sensor measures $Cx_t$ plus the measurement noise $\varepsilon_{z}$, which is also assumed to be a zero-mean Gaussian. In our measurement prediction (the second equation), the state vector prediction is used as input.
 
 So how does the Kalman filter use these two predictions to make a reliable $x_{est}$ state vector estimate (Kalman estimate)?
 
@@ -111,17 +109,17 @@ We can show it like this:
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{yellowgreen}{\mathbf{x}_{est}} &= \color{red}{\mathbf{\hat{x}}_{t}} + \mathbf{K} (\color{royalblue}{\mathbf{z}_t} - \color{royalblue}{\mathbf{\hat{z}}_t}) 
-\end{split}  
+\begin{equation}
+\begin{split}
+\color{yellowgreen}{\mathbf{x}_{est}} &= \color{red}{\mathbf{\hat{x}}_{t}} + \mathbf{K} (\color{royalblue}{\mathbf{z}_t} - \color{royalblue}{\mathbf{\hat{z}}_t})
+\end{split}
 \end{equation}
 $$
 </div>
 
 Yes, this is the secret. This is called the posterior estimate, and $K$ is the term known as the Kalman gain in the literature. The $z_t - \hat{z}_t$ inside the parentheses is called the correction term. So what does all this mean?
 
-This equation tells us: we have a new state vector estimate $\hat{x}_t$ and a new position estimate (measurement prediction) $\hat{z}_t$ from the sensor. If our measurement prediction matches the observation, the expression inside the parentheses will be zero. So we can trust our state vector estimate. When the difference is greater than zero, our state vector estimate needs a correction from the observation. The difference between the observation and our measurement prediction is a measure of this correction. How much of this difference we take into account is determined by the Kalman gain $K$. The Kalman gain is a measure of the new information. If the information expressed by this difference is large, the gain will be high, i.e., its weight will increase; otherwise, it will be small.
+This equation tells us: we have a new state vector estimate $\hat{x}_t$ and a new position estimate (measurement prediction) $\hat{z}_t$ from the sensor. If our measurement prediction matches the observation, the expression inside the parentheses will be zero. So we can trust our state vector estimate. When the difference is not zero, our state vector estimate needs a correction from the observation. The difference between the observation and our measurement prediction is a measure of this correction. How much of this difference we take into account is determined by the Kalman gain $K$. The Kalman gain decides how much we trust the measurement compared to our prediction. If our prediction is uncertain and the measurement is precise, the gain is high, and the correction gets a large weight; if the measurement is noisy compared to our prediction, the gain is small.
 
 Kalman does something nice here; who would want to use a highly uncertain estimate with high weight in another estimate?
 
@@ -133,9 +131,9 @@ Remember, we defined our state vector as:
 
 <div>
 $$
-\vec{x} = \begin{bmatrix} 
-p\\ 
-v 
+\vec{x} = \begin{bmatrix}
+p\\
+v
 \end{bmatrix}
 $$
 </div>
@@ -144,41 +142,40 @@ Using this model and assuming the GPS only reports position $p$, we can calculat
 
 <div>
 $$
-\begin{split} 
-\color{deeppink}{p_t} &= \color{royalblue}{p_{t-1}} + {t} &\color{royalblue}{v_{t-1}} + &\frac{1}{2} \color{darkorange}{a}_t {t}^2 \\ 
-\color{deeppink}{v_t} &= &\color{royalblue}{v_{t-1}} + & \color{darkorange}{a}_t {t} 
-\end{split}
+\begin{aligned}
+\color{deeppink}{p_t} &= \color{royalblue}{p_{t-1}} + \Delta t \, \color{royalblue}{v_{t-1}} + \frac{1}{2} \color{darkorange}{a_t} \, \Delta t^2 \\
+\color{deeppink}{v_t} &= \color{royalblue}{v_{t-1}} + \color{darkorange}{a_t} \, \Delta t
+\end{aligned}
 $$
 </div>
 
-We can write this in matrix form as:
+Here, $\Delta t$ is the time step between two samples (`dt` in the code). We can write this in matrix form as:
 
 <div>
 $$
-\begin{align} 
-\color{deeppink}{\mathbf{\hat{x}}_t} &= \begin{bmatrix} 
-1 & t \\ 
-0 & 1 
-\end{bmatrix} \begin{bmatrix} 
-p_{t-1}\\ 
-v_{t-1} 
-\end{bmatrix} +  \begin{bmatrix} 
-t^2/2\\ 
-t 
-\end{bmatrix} a_t + \color{darkorange}{\varepsilon_{t}} 
+\begin{align}
+\color{deeppink}{\mathbf{x}_t} &= \begin{bmatrix}
+1 & \Delta t \\
+0 & 1
+\end{bmatrix} \begin{bmatrix}
+p_{t-1}\\
+v_{t-1}
+\end{bmatrix} +  \begin{bmatrix}
+\Delta t^2/2\\
+\Delta t
+\end{bmatrix} a_t + \color{darkorange}{\varepsilon_{x}}
 \end{align}
 $$
 </div>
 
-We modeled our measurement prediction as:
+We modeled our measurement as:
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{royalblue}{\mathbf{\hat{z}}_t} &= \mathbf{C} \color{red}{\mathbf{\hat{x}}_{t}} + \color{darkorange}{\varepsilon_{z}} 
-\end{split}  
-\end{equation}
+\begin{aligned}
+\color{royalblue}{\mathbf{z}_t} &= \mathbf{C} \mathbf{x}_t + \color{darkorange}{\varepsilon_{z}} \\
+\color{royalblue}{\mathbf{\hat{z}}_t} &= \mathbf{C} \color{red}{\mathbf{\hat{x}}_{t}}
+\end{aligned}
 $$
 </div>
 
@@ -186,13 +183,13 @@ Assuming the GPS sensor only gives us position $p$:
 
 <div>
 $$
-\begin{align} 
-\color{royalblue}{\mathbf{\hat{z}}_t} &= \begin{bmatrix} 
-1 & 0 
-\end{bmatrix} \begin{bmatrix} 
-p_{t}\\ 
-v_{t} 
-\end{bmatrix} + \color{darkorange}{\varepsilon_{z}} 
+\begin{align}
+\color{royalblue}{\mathbf{z}_t} &= \begin{bmatrix}
+1 & 0
+\end{bmatrix} \begin{bmatrix}
+p_{t}\\
+v_{t}
+\end{bmatrix} + \color{darkorange}{\varepsilon_{z}}
 \end{align}
 $$
 </div>
@@ -201,18 +198,17 @@ So now we know $A$, $B$, and $C$:
 
 <div>
 $$
-\begin{align} 
-A &= \begin{bmatrix} 
-1 & t \\ 
-0 & 1 
+\begin{align}
+A &= \begin{bmatrix}
+1 & \Delta t \\
+0 & 1
 \end{bmatrix}\\
-B &= \begin{bmatrix} 
-t^2/2 \\
- t \end{bmatrix} \\
-C &= \begin{bmatrix} 
+B &= \begin{bmatrix}
+\Delta t^2/2 \\
+\Delta t \end{bmatrix} \\
+C &= \begin{bmatrix}
 1 & 0
 \end{bmatrix}
-
 \end{align}
 $$
 </div>
@@ -227,34 +223,34 @@ A small note from the Bayesian philosophy: it turns out that not being prejudice
 
 Let's start by calculating the variance and covariance.
 
-First, let's write the variances of the distributions we use in the state vector and measurement predictions:
+First, let's write the covariances of the noise terms in the state and measurement equations:
 
 <div>
 $$
-\begin{equation}  
-\begin{aligned}  
-\color{darkorange}{\varepsilon_{x}}  = \mathbf{E}_x &= 
-\begin{bmatrix} 
-\Sigma_{pp} & \Sigma_{pv} \\ 
-\Sigma_{vp} & \Sigma_{vv} \\ 
+\begin{equation}
+\begin{aligned}
+\color{darkorange}{\varepsilon_{x}} &\sim \mathcal{N}(0, \mathbf{E}_x), \quad \mathbf{E}_x =
+\begin{bmatrix}
+\Sigma_{pp} & \Sigma_{pv} \\
+\Sigma_{vp} & \Sigma_{vv}
 \end{bmatrix} \\
-\color{darkorange}{\varepsilon_{z}}  = \mathbf{E}_z &= \sigma_{z}^2
-\end{aligned} 
+\color{darkorange}{\varepsilon_{z}} &\sim \mathcal{N}(0, \mathbf{E}_z), \quad \mathbf{E}_z = \sigma_{z}^2
+\end{aligned}
 \end{equation}
 $$
 </div>
 
-Since there is more than one random variable in the state vector, $E_x$ is actually a covariance; on the other hand, since there is only one random variable in the measurement vector, $E_z$ represents the variance of that variable.
+Since there is more than one random variable in the state vector, $E_x$ is actually a covariance matrix; on the other hand, since there is only one random variable in the measurement vector, $E_z$ represents the variance of that variable.
 
 Using this information, we can express the covariance we get for the state vector prediction as:
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{red}{\mathbf{\hat{\Sigma}_{t}}} = \mathbf{A} \mathbf{\Sigma_{t-1}} \mathbf{A}^T + \color{darkorange}{\mathbf{E}_x} 
-\end{split} 
-\end{equation} 
+\begin{equation}
+\begin{split}
+\color{red}{\mathbf{\hat{\Sigma}_{t}}} = \mathbf{A} \mathbf{\Sigma_{t-1}} \mathbf{A}^T + \color{darkorange}{\mathbf{E}_x}
+\end{split}
+\end{equation}
 $$
 </div>
 
@@ -267,14 +263,14 @@ Cov(x) = \Sigma
 $$
 </div>
 
-and we know in the prediction equation that $A\hat{x}_{t-1}$ is present, we can express the covariance after multiplying the random variable by a constant as:
+and we know in the prediction equation that $A\hat{x}_{t-1}$ is present, we can express the covariance after multiplying the random variable by a constant matrix as:
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-Cov(\color{firebrick}{\mathbf{A}}x) &= \color{firebrick}{\mathbf{A}} \Sigma \color{firebrick}{\mathbf{A}}^T 
-\end{split}  
+\begin{equation}
+\begin{split}
+Cov(\color{firebrick}{\mathbf{A}}x) &= \color{firebrick}{\mathbf{A}} \Sigma \color{firebrick}{\mathbf{A}}^T
+\end{split}
 \end{equation}
 $$
 </div>
@@ -285,27 +281,25 @@ Kaan: $u$ is not a random variable; we know what it is. So we do not talk about 
 
 This is actually a derivation we know from classical probability theory.
 
-Anyway, in summary, what we do in this expression is: we calculate the prior covariance, $\mathbf{\Sigma_{t-1}}$, and add the expected variance of our state vector. This gives us our predicted covariance.
+Anyway, in summary, what we do in this expression is: we propagate the previous covariance, $\mathbf{\Sigma_{t-1}}$, through the system matrix $A$ and add the covariance of the process noise, $E_x$. This gives us our predicted covariance.
 
 At this point, we now have <span style="color:red">*prediction equations*</span>, and we can calculate the $A$ and $B$ coefficients from the linear dynamic system we assumed.
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{red}{\mathbf{\hat{x}}_t} &= \mathbf{A} \mathbf{\hat{x}}_{t-1} + \mathbf{B} \color{red}{\vec{\mathbf{u}_t} + \varepsilon_{x}} 
-\end{split}  
+\begin{equation}
+\color{red}{\mathbf{\hat{x}}_t} = \mathbf{A} \mathbf{\hat{x}}_{t-1} + \mathbf{B} \vec{\mathbf{u}}_t
 \end{equation}
 $$
 </div>
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{red}{\mathbf{\hat{\Sigma}_{t}}} = \mathbf{A} \mathbf{\Sigma_{t-1}} \mathbf{A}^T + \color{darkorange}{\mathbf{E}_x} 
-\end{split} 
-\end{equation} 
+\begin{equation}
+\begin{split}
+\color{red}{\mathbf{\hat{\Sigma}_{t}}} = \mathbf{A} \mathbf{\Sigma_{t-1}} \mathbf{A}^T + \color{darkorange}{\mathbf{E}_x}
+\end{split}
+\end{equation}
 $$
 </div>
 
@@ -323,8 +317,8 @@ Without going into the proof, we can express the Kalman gain as:
 
 <div>
 $$
-\begin{equation} 
-\color{red}{\mathbf{K}_t} = \color{red}{\mathbf{\hat{\Sigma}_t} \color{black}{\mathbf{C}^T} (\color{black}{\mathbf{C}} \color{red}{\mathbf{\hat{\Sigma}_t}} \color{black}{\mathbf{C}^T}} + \color{darkorange}{\mathbf{E}_z})^{-1} 
+\begin{equation}
+\color{red}{\mathbf{K}_t} = \color{red}{\mathbf{\hat{\Sigma}_t} \color{black}{\mathbf{C}^T} (\color{black}{\mathbf{C}} \color{red}{\mathbf{\hat{\Sigma}_t}} \color{black}{\mathbf{C}^T}} + \color{darkorange}{\mathbf{E}_z})^{-1}
 \end{equation}
 $$
 </div>
@@ -335,37 +329,37 @@ So, in the next step of the Kalman filter, the update step, the final state esti
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{yellowgreen}{\mathbf{\hat{x}}_{est}} &= \color{red}{\mathbf{\hat{x}}_t} & + & \color{red}{\mathbf{K}_t} ( \color{royalblue}{\mathbf{z}_t} – \color{black}{\mathbf{C} \mathbf{\hat{x}}_t} ) 
-\end{split} 
+\begin{equation}
+\begin{split}
+\color{yellowgreen}{\mathbf{\hat{x}}_{est}} &= \color{red}{\mathbf{\hat{x}}_t} + \color{red}{\mathbf{K}_t} ( \color{royalblue}{\mathbf{z}_t} - \color{black}{\mathbf{C} \mathbf{\hat{x}}_t} )
+\end{split}
 \end{equation}
 $$
 </div>
 
 <div>
 $$
-\begin{equation} 
-\begin{split} 
-\color{yellowgreen}{\mathbf{\Sigma_{est}}} = (I - \color{red}{\mathbf{K}_t} \color{black}{\mathbf{C})} \color{red}{\hat{\Sigma_{t}}} 
-\end{split} 
-\end{equation} 
+\begin{equation}
+\begin{split}
+\color{yellowgreen}{\mathbf{\Sigma_{est}}} = (I - \color{red}{\mathbf{K}_t} \color{black}{\mathbf{C})} \color{red}{\hat{\Sigma_{t}}}
+\end{split}
+\end{equation}
 $$
 </div>
 
 Remember, $\color{black}{\mathbf{C} \mathbf{\hat{x}}_t} = \hat{z}_t$. Notice that the magnitude of the Kalman gain comes into play here. $K$ ensures that the information from the measurement is weighted and taken into account.
 
-In the second equation, we again multiply the predicted covariance by some matrices. If the information from the Kalman gain is zero, then the predicted covariance is effectively multiplied by the identity matrix $I$. In such a case, the predicted covariance is equal to the prior covariance. That means we have not gained any new information. So, from a Bayesian perspective, there is no need to update our prior belief.
+In the second equation, we again multiply the predicted covariance by some matrices. If the Kalman gain is zero, then the predicted covariance is effectively multiplied by the identity matrix $I$. In such a case, the updated covariance is equal to the predicted covariance. That means we have not gained any new information. So, from a Bayesian perspective, there is no need to update our prior belief. (In the code below, we compute the same covariance update in an equivalent form, $(I - K_tC)\hat{\Sigma}_t(I - K_tC)^T + K_tE_zK_t^T$, known as the Joseph form, which is numerically more stable.)
 
 Let me remind you once again. The state vector estimate and covariance estimate we obtain are used as prior information in the next step. So, again, we use the Bayesian approach. The posterior distribution we obtain is used as the prior distribution in the next step. The filter continues to work recursively, and as new information comes in, the error variance of our estimates is minimized.
 
 ## Kalman Filter Information Flow and Bayesian Approach
 
-On the other hand, let me also say that the Kalman filter is one of the simplest dynamic Bayesian networks. It recursively calculates the true values of the states using incoming measurements and our mathematical model. Thus, our recursive Bayesian estimate also predicts the posterior distribution in the same way. In recursive Bayesian estimation, the true state is considered an unobservable Markov process. That is, measurements are considered observable states of our hidden Markov model, but this time, unlike the Hidden Markov Model, we work with continuous-time equations instead of discrete-time. As I said before, the true state at time $t$ is probabilistically conditioned only on the previous state ($t-1$) and is independent of earlier states. We express this mathematically as:
+On the other hand, let me also say that the Kalman filter is one of the simplest dynamic Bayesian networks. It recursively estimates the true values of the states using incoming measurements and our mathematical model. Thus, our recursive Bayesian estimate also predicts the posterior distribution in the same way. In recursive Bayesian estimation, the true state is considered an unobservable Markov process. That is, measurements are considered observable states of our hidden Markov model, but this time, unlike the Hidden Markov Model, whose states are discrete, we work with continuous-valued states. As I said before, the true state at time $t$ is probabilistically conditioned only on the previous state ($t-1$) and is independent of earlier states. We express this mathematically as:
 
 <div>
 $$
-p(x_t|x_{0},...,x_{N-1} ) = p(x_t|x_{t-1})
+p(x_t|x_{0},...,x_{t-1}) = p(x_t|x_{t-1})
 $$
 </div>
 
@@ -378,7 +372,7 @@ and we can visualize the Markov chain as follows:
 We can also visualize this recursive operation as information flow:
 
 <p align="center">
-<img src="/images/kalman_fig01.png" width="85%" height="85%">
+<img src="/images/kalman_fig01_en.png" width="85%" height="85%">
 </p>
 
 I will go into more detail about what happens from a Bayesian stochastic perspective and probability theory, but for now, let's not confuse things and move on to coding what we've discussed above.
@@ -399,6 +393,7 @@ def gaussianpdf(mean, variance, x):
 # initialize meta variables
 T = 15 # total driving time
 dt = .1 # sampling period
+np.random.seed(42) # fix the random seed so the results are reproducible
 
 # Let's assume we calculate the non-Bayesian position estimate using moving average
 # The function below takes a signal and applies a moving average with a window of length 5
@@ -432,17 +427,18 @@ OP_position_obs = [] # observed position vector by autopilot
 # run simulation from 0 to T with dt steps
 for t in np.arange(0, T, dt):
     # calculate true state for each step
-    OP_acc_noise = np.array([[OP_acc_noise_magnitude * i for i in np.array([(dt*2/2)*np.random.randn(), dt*np.random.randn()]).reshape(2,1)]]).reshape(2,1)
-    OP_x = np.dot(A, OP_x) + np.dot(B, nu) + OP_acc_noise
+    # random acceleration (process noise) affects position and velocity through B
+    OP_acc_noise = OP_acc_noise_magnitude * np.random.randn() * B
+    OP_x = np.dot(A, OP_x) + np.dot(B, u) + OP_acc_noise
 
     # create noisy observed position vector by autopilot
     obs_noise = obs_noise_magnitude * np.random.randn()
     OP_z = np.dot(C, OP_x) + obs_noise
 
     # store position, velocity, and observations as vectors for plotting
-    OP_position.append(float(OP_x[0]))
-    OP_velocity.append(float(OP_x[1]))
-    OP_position_obs.append(float(OP_z[0]))
+    OP_position.append(OP_x[0, 0])
+    OP_velocity.append(OP_x[1, 0])
+    OP_position_obs.append(OP_z[0, 0])
 
 # plot true and observed positions of the car
 plt.plot(np.arange(0, T, dt), OP_position, color='red', label='true position')
@@ -461,8 +457,8 @@ plt.show()
 # initialize estimation variables
 OP_position_est = [] # autopilot position estimate
 OP_velocity_est = [] # autopilot velocity estimate
-OP_x = np.array([0,0]).reshape(2,1) # reinitialize autopilot state vector
-P_est = P
+OP_x_est = np.array([0,0]).reshape(2,1) # reinitialize autopilot state estimate
+P = Ex # reinitialize the covariance of the estimate
 P_magnitude_est = []
 state_prediction = []
 variance_prediction = []
@@ -470,8 +466,8 @@ variance_prediction = []
 for z in OP_position_obs:
     # prediction step
     # calculate new state prediction
-    OP_x_est = np.dot(A, OP_x_est) + np.dot(B, nu)
-    state_prediction.append(OP_x_est[0])
+    OP_x_est = np.dot(A, OP_x_est) + np.dot(B, u)
+    state_prediction.append(OP_x_est[0, 0])
 
     # calculate new covariance prediction
     P = np.dot(np.dot(A, P), A.T) + Ex
@@ -490,8 +486,8 @@ for z in OP_position_obs:
     P = np.dot(np.dot(I - np.dot(K, C), P), (I - np.dot(K, C)).T) + np.dot(np.dot(K, Ez), K.T)
 
     # store autopilot position, velocity, and covariance estimates as vectors
-    OP_position_est.append(np.dot(C, OP_x_est)[0])
-    OP_velocity_est.append(OP_x_est[1])
+    OP_position_est.append(np.dot(C, OP_x_est)[0, 0])
+    OP_velocity_est.append(OP_x_est[1, 0])
     P_magnitude_est.append(P[0])
 
 plt.plot(np.arange(0, T, dt), OP_position, color='red', label='true position')
@@ -502,14 +498,14 @@ plt.xlabel('Time [s]')
 plt.legend()
 plt.show()
 
-# define possible range of position
-x_axis = np.arange(OP_x_est[0]-obs_noise_magnitude*1.5, OP_x_est[0]+obs_noise_magnitude*1.5, dt)
-
 # Find Kalman state prediction distribution
-mu1 = OP_x_est[0]
-sigma1 = P[0][0]
+mu1 = OP_x_est[0, 0]
+sigma1 = P[0, 0] # variance of the position estimate
 
-print("Mean squared error: ", sigma1)
+print("Variance of the position estimate [m^2]: ", sigma1)
+
+# define possible range of position
+x_axis = np.arange(mu1-obs_noise_magnitude*2, mu1+obs_noise_magnitude*2, dt)
 
 # calculate state prediction distribution
 g1 = []
@@ -519,12 +515,11 @@ for x in x_axis:
 # plot state prediction distribution
 y = np.dot(g1, 1/np.max(g1))
 plt.plot(x_axis, y, label='posterior prediction distribution')
-print(np.mean(x_axis))
-print(OP_position[-1])
+print("True position: ", OP_position[-1])
 
 # find observation distribution
 mu2 = OP_position_obs[-1]
-sigma2 = obs_noise_magnitude
+sigma2 = Ez # gaussianpdf expects the variance
 
 # calculate observation distribution
 g2 = []
@@ -536,32 +531,32 @@ y = np.dot(g2, 1/np.max(g2))
 plt.plot(x_axis, y, label='observation distribution')
 
 # plot true position
-plt.axvline(OP_position[-1], 0.05, 0.95, color='red', label='true position')
+plt.axvline(OP_position[-1], 0.05, 0.95, color='red', linestyle='--', label='true position')
 plt.legend(loc='upper left')
 plt.xlabel('Position [m]')
-plt.ylabel('Probability Density Function')
+plt.ylabel('Normalized probability density')
 plt.show()
 ```
 
 If we run the above Kalman filter simulation, we get the following output:
 
 <p align="center">
-<img src="/images/kalman_fig02.png" width="75%" height="75%">
+<img src="/images/kalman_fig02_en.png" width="75%" height="75%">
 </p>
 
 In the example, we not only used the Kalman filter but also considered a classical statistical method instead. Many classical statistical methods can be applied, but we used the moving average filter, which is frequently used in the literature for comparison.
 
-Finally, let's look at the distribution of the last estimate made by the Kalman filter. As you can see, although the mean of the observation distribution (from GPS data) is far from the true position, the mean of the state prediction distribution is very close to the true position (with the simulation parameters above, our mean squared error is 0.274 meters!).
+Finally, let's look at the distribution of the last estimate made by the Kalman filter. As you can see, although the mean of the observation distribution (from GPS data) is far from the true position, the mean of the state prediction distribution is very close to the true position. With the simulation parameters above, the variance of our final position estimate is about 0.27 m², i.e., a standard deviation of about 0.5 meters, compared to the $15$ meters of the GPS!
 
 <p align="center">
-<img src="/images/kalman_fig03.png" width="75%" height="75%">
+<img src="/images/kalman_fig03_en.png" width="75%" height="75%">
 </p>
 
 ## Advanced Topics and Real Life
 
-Above, I mentioned the Kalman gain and gave the direct expression, but I did not say how it is derived. If you are curious about how the Kalman gain is derived, here is a hint: If you write the error covariance of the state prediction in matrix form and try to minimize the trace of this matrix, $Tr[\color{red}{\mathbf{\hat{\Sigma}_{t\|t}}}]$, with respect to the Kalman gain, you can derive $\color{red}{K_t}$. Remember, the trace of the covariance matrix, i.e., the diagonal elements, gives us the mean squared error (<a href="https://tr.qwe.wiki/wiki/Mean_squared_error">mean squared error- MSE</a>), and we are trying to minimize this error. If you want to see how the derivation is done, you can find it in this source from MIT: <a href="http://web.mit.edu/kirtley/kirtley/binlustuff/literature/control/Kalman%20filter.pdf">Kalman filter</a>.
+Above, I mentioned the Kalman gain and gave the direct expression, but I did not say how it is derived. If you are curious about how the Kalman gain is derived, here is a hint: If you write the error covariance of the state prediction in matrix form and try to minimize the trace of this matrix, $Tr[\color{red}{\mathbf{\hat{\Sigma}_{t\|t}}}]$, with respect to the Kalman gain, you can derive $\color{red}{K_t}$. Remember, the trace of the covariance matrix, i.e., the sum of its diagonal elements, gives us the mean squared error (<a href="https://en.wikipedia.org/wiki/Mean_squared_error">mean squared error- MSE</a>), and we are trying to minimize this error. If you want to see how the derivation is done, you can find it in this source from MIT: <a href="http://web.mit.edu/kirtley/kirtley/binlustuff/literature/control/Kalman%20filter.pdf">Kalman filter</a>.
 
-From another theoretical perspective, the main assumption of the Kalman filter is that the underlying system is a linear dynamic system, and the Kalman filter is theoretically optimal when the error and measurement random variables have Gaussian distributions (often multivariate Gaussian). The prior Gaussian distribution remains Gaussian after the linear transformations used in prediction. Therefore, the Kalman filter converges. But you may wonder: What if the dynamic system we are working with is not linear?
+From another theoretical perspective, the main assumption of the Kalman filter is that the underlying system is a linear dynamic system, and the Kalman filter is theoretically optimal when the error and measurement random variables have Gaussian distributions (often multivariate Gaussian). The prior Gaussian distribution remains Gaussian after the linear transformations used in prediction. Therefore, the posterior also stays Gaussian, and the filter can track it exactly with just a mean vector and a covariance matrix. But you may wonder: What if the dynamic system we are working with is not linear?
 
 Then we need to use nonlinear functions instead of linear transformations. Nonlinear transformations can turn the prior Gaussian distribution into an unknown distribution. To get around such situations, "extended Kalman filters" have been developed. In the extended Kalman filter, the nonlinear function is linearized around the expected value of the current state estimate.
 
@@ -575,8 +570,10 @@ The nonlinear dynamic system is now modeled as follows:
 
 <div>
 $$
-\hat{x}_{t} = f(\hat{x}_{t-1}, u_t) + \varepsilon_{x} \\
-z_t = g(\hat{x}_{t}) + \varepsilon_{z}
+\begin{gathered}
+x_{t} = f(x_{t-1}, u_t) + \varepsilon_{x} \\
+z_t = g(x_{t}) + \varepsilon_{z}
+\end{gathered}
 $$
 </div>
 
@@ -584,13 +581,13 @@ To linearize this system, the following Jacobian matrices must be calculated.
 
 <div>
 $$
-F = \left[ \frac{\partial f}{\partial x} \right ] _{\hat{x}_{t-1}, u_t}, G = \left[ \frac{\partial f}{\partial x} \right ] _{\hat{x}_{t-1}}
+F = \left[ \frac{\partial f}{\partial x} \right ] _{\hat{x}_{t-1}, u_t}, G = \left[ \frac{\partial g}{\partial x} \right ] _{\hat{x}_{t}}
 $$
 </div>
 
 Now I have to say that, in real life, it is difficult to find and calculate the partial derivatives in these Jacobians analytically, and it is not always possible. Numerically calculating them is also computationally complex. On the other hand, the extended Kalman filter only works with models that can be differentiated, and if the system is highly nonlinear, it is no longer optimal.
 
-When it is no longer reasonable or possible to solve with the Kalman filter, another famous algorithm comes to our aid, which slowly entered the engineering world from nuclear physics studies in the 1940s: <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo approximation</a>. Since the 1990s, it has been successfully used to model nonlinear, nonparametric, and non-Gaussian dynamic systems. Monte Carlo filtering is also one of the most important algorithms discovered in this century! I will cover it in future posts.
+When it is no longer reasonable or possible to solve with the Kalman filter, another famous algorithm comes to our aid, which slowly entered the engineering world from nuclear physics studies in the 1940s: <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo approximation</a>. Since the 1990s, it has been successfully used to model nonlinear, nonparametric, and non-Gaussian dynamic systems. Monte Carlo filtering is also one of the most important algorithms of the twentieth century! I will cover it in future posts.
 
 ## Computational Complexity
 
