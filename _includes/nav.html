@@ -102,5 +102,9 @@
             {% endif %}
             <li><a href="{{ domain }}{{ link.url }}" {% if link.url contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ link.title }}</a></li>
           {% endfor %}
+            <li class="lang-menu">
+                {% for lang in site.languages reversed %}{% assign translation = nil %}{% if page.ref and page.lang != lang %}{% assign translation = site.posts | where: "ref", page.ref | where: "lang", lang | first %}{% endif %}
+                <a href="#" class="lang-option" data-choice="{{ lang }}" onclick="setLanguage('{{ lang }}'{% if translation %}, '{{ translation.url }}'{% endif %}); return false;">{% if lang == "tr" %}Türkçe{% else %}English{% endif %}</a>{% endfor %}
+            </li>
         </ul><!-- /.dl-menu -->
     </nav><!-- /.dl-menuwrapper -->

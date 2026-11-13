@@ -13,8 +13,9 @@
         if (chosen === '{{ lang }}') { location.replace('{{ translation.url }}' + location.hash); }
         {% endif %}{% endif %}{% endfor %}{% endif %}
     })();
-    function setLanguage(lang) {
+    function setLanguage(lang, translationUrl) {
         try { localStorage.setItem('lang', lang); } catch (e) {}
         document.documentElement.setAttribute('data-lang', lang);
+        if (translationUrl) { location.href = translationUrl; }
     }
     </script>
