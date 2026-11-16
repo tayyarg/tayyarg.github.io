@@ -1,0 +1,13 @@
+name = "tayyarg-feedback"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+workers_dev = true
+preview_urls = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "tayyarg-reactions"
+database_id = "df34c5e5-6484-42d2-8849-250428bb1dc9"
+
+[vars]
+ALLOWED_ORIGINS = "https://tayyarg.github.io,http://localhost:4000,http://127.0.0.1:4000"

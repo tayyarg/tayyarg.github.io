@@ -1,0 +1,104 @@
+{% if page.ref %}{% assign fb_key = page.ref %}{% else %}{% assign fb_key = page.url | downcase | split: "/" | join: "-" | remove_first: "-" %}{% endif %}
+<section class="feedback" id="feedback" data-api="{{ site.feedback_api }}" data-page="{{ fb_key }}">
+    <h3 class="feedback-title"><span class="lang-tr">Bu yazıyı nasıl buldun?</span><span class="lang-en">What did you think?</span></h3>
+    <div class="reactions">
+        <button type="button" class="reaction" data-reaction="helpful">👍 <span class="lang-tr">Faydalı</span><span class="lang-en">Helpful</span> <b class="reaction-count"></b></button>
+        <button type="button" class="reaction" data-reaction="learned">💡 <span class="lang-tr">Yeni bir şey öğrendim</span><span class="lang-en">Learned something</span> <b class="reaction-count"></b></button>
+        <button type="button" class="reaction" data-reaction="confusing">🤔 <span class="lang-tr">Kafa karıştırıcı</span><span class="lang-en">Confusing</span> <b class="reaction-count"></b></button>
+    </div>
+
+    <h3 class="feedback-title"><span class="lang-tr">Yorumlar</span><span class="lang-en">Comments</span></h3>
+    <ul class="comment-list"></ul>
+    <form class="comment-form">
+        <label><span class="lang-tr">Adın (isteğe bağlı)</span><span class="lang-en">Your name (optional)</span>
+            <input type="text" name="name" maxlength="60" autocomplete="name"></label>
+        <label><span class="lang-tr">Yorumun</span><span class="lang-en">Your comment</span>
+            <textarea name="body" rows="4" maxlength="4000" required></textarea></label>
+        <label class="comment-website" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <button type="submit" class="btn"><span class="lang-tr">Gönder</span><span class="lang-en">Send</span></button>
+        <p class="comment-note">
+            <span class="lang-tr">Giriş yapman gerekmiyor. Yorumlar onaylandıktan sonra yayınlanır.</span>
+            <span class="lang-en">No sign-in needed. Comments appear once they're approved.</span>
+        </p>
+        <p class="comment-status" hidden></p>
+    </form>
+</section>
+<script>
+(function () {
+    var box = document.getElementById('feedback');
+    var api = box.getAttribute('data-api');
+    var page = box.getAttribute('data-page');
+    var messages = {
+        sent: { tr: 'Teşekkürler! Yorumun onaylandıktan sonra burada görünecek.', en: 'Thanks! Your comment will appear here once it is approved.' },
+        failed: { tr: 'Yorum gönderilemedi, lütfen biraz sonra tekrar dene.', en: 'The comment could not be sent, please try again later.' },
+        none: { tr: 'Henüz yorum yok. İlk yorumu sen yaz!', en: 'No comments yet. Be the first!' }
+    };
+    function say(key) { return messages[key][document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'tr']; }
+    function request(path, body) {
+        return fetch(api + path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {})
+            .then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); });
+    }
+
+    /* Reactions: one click to add, another to take it back. */
+    var buttons = box.querySelectorAll('.reaction');
+    function showReactions(data) {
+        for (var i = 0; i < buttons.length; i++) {
+            var name = buttons[i].getAttribute('data-reaction');
+            var n = data.counts[name] || 0;
+            buttons[i].querySelector('.reaction-count').textContent = n > 0 ? n : '';
+            buttons[i].classList.toggle('active', data.mine.indexOf(name) >= 0);
+        }
+    }
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function () {
+            var button = this;
+            button.disabled = true;
+            request('/reactions', { page: page, reaction: button.getAttribute('data-reaction'), on: !button.classList.contains('active') })
+                .then(showReactions).catch(function () {})
+                .then(function () { button.disabled = false; });
+        });
+    }
+    request('/reactions?page=' + encodeURIComponent(page)).then(showReactions).catch(function () {});
+
+    /* Comments: shown once approved; text is inserted as text, never as HTML. */
+    var list = box.querySelector('.comment-list');
+    function showComments(data) {
+        list.innerHTML = '';
+        if (!data.comments.length) {
+            var empty = document.createElement('li');
+            empty.className = 'comment-empty';
+            empty.textContent = say('none');
+            list.appendChild(empty);
+        }
+        data.comments.forEach(function (c) {
+            var item = document.createElement('li');
+            var meta = document.createElement('div');
+            meta.className = 'comment-meta';
+            var who = document.createElement('strong');
+            who.textContent = c.name;
+            meta.appendChild(who);
+            meta.appendChild(document.createTextNode(' · ' + c.at.slice(0, 10)));
+            var body = document.createElement('div');
+            body.className = 'comment-body';
+            body.textContent = c.body;
+            item.appendChild(meta);
+            item.appendChild(body);
+            list.appendChild(item);
+        });
+    }
+    request('/comments?page=' + encodeURIComponent(page)).then(showComments).catch(function () {});
+
+    var form = box.querySelector('.comment-form');
+    var fields = form.elements;
+    var status = box.querySelector('.comment-status');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var submit = form.querySelector('button[type=submit]');
+        submit.disabled = true;
+        request('/comments', { page: page, name: fields.name.value, body: fields.body.value, website: fields.website.value })
+            .then(function () { fields.body.value = ''; status.textContent = say('sent'); })
+            .catch(function () { status.textContent = say('failed'); })
+            .then(function () { status.hidden = false; submit.disabled = false; });
+    });
+})();
+</script>

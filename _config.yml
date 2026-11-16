@@ -34,9 +34,8 @@ sass:
   sass_dir:         _sass
   style:            expanded
 
-# Enter your Disqus shortname (not your username) to enable commenting on posts
-# You can find your shortname on the Settings page of your Disqus account
-disqus: https-tayyarg-github-io
+# Reactions and comments backend (Cloudflare Worker in _workers/feedback); comment the line to turn them off
+feedback_api: https://tayyarg-feedback.tayyarg.workers.dev
 
 # Social
 # if you don't have any of social below, comment the line.
