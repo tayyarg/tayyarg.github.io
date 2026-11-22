@@ -8,6 +8,7 @@ feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: proj-tdoa-compression
 project: true
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: How can you locate a radar that you can't see, using only the signal it transmits?

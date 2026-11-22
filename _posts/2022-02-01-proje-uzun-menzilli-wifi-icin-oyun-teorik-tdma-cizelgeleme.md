@@ -8,6 +8,8 @@ feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: proj-gt-tdma
 project: true
+redirect_from:
+  - /project-game-theoretic-tdma-scheduling-for-long-range-wifi/
 ---
 
 Emre: Kablosuz ağlarda oyun teorisinin kullanıldığını duyup duruyorum. Oyunların radyolarla ne ilgisi var?

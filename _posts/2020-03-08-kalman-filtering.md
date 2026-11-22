@@ -6,6 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: kalman-filter
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: What is the logic behind the Kalman filter? How does it work in so many fields, from autonomous robots to the Apollo space program?!

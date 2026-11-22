@@ -6,6 +6,8 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: ml4-gpr
+redirect_from:
+  - /gaussian-process-regression-for-machine-learning/
 ---
 
 Emre: Gauss süreçlerinin sonsuz sayıda fonksiyon üzerinde bir dağılıma nasıl sahip olabildiğini ve bunun ne işe yaradığını açıklayabilir misin?!

@@ -6,6 +6,8 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: dsp3-cs
+redirect_from:
+  - /digital-signal-processing-3-compressive-sensing-and-orthogonal-matching-pursuit/
 ---
 
 Emre: MR çekimlerinin, örnekleme teoreminin gerektirdiğinden çok daha az ölçüm alınarak birkaç kat hızlandırılabildiğini okudum. Bu Nyquist'le çelişmiyor mu?

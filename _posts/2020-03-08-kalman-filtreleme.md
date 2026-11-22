@@ -6,6 +6,8 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: kalman-filter
+redirect_from:
+  - /kalman-filtering/
 ---
 
 Emre: Nedir bu Kalman filtresi'nin mantığı? Nasıl otonom hareket eden robotlardan Apollo uzay programına kadar birçok alanda işe yarıyor?!

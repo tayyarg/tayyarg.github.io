@@ -6,6 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: dsp3-cs
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: I read that MRI scans can be made several times faster by taking far fewer measurements than the sampling theorem requires. Doesn't that contradict Nyquist?

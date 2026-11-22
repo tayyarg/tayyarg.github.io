@@ -6,6 +6,9 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: ml6-mcmc
+redirect_from:
+  - /markov-chain-monte-carlo-algorithm/
+  - /Markov-Chain-Monte-Carlo-Algorithm/
 ---
 
 Emre: Markov Zinciri Monte Carlo yöntemi genetikten GPS konumlamaya; nükleer silah araştırmaları, RADAR ve robotik çalışmalarından finansal tahminleme işlerine kadar makine öğrenmesine ihtiyaç duyulan her alanda kullanılıyor. 

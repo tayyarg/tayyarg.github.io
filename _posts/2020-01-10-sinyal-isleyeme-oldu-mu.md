@@ -5,6 +5,9 @@ tags: [dsp, sinyal işleme, 5G, makine öğrenmesi, yapay zeka]
 comments: true
 lang: tr
 ref: dsp1-dspdead
+redirect_from:
+  - /digital-signal-processing-1-is-dsp-dead/
+  - /Digital-Signal-Processing-1-Is-DSP-Dead/
 ---
 
 Emre: Tüm endüstri Yapay Zeka (AI), 5G, Veri Bilimi ve Makine Öğrenmesi'ne kayıyor gibi. Bu Sayısal Sinyal İşleme (digital signal processing - DSP)'ciler için ne anlama geliyor? DSP öldü mü?

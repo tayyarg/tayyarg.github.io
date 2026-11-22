@@ -6,6 +6,9 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: ml3-bayeslinreg
+redirect_from:
+  - /bayesian-inference-and-linear-regression/
+  - /Bayesian-Inference-and-Linear-Regression/
 ---
 
 Emre: Nedir abi bu Bayesçi çıkarım?

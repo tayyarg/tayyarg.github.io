@@ -8,6 +8,7 @@ feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: proj-gt-tdma
 project: true
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: I keep hearing that game theory is used in wireless networks. What do games have to do with radios?

@@ -7,8 +7,10 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: proj-tdoa-compression
-redirect_from: /proje-yayici-konumlama-icin-uyarlanir-sikistirma/
 project: true
+redirect_from:
+  - /proje-yayici-konumlama-icin-uyarlanir-sikistirma/
+  - /project-adaptive-compression-for-emitter-location/
 ---
 
 Emre: Göremediğin bir radarın yerini sadece yaydığı sinyali kullanarak nasıl bulabilirsin?

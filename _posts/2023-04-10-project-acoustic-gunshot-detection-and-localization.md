@@ -8,6 +8,7 @@ feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: proj-gunshot
 project: true
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: How can a system hear a single gunshot and tell you which direction it came from?

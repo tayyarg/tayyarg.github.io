@@ -6,6 +6,9 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: dsp2-anc
+redirect_from:
+  - /digital-signal-processing-2-adaptive-filters-and-active-noise-cancellation/
+  - /Digital-Signal-Processing-2-Adaptive-Filters-and-Active-Noise-Cancellation/
 ---
 
 Emre: Apple Airpods'lar aktif gürültüyü nasıl yokediyor?

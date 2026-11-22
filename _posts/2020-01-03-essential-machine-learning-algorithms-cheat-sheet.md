@@ -6,6 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: ml2-index
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: Can you give a concise overview of machine learning and highlight which algorithms are used for which types of problems?

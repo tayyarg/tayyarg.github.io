@@ -6,6 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: ml4-gpr
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: Can you explain how Gaussian processes can define a distribution over infinitely many functions, and what that is good for?!

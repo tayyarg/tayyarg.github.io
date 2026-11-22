@@ -369,26 +369,3 @@ All this is done for any sub-level being entered.
 .dl-menuopen li {
 	display: block
 }
-
-// Language choice in the side menu (same global preference as the landing page)
-.dl-menuwrapper li.lang-menu {
-	text-align: center;
-	padding: 12px 0;
-
-	a.lang-option {
-		display: inline-block;
-		padding: 4px 14px;
-		margin: 0 4px;
-		border: 1px solid rgba(255, 255, 255, 0.4);
-		border-radius: 3px;
-		color: rgba(255, 255, 255, 0.6);
-		font-size: 0.85em;
-	}
-	a.lang-option:after { display: none; }   // no submenu arrow
-}
-html[data-lang="tr"] .dl-menuwrapper li.lang-menu a.lang-option[data-choice="tr"],
-html[data-lang="en"] .dl-menuwrapper li.lang-menu a.lang-option[data-choice="en"] {
-	color: #ffffff;
-	font-weight: bold;
-	background: rgba(255, 255, 255, 0.15);
-}

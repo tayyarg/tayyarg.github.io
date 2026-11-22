@@ -8,6 +8,8 @@ feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: proj-gunshot
 project: true
+redirect_from:
+  - /project-acoustic-gunshot-detection-and-localization/
 ---
 
 Emre: Bir sistem tek bir silah sesini duyup sana hangi yönden geldiğini nasıl söyleyebilir?

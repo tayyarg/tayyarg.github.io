@@ -6,6 +6,8 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: tr
 ref: ml2-index
+redirect_from:
+  - /essential-machine-learning-algorithms-cheat-sheet/
 ---
 
 Emre: Makine öğrenmesinin kısa bir özeti ve hangi algoritmaların hangi problemlerde kullanıldığına değinebilir misin?

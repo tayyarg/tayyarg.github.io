@@ -6,7 +6,7 @@ comments: true
 feature: https://i.imgur.com/Ds6S7lJ.png
 lang: en
 ref: dsp2-anc
-redirect_from: /Digital-Signal-Processing-2-Adaptive-Filters-and-Active-Noise-Cancellation/
+published: false  # English versions are hidden; the URL redirects to the Turkish post
 ---
 
 Emre: How do Apple AirPods cancel noise actively?
